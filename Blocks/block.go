@@ -32,6 +32,10 @@ func timestamp() string {
 
 func addBlockToChain(chain []Block) []Block {
 	lastBlock := chain[len(chain)-1]
+	if lastBlock.index == 0 {
+		fmt.Println("you cannot make a zero block!")
+		return nil
+	}
 
 	newBlock := Block{}
 
@@ -45,6 +49,15 @@ func addBlockToChain(chain []Block) []Block {
 	
 	chain = append(chain, newBlock)
 	return chain
+}
+
+func getLastBlockHash(chain []Block) string {
+	if len(chain) == 0 {
+		fmt.Println("you are on the genesis block!")
+		return ""
+	}	
+	blockHash := chain[len(chain)-1]
+	return blockHash.blockHash
 }
 
 func createGenesisBlock() []Block {
@@ -64,16 +77,26 @@ func createGenesisBlock() []Block {
 }
 
 func createBlock(n int) []Block {
+	if n == 0 {
+		fmt.Println("you cannot make a zero block!")
+		return nil
+	}
+
 	blockData := []Block{}
 
 	for i:=0; i<n; i++ {
 		block := Block{}
-		
+
+		if i == 0 {
+			block.prevHash = "Genesis Block"
+			fmt.Println("block.prevHash:", block.prevHash)
+		} 
+
 		block.index = i + 1
 		time.Sleep(time.Second) // I use time.Sleep to simulate a block being made
 		block.timestamp = timestamp()
 
-		block.prevHash = "00000000000000000000000000000"
+		block.prevHash = getLastBlockHash(blockData)
 		block.transactions = []int{1,2,3,4,5,6}
 
 		block.proofOfWork = pow.ProofOfWork("0000abc", "0000")
@@ -93,10 +116,10 @@ func main() {
 	time.Sleep(2 * time.Second)
 	fmt.Println("Genesis Block:", createGenesisBlock(), "\n")
 
-	n := 100
+	blocksToCreate := 5
 	time.Sleep(2 * time.Second)
-	block := createBlock(n)
-	
+	block := createBlock(blocksToCreate)
+
 	for _, n := range block {
 		time.Sleep(2 * time.Second)
 		fmt.Println("Constructing Block")
