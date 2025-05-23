@@ -1,10 +1,12 @@
 package main
 
 import (
+	"BlockChainProjectFromScratch/ReadFile"
 	"BlockChainProjectFromScratch/pow"
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
+	"math/rand"
 	"time"
 )
 
@@ -60,6 +62,15 @@ func getLastBlockHash(chain []Block) string {
 	return blockHash.blockHash
 }
 
+func getRandomString(arr []string) string {
+	if len(arr) == 0 {
+		return ""
+	}
+	rand.Seed(time.Now().UnixNano()) // Seed the RNG
+	randomIndex := rand.Intn(len(arr))
+	return arr[randomIndex]
+}
+
 func createGenesisBlock() []Block {
 	var chain []Block
 	genesis := Block{}
@@ -91,6 +102,7 @@ func createBlock(n int) []Block {
 			block.prevHash = "Genesis Block"
 			fmt.Println("block.prevHash:", block.prevHash)
 		} 
+		fmt.Println("Building Block", i, "on iteration", i, "/", n)
 
 		block.index = i + 1
 		time.Sleep(time.Second) // I use time.Sleep to simulate a block being made
@@ -99,7 +111,11 @@ func createBlock(n int) []Block {
 		block.prevHash = getLastBlockHash(blockData)
 		block.transactions = []int{1,2,3,4,5,6}
 
-		block.proofOfWork = pow.ProofOfWork("0000abc", "0000")
+		fileToRead := "keywords.txt"
+		randomToFindValue := ReadFile.ReadFile(fileToRead)
+		toFind := getRandomString(randomToFindValue)
+		block.proofOfWork = pow.ProofOfWork("0000abc", toFind)
+
 		block.blockHash = hashBlock(block)
 
 		blockData = append(blockData, block)
@@ -116,14 +132,13 @@ func main() {
 	time.Sleep(2 * time.Second)
 	fmt.Println("Genesis Block:", createGenesisBlock(), "\n")
 
-	blocksToCreate := 5
+	blocksToCreate := 50
 	time.Sleep(2 * time.Second)
 	block := createBlock(blocksToCreate)
 
 	for _, n := range block {
 		time.Sleep(2 * time.Second)
-		fmt.Println("Constructing Block")
-		fmt.Println(n)
+		fmt.Println("Getting Block Data:", n, "\n")
 	}
 
 	time.Sleep(5 * time.Second)
