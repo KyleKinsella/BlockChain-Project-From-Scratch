@@ -1,4 +1,4 @@
-package KeyPairs
+package main
 
 import (
 	"crypto/ecdsa"
@@ -7,6 +7,9 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
+
+	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/ethereum/go-ethereum/common"
 )
 
 func GenerateKeys() {
@@ -22,8 +25,17 @@ func GenerateKeys() {
 	publicBytes := append(publicKey.X.Bytes(), publicKey.Y.Bytes()...)
 	hash := sha256.Sum256(publicBytes)
 
-	fmt.Println("Public Key:", hex.EncodeToString(hash[:])[:42])
-	fmt.Println("Private Key:", hex.EncodeToString(privateKey.D.Bytes())[:42])
+	pubKey := hex.EncodeToString(hash[:])[:42]
+	priKey := hex.EncodeToString(privateKey.D.Bytes())[:42]
+
+	fmt.Println("Public Key:", pubKey)
+	fmt.Println("Private Key:", priKey)
+	fmt.Println("Public Key:", pubKey, "has this address:", address(publicKey))
+}
+
+func address(publicKey ecdsa.PublicKey) common.Address {
+	address := crypto.PubkeyToAddress(publicKey)
+	return address
 }
 
 func main() {

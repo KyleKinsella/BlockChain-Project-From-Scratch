@@ -103,7 +103,7 @@ func createBlock(n int) []Block {
 			fmt.Println("block.prevHash:", block.prevHash)
 		} 
 		fmt.Println("Building Block", i, "on iteration", i, "/", n)
-
+		
 		block.index = i + 1
 		time.Sleep(time.Second) // I use time.Sleep to simulate a block being made
 		block.timestamp = timestamp()
@@ -132,7 +132,7 @@ func main() {
 	time.Sleep(2 * time.Second)
 	fmt.Println("Genesis Block:", createGenesisBlock(), "\n")
 
-	blocksToCreate := 50
+	blocksToCreate := 20
 	time.Sleep(2 * time.Second)
 	block := createBlock(blocksToCreate)
 
