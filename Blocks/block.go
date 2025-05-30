@@ -7,6 +7,7 @@ import (
 	"encoding/hex"
 	"fmt"
 	"math/rand"
+	crand "math/rand/v2"
 	"time"
 )
 
@@ -14,9 +15,15 @@ type Block struct {
 	index int
 	timestamp string 
 	prevHash string
-	transactions []int
+	transactions Transaction
 	proofOfWork bool 
 	blockHash string 
+}
+
+type Transaction struct {
+	sender string
+	receiver string
+	amount float32
 }
 
 func hashBlock(block Block) string {
@@ -79,7 +86,8 @@ func createGenesisBlock() []Block {
 	time.Sleep(time.Second) // I use time.Sleep to simulate a block being made
 	genesis.timestamp = timestamp()
 	genesis.prevHash = "00000000000000000000000000000"
-	genesis.transactions = []int{}
+	transaction := Transaction{}
+	genesis.transactions = transaction
 	genesis.proofOfWork = false
 	genesis.blockHash = hashBlock(genesis)
 
@@ -109,10 +117,20 @@ func createBlock(n int) []Block {
 		block.timestamp = timestamp()
 
 		block.prevHash = getLastBlockHash(blockData)
-		block.transactions = []int{1,2,3,4,5,6}
 
-		fileToRead := "keywords.txt"
-		randomToFindValue := ReadFile.ReadFile(fileToRead)
+		readAddresses := "Addresses.txt"
+		read := ReadFile.ReadFile(readAddresses)
+		transaction := Transaction{}
+
+		process, err := processTransaction(transaction, read)
+		if err != nil {
+			fmt.Println("something went wrong...")
+			panic(err)
+		}
+		block.transactions = process
+
+		wordToFind := "keywords.txt"
+		randomToFindValue := ReadFile.ReadFile(wordToFind)
 		toFind := getRandomString(randomToFindValue)
 		block.proofOfWork = pow.ProofOfWork("0000abc", toFind)
 
@@ -121,6 +139,32 @@ func createBlock(n int) []Block {
 		blockData = append(blockData, block)
 	}
 	return blockData 
+}
+
+func createTransaction(transaction Transaction, sender string, receiver string, amount float32) Transaction {
+	transaction.sender = sender
+	transaction.receiver = receiver
+	transaction.amount = amount
+	return transaction
+}
+
+func processTransaction(t Transaction, read []string) (Transaction, error) {
+	if len(read) == 0 {
+		fmt.Println("file is empty")
+		return t, nil
+	}
+	
+	if len(read) == 2 {
+		t.sender = read[0]
+		t.receiver = read[1]
+		random := crand.Float32()
+
+		return createTransaction(t, t.sender, t.receiver, random), nil
+	} else {
+		// need to come back to // 
+		fmt.Println("file is to big")
+		return t, nil
+	}
 }
 
 func main() {
@@ -132,7 +176,7 @@ func main() {
 	time.Sleep(2 * time.Second)
 	fmt.Println("Genesis Block:", createGenesisBlock(), "\n")
 
-	blocksToCreate := 20
+	blocksToCreate := 50
 	time.Sleep(2 * time.Second)
 	block := createBlock(blocksToCreate)
 
