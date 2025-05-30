@@ -119,8 +119,8 @@ func createBlock(n int) []Block {
 		block.prevHash = getLastBlockHash(blockData)
 
 		readAddresses := "Addresses.txt"
-		read := ReadFile.ReadFile(readAddresses)
 		transaction := Transaction{}
+		read := ReadFile.ReadFile(readAddresses)
 
 		process, err := processTransaction(transaction, read)
 		if err != nil {
@@ -148,12 +148,12 @@ func createTransaction(transaction Transaction, sender string, receiver string, 
 	return transaction
 }
 
-func processTransaction(t Transaction, read []string) (Transaction, error) {
+func processTransaction(t Transaction, read []string) (Transaction, error) {	
 	if len(read) == 0 {
 		fmt.Println("file is empty")
 		return t, nil
 	}
-	
+
 	if len(read) == 2 {
 		t.sender = read[0]
 		t.receiver = read[1]
@@ -161,8 +161,7 @@ func processTransaction(t Transaction, read []string) (Transaction, error) {
 
 		return createTransaction(t, t.sender, t.receiver, random), nil
 	} else {
-		// need to come back to // 
-		fmt.Println("file is to big")
+		// todo
 		return t, nil
 	}
 }
@@ -176,7 +175,7 @@ func main() {
 	time.Sleep(2 * time.Second)
 	fmt.Println("Genesis Block:", createGenesisBlock(), "\n")
 
-	blocksToCreate := 50
+	blocksToCreate := 5
 	time.Sleep(2 * time.Second)
 	block := createBlock(blocksToCreate)
 
