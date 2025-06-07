@@ -11,7 +11,7 @@ func ReadFile(file string) []string {
 	if err != nil {
 		panic(err)
 	}
-	lines := strings.Split(string(filename), "\n")
+	lines := strings.Split(string(filename), "0x")
 	return lines
 }
 

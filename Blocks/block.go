@@ -1,6 +1,7 @@
 package main
 
 import (
+	"BlockChainProjectFromScratch/KeyPairs"
 	"BlockChainProjectFromScratch/ReadFile"
 	"BlockChainProjectFromScratch/pow"
 	"crypto/sha256"
@@ -154,15 +155,24 @@ func processTransaction(t Transaction, read []string) (Transaction, error) {
 		return t, nil
 	}
 
+	random := crand.Float32()
+
 	if len(read) == 2 {
 		t.sender = read[0]
 		t.receiver = read[1]
-		random := crand.Float32()
 
-		return createTransaction(t, t.sender, t.receiver, random), nil
+		tx := createTransaction(t, t.sender, t.receiver, random)
+		return tx, nil
 	} else {
-		// todo
-		return t, nil
+		KeyPairs.GenerateKeys()
+
+		for i:=0; i<len(read)-1; i++ {
+			t.sender = read[i]
+		}
+		t.receiver = read[len(read)-1]
+
+		tx := createTransaction(t, t.sender, t.receiver, random)
+		return tx, nil
 	}
 }
 
