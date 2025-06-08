@@ -1,20 +1,20 @@
 import { Link } from "react-router-dom";
+import "./index.css"
 
 function Navigate() {
     return (
         <nav>
-            <ul>
-                <li><Link to="/home">Home</Link></li>
-                <li><Link to="/block">Blocks</Link></li>
-                <li><Link to="/transaction">Transactions</Link></li>
+            <Link to="/home">Home</Link>
+            <Link to="/block">Blocks</Link>
+            <Link to="/transaction">Transactions</Link>
+            <Link to="/sim">Simulation</Link>
 
-                <li><Link to="/pow">Proof of Work</Link></li>
-                <li><Link to="/pos">Proof of Stake</Link></li>
-                <li><Link to="/kp">Key-Pairs</Link></li>
-                
-                <li><Link to="/a">Addresses</Link></li>
-                <li><Link to="/contact">Contact</Link></li>
-            </ul>
+            <Link to="/pow">Proof of Work</Link>
+            <Link to="/pos">Proof of Stake</Link>
+            <Link to="/kp">Key-Pairs</Link>
+            
+            <Link to="/a">Addresses</Link>
+            <Link to="/contact">Contact</Link>
         </nav>
     );
 }
