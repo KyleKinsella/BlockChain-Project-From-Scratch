@@ -6,29 +6,95 @@ import (
 	"BlockChainProjectFromScratch/pow"
 	"crypto/sha256"
 	"encoding/hex"
+	"encoding/json"
 	"fmt"
 	"math/rand"
 	crand "math/rand/v2"
+	"net/http"
 	"time"
 )
 
 type Block struct {
-	index int
-	timestamp string 
-	prevHash string
-	transactions Transaction
-	proofOfWork bool 
-	blockHash string 
+	Index int
+	Timestamp string 
+	PrevHash interface{}
+	Transactions Transaction
+	ProofOfWork bool 
+	BlockHash string 
 }
 
 type Transaction struct {
-	sender string
-	receiver string
-	amount float32
+	Sender string
+	Receiver string
+	Amount float32
+}
+
+const n = 5
+var blockchain []Block
+
+func createBlockZero(w http.ResponseWriter, r*http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Content-Type", "application/json")
+
+	if len(blockchain) == 0 {
+		genesis := Block{}
+	
+		genesis.Index = 1
+		time.Sleep(time.Second)
+		genesis.Timestamp = timestamp()
+		genesis.PrevHash = nil
+		genesis.Transactions = Transaction{}
+		genesis.ProofOfWork = false
+		genesis.BlockHash = hashBlock(genesis)
+		
+		blockchain = append(blockchain, genesis)
+	}
+	json.NewEncoder(w).Encode(blockchain)
+}
+
+func createBlocksForFrontend(w http.ResponseWriter, r*http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
+	for i:=0; i<n; i++ {
+		block := Block{}
+
+		if i == 0 {
+			block.PrevHash = "Genesis Block"
+			fmt.Println("block.prevHash:", block.PrevHash)
+		} 
+		fmt.Println("Building Block", i, "on iteration", i, "/", n)
+		
+		block.Index = len(blockchain) + 1
+		time.Sleep(time.Second) // I use time.Sleep to simulate a block being made
+		block.Timestamp = timestamp()
+
+		block.PrevHash = getLastBlockHash(blockchain)
+
+		readAddresses := "Addresses.txt"
+		transaction := Transaction{}
+		read := ReadFile.ReadFile(readAddresses)
+
+		process, err := processTransaction(transaction, read)
+		if err != nil {
+			fmt.Println("something went wrong...")
+			panic(err)
+		}
+		block.Transactions = process
+
+		wordToFind := "keywords.txt"
+		randomToFindValue := ReadFile.ReadFile(wordToFind)
+		toFind := getRandomString(randomToFindValue)
+		block.ProofOfWork = pow.ProofOfWork("0000abc", toFind)
+
+		block.BlockHash = hashBlock(block)
+
+		blockchain = append(blockchain, block)
+	}
+	json.NewEncoder(w).Encode(blockchain)
 }
 
 func hashBlock(block Block) string {
-	data := fmt.Sprintf("%d%s%v%s%d", block.index, block.timestamp, block.transactions, block.prevHash, block.proofOfWork)
+	data := fmt.Sprintf("%d%s%v%s%d", block.Index, block.Timestamp, block.Transactions, block.PrevHash, block.ProofOfWork)
 	hash := sha256.Sum256([]byte(data))
 	return hex.EncodeToString(hash[:])
 }
@@ -42,20 +108,20 @@ func timestamp() string {
 
 func addBlockToChain(chain []Block) []Block {
 	lastBlock := chain[len(chain)-1]
-	if lastBlock.index == 0 {
+	if lastBlock.Index == 0 {
 		fmt.Println("you cannot make a zero block!")
 		return nil
 	}
 
 	newBlock := Block{}
 
-	newBlock.index = lastBlock.index + 1
+	newBlock.Index = lastBlock.Index + 1
 	time.Sleep(time.Second) // I use time.Sleep to simulate a block being made
-	newBlock.timestamp = timestamp()
-	newBlock.prevHash = lastBlock.prevHash
-	newBlock.transactions = lastBlock.transactions
-	newBlock.proofOfWork = pow.ProofOfWork("0000abc", "0000")
-	newBlock.blockHash = hashBlock(newBlock)
+	newBlock.Timestamp = timestamp()
+	newBlock.PrevHash = lastBlock.PrevHash
+	newBlock.Transactions = lastBlock.Transactions
+	newBlock.ProofOfWork = pow.ProofOfWork("0000abc", "0000")
+	newBlock.BlockHash = hashBlock(newBlock)
 	
 	chain = append(chain, newBlock)
 	return chain
@@ -67,7 +133,7 @@ func getLastBlockHash(chain []Block) string {
 		return ""
 	}	
 	blockHash := chain[len(chain)-1]
-	return blockHash.blockHash
+	return blockHash.BlockHash
 }
 
 func getRandomString(arr []string) string {
@@ -83,14 +149,14 @@ func createGenesisBlock() []Block {
 	var chain []Block
 	genesis := Block{}
 
-	genesis.index = 0
+	genesis.Index = 0
 	time.Sleep(time.Second) // I use time.Sleep to simulate a block being made
-	genesis.timestamp = timestamp()
-	genesis.prevHash = "00000000000000000000000000000"
+	genesis.Timestamp = timestamp()
+	genesis.PrevHash = "00000000000000000000000000000"
 	transaction := Transaction{}
-	genesis.transactions = transaction
-	genesis.proofOfWork = false
-	genesis.blockHash = hashBlock(genesis)
+	genesis.Transactions = transaction
+	genesis.ProofOfWork = false
+	genesis.BlockHash = hashBlock(genesis)
 
 	chain = append(chain, genesis)
 	return chain
@@ -108,16 +174,16 @@ func createBlock(n int) []Block {
 		block := Block{}
 
 		if i == 0 {
-			block.prevHash = "Genesis Block"
-			fmt.Println("block.prevHash:", block.prevHash)
+			block.PrevHash = "Genesis Block"
+			fmt.Println("block.prevHash:", block.PrevHash)
 		} 
 		fmt.Println("Building Block", i, "on iteration", i, "/", n)
 		
-		block.index = i + 1
+		block.Index = i + 1
 		time.Sleep(time.Second) // I use time.Sleep to simulate a block being made
-		block.timestamp = timestamp()
+		block.Timestamp = timestamp()
 
-		block.prevHash = getLastBlockHash(blockData)
+		block.PrevHash = getLastBlockHash(blockData)
 
 		readAddresses := "Addresses.txt"
 		transaction := Transaction{}
@@ -128,14 +194,14 @@ func createBlock(n int) []Block {
 			fmt.Println("something went wrong...")
 			panic(err)
 		}
-		block.transactions = process
+		block.Transactions = process
 
 		wordToFind := "keywords.txt"
 		randomToFindValue := ReadFile.ReadFile(wordToFind)
 		toFind := getRandomString(randomToFindValue)
-		block.proofOfWork = pow.ProofOfWork("0000abc", toFind)
+		block.ProofOfWork = pow.ProofOfWork("0000abc", toFind)
 
-		block.blockHash = hashBlock(block)
+		block.BlockHash = hashBlock(block)
 
 		blockData = append(blockData, block)
 	}
@@ -143,9 +209,9 @@ func createBlock(n int) []Block {
 }
 
 func createTransaction(transaction Transaction, sender string, receiver string, amount float32) Transaction {
-	transaction.sender = sender
-	transaction.receiver = receiver
-	transaction.amount = amount
+	transaction.Sender = sender
+	transaction.Receiver = receiver
+	transaction.Amount = amount
 	return transaction
 }
 
@@ -158,47 +224,53 @@ func processTransaction(t Transaction, read []string) (Transaction, error) {
 	random := crand.Float32()
 
 	if len(read) == 2 {
-		t.sender = read[0]
-		t.receiver = read[1]
+		t.Sender = read[0]
+		t.Receiver = read[1]
 
-		tx := createTransaction(t, t.sender, t.receiver, random)
+		tx := createTransaction(t, t.Sender, t.Receiver, random)
 		return tx, nil
 	} else {
 		KeyPairs.GenerateKeys()
 
 		for i:=0; i<len(read)-1; i++ {
-			t.sender = read[i]
+			t.Sender = read[i]
 		}
-		t.receiver = read[len(read)-1]
+		t.Receiver = read[len(read)-1]
 
-		tx := createTransaction(t, t.sender, t.receiver, random)
+		tx := createTransaction(t, t.Sender, t.Receiver, random)
 		return tx, nil
 	}
 }
 
 func main() {
-	now := time.Now()
-	defer func() {
-		fmt.Println("time it took to execute sequentially:", time.Since(now))
-	}()
+	http.HandleFunc("/genesis", createBlockZero)
+	http.HandleFunc("/mine", createBlocksForFrontend)
 
-	time.Sleep(2 * time.Second)
-	fmt.Println("Genesis Block:", createGenesisBlock(), "\n")
+	fmt.Println("My API is running on: http://localhost:8080")
+	http.ListenAndServe(":8080", nil)
 
-	blocksToCreate := 5
-	time.Sleep(2 * time.Second)
-	block := createBlock(blocksToCreate)
+	// now := time.Now()
+	// defer func() {
+	// 	fmt.Println("time it took to execute sequentially:", time.Since(now))
+	// }()
 
-	for _, n := range block {
-		time.Sleep(2 * time.Second)
-		fmt.Println("Getting Block Data:", n, "\n")
-	}
+	// time.Sleep(2 * time.Second)
+	// fmt.Println("Genesis Block:", createGenesisBlock(), "\n")
 
-	time.Sleep(5 * time.Second)
-	addedToChain := addBlockToChain(block)
+	// blocksToCreate := 5
+	// time.Sleep(2 * time.Second)
+	// block := createBlock(blocksToCreate)
 
-	for _, n := range addedToChain {
-		fmt.Println("\nBlock Added:", n, "\n\n")
-	}
-	fmt.Println("this is the total blockchain:", addedToChain)
+	// for _, n := range block {
+	// 	time.Sleep(2 * time.Second)
+	// 	fmt.Println("Getting Block Data:", n, "\n")
+	// }
+
+	// time.Sleep(5 * time.Second)
+	// addedToChain := addBlockToChain(block)
+
+	// for _, n := range addedToChain {
+	// 	fmt.Println("\nBlock Added:", n, "\n\n")
+	// }
+	// fmt.Println("this is the total blockchain:", addedToChain)
 }

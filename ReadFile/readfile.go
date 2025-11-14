@@ -7,10 +7,10 @@ import (
 )
 
 func ReadFile(file string) []string {
-	filename, err := os.ReadFile(file)
-	if err != nil {
-		panic(err)
-	}
+	filename, _ := os.ReadFile(file)
+	// if err != nil {
+	// 	panic(err)
+	// }
 	lines := strings.Split(string(filename), "0x")
 	return lines
 }
