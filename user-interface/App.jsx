@@ -4,6 +4,7 @@ import Home from "./HomePage.jsx"
 import "./index.css";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Simulation from "./Simulation.jsx";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/block" element={<Block />} />
           <Route path="/transaction" element={<Transaction />}></Route>
+          <Route path="/sim" element={<Simulation />}></Route>
         </Routes>
     </Router>
     </>

@@ -29,7 +29,6 @@ type Transaction struct {
 	Amount float32
 }
 
-const n = 5
 var blockchain []Block
 
 func createBlockZero(w http.ResponseWriter, r*http.Request) {
@@ -53,6 +52,11 @@ func createBlockZero(w http.ResponseWriter, r*http.Request) {
 }
 
 func createBlocksForFrontend(w http.ResponseWriter, r*http.Request) {
+	var n int
+	fmt.Println("How many blocks do you want to make?")
+	fmt.Scan(&n)
+	fmt.Println("You are creating:", n, "blocks")
+	
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	for i:=0; i<n; i++ {
