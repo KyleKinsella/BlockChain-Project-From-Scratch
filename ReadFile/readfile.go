@@ -1,21 +1,16 @@
 package ReadFile
 
 import (
-	"fmt"
 	"os"
 	"strings"
 )
 
-func ReadFile(file string) []string {
-	filename, _ := os.ReadFile(file)
-	// if err != nil {
-	// 	panic(err)
-	// }
-	lines := strings.Split(string(filename), "0x")
-	return lines
+func ReadAddresses(file string) []string {
+	filename, _ := os.ReadFile(file) 
+	return strings.Split(string(filename), "0x")
 }
 
-func main() {
-	file := "keywords.txt"
-	fmt.Println(ReadFile(file))
+func ReadKeywords(file string) []string {
+	filename, _ := os.ReadFile(file) 
+	return strings.Split(string(filename), "\n")
 }

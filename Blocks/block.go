@@ -43,7 +43,7 @@ func createBlockZero(w http.ResponseWriter, r*http.Request) {
 		genesis.Timestamp = timestamp()
 		genesis.PrevHash = nil
 		genesis.Transactions = Transaction{}
-		genesis.ProofOfWork = false
+		genesis.ProofOfWork = true
 		genesis.BlockHash = hashBlock(genesis)
 		
 		blockchain = append(blockchain, genesis)
@@ -66,8 +66,7 @@ func createBlocksForFrontend(w http.ResponseWriter, r*http.Request) {
 			block.PrevHash = "Genesis Block"
 			fmt.Println("block.prevHash:", block.PrevHash)
 		} 
-		fmt.Println("Building Block", i, "on iteration", i, "/", n)
-		
+
 		block.Index = len(blockchain) + 1
 		time.Sleep(time.Second) // I use time.Sleep to simulate a block being made
 		block.Timestamp = timestamp()
@@ -76,7 +75,7 @@ func createBlocksForFrontend(w http.ResponseWriter, r*http.Request) {
 
 		readAddresses := "Addresses.txt"
 		transaction := Transaction{}
-		read := ReadFile.ReadFile(readAddresses)
+		read := ReadFile.ReadAddresses(readAddresses)
 
 		process, err := processTransaction(transaction, read)
 		if err != nil {
@@ -86,9 +85,18 @@ func createBlocksForFrontend(w http.ResponseWriter, r*http.Request) {
 		block.Transactions = process
 
 		wordToFind := "keywords.txt"
-		randomToFindValue := ReadFile.ReadFile(wordToFind)
+		randomToFindValue := ReadFile.ReadKeywords(wordToFind)
 		toFind := getRandomString(randomToFindValue)
 		block.ProofOfWork = pow.ProofOfWork("0000abc", toFind)
+
+		if block.ProofOfWork {
+			// We have computed a valid proof of work field // 
+			fmt.Println("Building Block", i, "on iteration", i, "/", n)
+		} else {
+			// don't make the block and don't send the block to the frontend //
+			fmt.Println("Block", i, "discontinued on iteration", i, "/", n)
+			continue
+		}
 
 		block.BlockHash = hashBlock(block)
 
@@ -98,7 +106,7 @@ func createBlocksForFrontend(w http.ResponseWriter, r*http.Request) {
 }
 
 func hashBlock(block Block) string {
-	data := fmt.Sprintf("%d%s%v%s%d", block.Index, block.Timestamp, block.Transactions, block.PrevHash, block.ProofOfWork)
+	data := fmt.Sprintf("%d%s%v%s%v", block.Index, block.Timestamp, block.Transactions, block.PrevHash, block.ProofOfWork)
 	hash := sha256.Sum256([]byte(data))
 	return hex.EncodeToString(hash[:])
 }
@@ -191,7 +199,7 @@ func createBlock(n int) []Block {
 
 		readAddresses := "Addresses.txt"
 		transaction := Transaction{}
-		read := ReadFile.ReadFile(readAddresses)
+		read := ReadFile.ReadAddresses(readAddresses)
 
 		process, err := processTransaction(transaction, read)
 		if err != nil {
@@ -201,7 +209,7 @@ func createBlock(n int) []Block {
 		block.Transactions = process
 
 		wordToFind := "keywords.txt"
-		randomToFindValue := ReadFile.ReadFile(wordToFind)
+		randomToFindValue := ReadFile.ReadKeywords(wordToFind)
 		toFind := getRandomString(randomToFindValue)
 		block.ProofOfWork = pow.ProofOfWork("0000abc", toFind)
 
@@ -234,8 +242,8 @@ func processTransaction(t Transaction, read []string) (Transaction, error) {
 		tx := createTransaction(t, t.Sender, t.Receiver, random)
 		return tx, nil
 	} else {
-		KeyPairs.GenerateKeys()
-
+		KeyPairs.GenerateKeys()			
+		
 		for i:=0; i<len(read)-1; i++ {
 			t.Sender = read[i]
 		}
@@ -252,29 +260,4 @@ func main() {
 
 	fmt.Println("My API is running on: http://localhost:8080")
 	http.ListenAndServe(":8080", nil)
-
-	// now := time.Now()
-	// defer func() {
-	// 	fmt.Println("time it took to execute sequentially:", time.Since(now))
-	// }()
-
-	// time.Sleep(2 * time.Second)
-	// fmt.Println("Genesis Block:", createGenesisBlock(), "\n")
-
-	// blocksToCreate := 5
-	// time.Sleep(2 * time.Second)
-	// block := createBlock(blocksToCreate)
-
-	// for _, n := range block {
-	// 	time.Sleep(2 * time.Second)
-	// 	fmt.Println("Getting Block Data:", n, "\n")
-	// }
-
-	// time.Sleep(5 * time.Second)
-	// addedToChain := addBlockToChain(block)
-
-	// for _, n := range addedToChain {
-	// 	fmt.Println("\nBlock Added:", n, "\n\n")
-	// }
-	// fmt.Println("this is the total blockchain:", addedToChain)
 }

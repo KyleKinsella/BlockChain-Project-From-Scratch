@@ -21,6 +21,10 @@ function Block() {
 
       {blocks.map((block, i) => (
         <div key={i} className="block">
+
+          <h4>Block {i+1}</h4>
+          <hr />
+
             {/* Only visible when button clicked */}
             {showData && (
                 <div className="block-details">
