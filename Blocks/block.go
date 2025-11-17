@@ -31,7 +31,7 @@ type Transaction struct {
 
 var blockchain []Block
 
-func createBlockZero(w http.ResponseWriter, r*http.Request) {
+func createBlockZero(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
 
@@ -44,7 +44,7 @@ func createBlockZero(w http.ResponseWriter, r*http.Request) {
 		genesis.PrevHash = nil
 		genesis.Transactions = Transaction{}
 		genesis.ProofOfWork = true
-		genesis.BlockHash = hashBlock(genesis)
+		genesis.BlockHash = hashBlock(&genesis)
 		
 		blockchain = append(blockchain, genesis)
 	}
@@ -63,7 +63,7 @@ func createBlocksForFrontend(w http.ResponseWriter, r*http.Request) {
 		block := Block{}
 
 		if i == 0 {
-			block.PrevHash = "Genesis Block"
+			block.PrevHash = nil
 			fmt.Println("block.prevHash:", block.PrevHash)
 		} 
 
@@ -73,21 +73,18 @@ func createBlocksForFrontend(w http.ResponseWriter, r*http.Request) {
 
 		block.PrevHash = getLastBlockHash(blockchain)
 
-		readAddresses := "Addresses.txt"
-		transaction := Transaction{}
-		read := ReadFile.ReadAddresses(readAddresses)
+		read := ReadFile.ReadAddresses("Addresses.txt")
 
-		process, err := processTransaction(transaction, read)
+		randomToFindValue := ReadFile.ReadKeywords("keywords.txt")
+		toFind := getRandomString(randomToFindValue)
+		block.ProofOfWork = pow.ProofOfWork("0000abc", toFind)
+
+		process, err := processTransaction(&Transaction{}, read, &block)
 		if err != nil {
 			fmt.Println("something went wrong...")
 			panic(err)
 		}
 		block.Transactions = process
-
-		wordToFind := "keywords.txt"
-		randomToFindValue := ReadFile.ReadKeywords(wordToFind)
-		toFind := getRandomString(randomToFindValue)
-		block.ProofOfWork = pow.ProofOfWork("0000abc", toFind)
 
 		if block.ProofOfWork {
 			// We have computed a valid proof of work field // 
@@ -98,14 +95,14 @@ func createBlocksForFrontend(w http.ResponseWriter, r*http.Request) {
 			continue
 		}
 
-		block.BlockHash = hashBlock(block)
+		block.BlockHash = hashBlock(&block)
 
 		blockchain = append(blockchain, block)
 	}
 	json.NewEncoder(w).Encode(blockchain)
 }
 
-func hashBlock(block Block) string {
+func hashBlock(block *Block) string {
 	data := fmt.Sprintf("%d%s%v%s%v", block.Index, block.Timestamp, block.Transactions, block.PrevHash, block.ProofOfWork)
 	hash := sha256.Sum256([]byte(data))
 	return hex.EncodeToString(hash[:])
@@ -133,7 +130,7 @@ func addBlockToChain(chain []Block) []Block {
 	newBlock.PrevHash = lastBlock.PrevHash
 	newBlock.Transactions = lastBlock.Transactions
 	newBlock.ProofOfWork = pow.ProofOfWork("0000abc", "0000")
-	newBlock.BlockHash = hashBlock(newBlock)
+	newBlock.BlockHash = hashBlock(&newBlock)
 	
 	chain = append(chain, newBlock)
 	return chain
@@ -168,7 +165,7 @@ func createGenesisBlock() []Block {
 	transaction := Transaction{}
 	genesis.Transactions = transaction
 	genesis.ProofOfWork = false
-	genesis.BlockHash = hashBlock(genesis)
+	genesis.BlockHash = hashBlock(&genesis)
 
 	chain = append(chain, genesis)
 	return chain
@@ -201,7 +198,7 @@ func createBlock(n int) []Block {
 		transaction := Transaction{}
 		read := ReadFile.ReadAddresses(readAddresses)
 
-		process, err := processTransaction(transaction, read)
+		process, err := processTransaction(&transaction, read, &block)
 		if err != nil {
 			fmt.Println("something went wrong...")
 			panic(err)
@@ -213,7 +210,7 @@ func createBlock(n int) []Block {
 		toFind := getRandomString(randomToFindValue)
 		block.ProofOfWork = pow.ProofOfWork("0000abc", toFind)
 
-		block.BlockHash = hashBlock(block)
+		block.BlockHash = hashBlock(&block)
 
 		blockData = append(blockData, block)
 	}
@@ -227,29 +224,31 @@ func createTransaction(transaction Transaction, sender string, receiver string, 
 	return transaction
 }
 
-func processTransaction(t Transaction, read []string) (Transaction, error) {	
+func processTransaction(transaction *Transaction, read []string, block *Block) (Transaction, error) {	
 	if len(read) == 0 {
 		fmt.Println("file is empty")
-		return t, nil
+		return *transaction, nil
 	}
 
 	random := crand.Float32()
 
 	if len(read) == 2 {
-		t.Sender = read[0]
-		t.Receiver = read[1]
+		transaction.Sender = read[0]
+		transaction.Receiver = read[1]
 
-		tx := createTransaction(t, t.Sender, t.Receiver, random)
+		tx := createTransaction(*transaction, transaction.Sender, transaction.Receiver, random)
 		return tx, nil
 	} else {
-		KeyPairs.GenerateKeys()			
-		
-		for i:=0; i<len(read)-1; i++ {
-			t.Sender = read[i]
-		}
-		t.Receiver = read[len(read)-1]
+		if block.ProofOfWork {
+			KeyPairs.GenerateKeys()
 
-		tx := createTransaction(t, t.Sender, t.Receiver, random)
+			for i := 0; i < len(read) - 1; i++ {
+				transaction.Sender = read[i] 
+			}
+			transaction.Receiver = read[len(read) - 1]
+		} 
+
+		tx := createTransaction(*transaction, transaction.Sender, transaction.Receiver, random)
 		return tx, nil
 	}
 }
