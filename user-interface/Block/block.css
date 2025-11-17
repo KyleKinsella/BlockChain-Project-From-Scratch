@@ -6,12 +6,9 @@
     margin: 12px auto;
     width: 90%;
     max-width: 800px;
-
     color: #00ff88;
     font-family: "Courier New", monospace;
-
     box-shadow: inset 0 0 10px #00ff88, 0 0 20px rgba(0, 255, 136, 0.5);
-
     letter-spacing: 0.5px;
 }
 
@@ -20,21 +17,29 @@ h1 {
 }
 
 .chain-arrow {
-    width: 6px;          /* thickness */
-    height: 150px;       /* length (vertical) */
+    width: 6px;                 
+    height: 120px;              
     background: #00ff88;
-    margin: 20px auto;   /* centers vertically between blocks */
+    margin: 10px auto;
     box-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88;
     border-radius: 10px;
+    position: relative;
+}
+
+.chain-arrow::after {
+    content: "";
+    position: absolute;
+    bottom: -14px;              
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 16px solid #00ff88;
+    filter: drop-shadow(0 0 8px #00ff88);
 }
 
 hr {
     background-color: purple;
 }
-
-
-{{/* .see, .hide {
-    padding: 5px;
-    float: right;
-    top: -10px;
-} */}}

@@ -19,26 +19,27 @@ function Block() {
             {showData ? "Hide Data" : "Show Data"}
         </button>
 
-      {blocks.map((block, i) => (
+      {blocks.map((block, i) => (        
         <div key={i} className="block">
 
           <h4>Block {i+1}</h4>
           <hr />
-
             {/* Only visible when button clicked */}
             {showData && (
-                <div className="block-details">
-                    <p>Index: {block.Index}</p>
-                    <p>Timestamp: {block.Timestamp}</p>
-                    <p>PrevHash: {JSON.stringify(block.PrevHash)}</p>
-                    <h3>Transactions Info:</h3>
-                    <p>Sender: {block.Transactions?.Sender}</p>
-                    <p>Receiver: {block.Transactions?.Receiver}</p>
-                    <p>Amount: {block.Transactions?.Amount}</p>
-                    <p>ProofOfWork: {JSON.stringify(block.ProofOfWork)}</p>
-                    <p>BlockHash: {block.BlockHash}</p>
-                    {/* {i < blocks.length - 1 && <div className="chain-arrow"></div>} */}
-                </div>
+                <>
+                <p>Index: {block.Index}</p>
+                <p>Timestamp: {block.Timestamp}</p>
+                <p>PrevHash: {JSON.stringify(block.PrevHash)}</p>
+                <h3>Transactions Info:</h3>
+                <p>Sender: {block.Transactions?.Sender}</p>
+                <p>Receiver: {block.Transactions?.Receiver}</p>
+                <p>Amount: {block.Transactions?.Amount}</p>
+                <p>ProofOfWork: {JSON.stringify(block.ProofOfWork)}</p>
+                <p>BlockHash: {block.BlockHash}</p>
+                {/* Ideally I would have the arrow outside of the div, but due to the design of react I cannot have this arrow outside of the div - if I did react would break and complain
+                (this might change later on in the project...) */}
+                {i < blocks.length - 1 && <div className="chain-arrow"></div>}
+                </>
             )}
         </div>
       ))}
