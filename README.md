@@ -24,5 +24,5 @@
 <pre>Image 1:</pre>
 <img src="images/13thofnovember.jpg" width="600" height="400" alt="13thofnovember">
 
-
-I am currently building a blockchain project, with some of the core features of the blockchain such as: Proof of work algorithm, blocks, wallets, public and private keypairs, consensus and much more. I am building this project primarily with the Go programming language, I might use Python in the later stages of this project. I am using React to make my user-interface for this project.
+<pre>Image 2:</pre>
+<img src="images/14thofnovemberimg1.jpg" width="600" height="400" alt="14thofnovemberimg1">
