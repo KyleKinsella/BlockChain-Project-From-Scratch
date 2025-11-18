@@ -1,5 +1,10 @@
 # Blockchain from Scratch Project
 
+![Go](https://img.shields.io/badge/Go-00ADD8?style=flat&logo=go&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black)
+![GitHub stars](https://img.shields.io/github/stars/yourusername/yourrepo?style=social)
+![Status](https://img.shields.io/badge/Status-In%20Progress-yellow)
+
 ## Project Summary
 Blockchain From Scratch is a personal project simulating a blockchain system end-to-end. It demonstrates full-stack development skills, including backend logic in Go, frontend display with React, and integration between the two. The project explores core blockchain concepts like Proof of Work, Proof of Stake, and block linking, with future plans for DAO functionality and block rewards. This project showcases problem-solving, iterative development, and practical implementation of blockchain principles.
 
@@ -99,22 +104,30 @@ Additional features to be determined as the project evolves.
 ## Project Images
 This image shows how the project appeared on the day I returned to development. At this point, the frontend simply displayed each block’s data.
 
-<h3>Image 1</h3><img src="images/13thofnovember.jpg" width="600" height="400" alt="14thofnovemberimg1">
+### Image 1
+<img src="images/13thofnovember.jpg" width="600" height="400" alt="14thofnovemberimg1">
+
 <br>
 
 The next day, I updated the UI so that each block appears in its own container. Users can toggle block data visibility using a “Show Data” / “Hide Data” button. I sought help from ChatGPT for part of this implementation.
 
-<h3>Image 2</h3><img src="images/14thofnovemberimg1.jpg" width="600" height="400" alt="14thofnovemberimg1">
-<h3>Image 3</h3><img src="images/14thofnovemberimg2.jpg" width="600" height="400" alt="14thofnovemberimg2">
+### Image 2
+<img src="images/14thofnovemberimg1.jpg" width="600" height="400" alt="14thofnovemberimg1">
+
+### Image 3
+<img src="images/14thofnovemberimg2.jpg" width="600" height="400" alt="14thofnovemberimg2">
 
 <br>
 
 On November 16th, I redesigned each block’s container to display the block number and included a dividing line for clarity. I also added arrows to show how each block links to the next, except the last block, which naturally cannot point to a successor until a new block is mined.
 
-<h3>Image 4</h3><img src="images/16thofnovember.jpg" width="600" height="400" alt="16thofnovember">
-<h3>Image 5</h3><img src="images/17thofnovember.jpg" width="600" height="400" alt="17thofnovember">
+### Image 4
+<img src="images/16thofnovember.jpg" width="600" height="400" alt="16thofnovember">
 
-<strong>Note:</strong>
+### Image 5
+<img src="images/17thofnovember.jpg" width="600" height="400" alt="17thofnovember">
+
+**Note:**
 In Image 5, you may notice the arrow is placed inside the block’s container. Ideally, I wanted the arrow positioned outside the block, pointing to the next one. Unfortunately, due to React's component structure, this isn’t directly feasible in the current design. This part of the project may be redesigned later.
 
 ## Project Video 
