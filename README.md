@@ -25,8 +25,7 @@ came out, I just stopped working on the project. This was back roughly at some t
 
 <p>Then I started to think of some new project ideas: 
     <ol>
-      <li>Spotify Clone</li>
-      or
+      <li>Spotify Clone</li>, or
       <li>Linkedin Clone</li>
     </ol>
     . But then I thought I have my blockchain project on my portfolio that I started a few months back - I could go back to that project (that would be very fun!). So that night I thought if I wanted to revist my blockchain project and after a bit of thinking I said: "yes why not!". And now, I'm having lots of writing code, debugging issues and many more issues / problems that you always encounter when making a project (but, this is part of the learing phase!) 
