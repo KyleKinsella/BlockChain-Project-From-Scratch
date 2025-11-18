@@ -132,12 +132,20 @@ ChatGPT for some help with this and he did help me implement this feature.</p>
 <!-- <p>todo</p> -->
 
 <pre>Image 4:</pre>
-<p>todo</p>
-<img src="images/16thofnovember.jpg" width="600" height="400" alt="16thofnovember">
+<p>On Sunday the 16th of November, I updated how a blocks div looks. Before the block was completyly empty until you click on the "Show Data" button. Now I updated it to show what Block is for each div and a line to make 
+  reading the data about each block more each to view / see / read. I also added an arrow from one block to the next block, this is to show that the first block (genesis block) is linked to the next n blocks that are created. The last block that is created in the blockchain will not have an arrow, why? because he is the last block in the chain and he is not "chained" to another block just yet, but we mine (create) more blocks he will then get an arrow.  
+</p>
+<p>Image 4:</p><img src="images/16thofnovember.jpg" width="600" height="400" alt="16thofnovember">
+<p>Image 5:</p><img src="images/17thofnovember.jpg" width="600" height="400" alt="17thofnovember">
 
-<pre>Image 5:</pre>
-<p>todo</p>
-<img src="images/17thofnovember.jpg" width="600" height="400" alt="17thofnovember">
+<h3>
+  <strong>Note:</strong> <br>
+
+  When you look at image 5, you will see that the arrow is in the div for the block (this is for each block). I didn't want it to look like that, but unfortunatly, due to the design of React, I cannot have the arrow outside   of the div :( My idea was to have each block have it's data and outside of each block have the arrow point to the next block but I cannot do this with React... This part of the project might change later on! 
+</h3>
+  
+<!-- <pre>Image 5:</pre> -->
+<!-- <p>todo</p> -->
 
 ## Video of the project so far
 ### TODO
