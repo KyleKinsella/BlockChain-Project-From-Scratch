@@ -1,4 +1,4 @@
-# Blockchain from Scratch
+# Blockchain from Scratch Project
 
 ## Table of Contents
 - [Did I Start This Project a While Ago](#Did-I-Start-This-Project-a-While-Ago)
