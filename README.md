@@ -126,6 +126,8 @@
 <p>This image shows how the project appeared on the day I returned to development. At this point, the frontend simply displayed each block’s data.</p>
 <img src="images/13thofnovember.jpg" width="600" height="400" alt="13thofnovember">
 
+<br>
+
 <p>
   The next day, I updated the UI so that each block appears in its own container. Users can toggle block data visibility using a “Show Data” / “Hide Data” button. I sought help from ChatGPT for part of this implementation.
 </p>
