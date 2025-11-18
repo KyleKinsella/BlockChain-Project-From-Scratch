@@ -138,11 +138,13 @@ ChatGPT for some help with this and he did help me implement this feature.</p>
 <p>Image 4:</p><img src="images/16thofnovember.jpg" width="600" height="400" alt="16thofnovember">
 <p>Image 5:</p><img src="images/17thofnovember.jpg" width="600" height="400" alt="17thofnovember">
 
-<h3>
-  <strong>Note:</strong> <br>
+<h3><strong>Note:</strong></h3>
 
+<br>
+
+<p>
   When you look at image 5, you will see that the arrow is in the div for the block (this is for each block). I didn't want it to look like that, but unfortunatly, due to the design of React, I cannot have the arrow outside   of the div :( My idea was to have each block have it's data and outside of each block have the arrow point to the next block but I cannot do this with React... This part of the project might change later on! 
-</h3>
+</p>
   
 <!-- <pre>Image 5:</pre> -->
 <!-- <p>todo</p> -->
