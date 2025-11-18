@@ -13,6 +13,7 @@ Blockchain From Scratch is a personal project simulating a blockchain system end
 - [Potential Features](#Potential-Features)
 - [Project Images](#Project-Images)
 - [Project Video](#Project-Video)
+- [Roadmap](#Roadmap)
 - [Contact](#Contact)
 
 ## Did I Start This Project a While Ago?
