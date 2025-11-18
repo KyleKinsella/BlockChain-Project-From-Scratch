@@ -118,16 +118,18 @@ this project that I have created. When the project is deployed I'm thinking of u
 ## Images of the project
 <!-- <h3>This image is how my project looked when I came back to it</h3> -->
 <pre>Image 1:</pre>
-<p>todo</p>
+<p>This image, is what I did on the day that came back to this project. I did have it to just show each blocks data on the frontend.</p>
 <img src="images/13thofnovember.jpg" width="600" height="400" alt="13thofnovember">
 
-<pre>Image 2:</pre>
-<p>todo</p>
+<pre>Image 2 & Image 3:</pre>
+<p>The next day, I worked on putting each blocks data into its own div. So, each block is it's own div. And in order to see the blocks data you need to click on the button: "Show Data", once this is 
+clicked it will show the data in each block, then the button state will change to: "Hide Data" once the button is clicked again, the data in each block will be hidden. I was not sure how to do this, so I asked 
+ChatGPT for some help with this and he did help me implement this feature.</p>
 <img src="images/14thofnovemberimg1.jpg" width="600" height="400" alt="14thofnovemberimg1">
-
-<pre>Image 3:</pre>
-<p>todo</p>
 <img src="images/14thofnovemberimg2.jpg" width="600" height="400" alt="14thofnovemberimg2">
+
+<!-- <pre>Image 3:</pre> -->
+<!-- <p>todo</p> -->
 
 <pre>Image 4:</pre>
 <p>todo</p>
