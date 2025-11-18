@@ -90,6 +90,8 @@ this project that I have created. When the project is deployed I'm thinking of u
   <li>and I'll do further research of other deployment technologys that I can use</li>
 </ul>
 
+<br>
+
 ## Current Features
 ### TODO
 <p>Below are the features that I have so far for my project:</p>
