@@ -4,7 +4,7 @@
 - [What is this project](#What-is-this-project)
 - [Technology Stack](#Technology-Stack)
 - [Current Features](#Current-Features)
-- [Upcoming / Potential Features](#Upcoming-/-Potential-Features)
+- [Potential Features](#Potential-Features)
 - [Images of the project](#Images-of-the-project)
 
 ## What is this project? 
@@ -16,7 +16,7 @@
 ## Current Features
 // TODO
 
-## Upcoming / Potential Features
+## Potential Features
 // TODO
 
 ## Images of the project
