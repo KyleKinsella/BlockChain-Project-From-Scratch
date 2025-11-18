@@ -25,17 +25,46 @@ came out, I just stopped working on the project. This was back roughly at some t
 
 <p>Then I started to think of some new project ideas: 
     <ol>
-      <li>Spotify Clone</li>, or
+      <li>Spotify Clone</li>
+      or
       <li>Linkedin Clone</li>
     </ol>
     . But then I thought I have my blockchain project on my portfolio that I started a few months back - I could go back to that project (that would be very fun!). So that night I thought if I wanted to revist my blockchain project and after a bit of thinking I said: "yes why not!". And now, I'm having lots of writing code, debugging issues and many more issues / problems that you always encounter when making a project (but, this is part of the learing phase!) 
 </p>
 
 ## What is this project? 
-<p></p>
+<p>This project is a small simulation of a blockchain system. The core idea of this project is to create a full-stack project that simiulates how a blockchain system operates.</p>
 
 ## Technology Stack
-### TODO
+<p>This project is split into both frontend, backend and deployment. See below headings for the tech stack:</p>
+<h3>Frontend</h3>
+<ul>
+  <li>HTML</li>
+  <li>CSS</li>
+  <li>JavaScript</li>
+  <li>React</li>
+</ul>
+
+<br>
+
+<h3>Backend</h3>
+<ul>
+  <li>Go</li>
+  <li>Python (mabye in the later stages of the project)</li>
+</ul>
+
+<br>
+
+<h3>Deployment</h3>
+<p>This part I have not gotten to yet, I'm currently developing the project locally but once the project is coming to a close or looks better than it's currently I will get it to deployed, so people can use and viee my 
+this project that I have created. When the project is deployed I'm thinking of using the following deployment stack, see below:</p>
+
+<ul>
+  <li>Docker</li>
+  <li>AWS (mabye!)</li>
+  <li>Vercel</li>
+  <li>and I'll do further research of other deployment technologys that I can use</li>
+</ul>
 
 ## Current Features
 ### TODO
