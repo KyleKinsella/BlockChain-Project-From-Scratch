@@ -95,7 +95,7 @@ this project that I have created. When the project is deployed I'm thinking of u
 <!-- <br> -->
 
 ## Current Features
-<p### TODO</p>
+<p>### TODO</p>
 <p>Below are the features that I have so far for my project:</p>
 <ul>
   <li>creating blocks</li>
