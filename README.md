@@ -1,56 +1,71 @@
-# BlockChain-Project-From-Scratch
+# Blockchain from Scratch
 
 ## Table of Contents
-- [Did I start this project a while ago](#Did-I-start-this-project-a-while-ago)
-- [Why Have I Returned](#Why-Have-I-Returned)
-- [What is the importance of this project](#What-is-the-importance-of-this-project)
-- [What is this project](#What-is-this-project)
+- [Did I Start This Project a While Ago](#Did-I-Start-This-Project-a-While-Ago)
+- [Why I Returned](#Why-I-Returned)
+- [Importance of This Project](#Importance-of-This-Project)
+- [What is this Project](#What-is-this-Project)
 - [Technology Stack](#Technology-Stack)
 - [Current Features](#Current-Features)
 - [Potential Features](#Potential-Features)
-- [Images of the project](#Images-of-the-project)
-- [Video of the project so far](#Video-of-the-project-so-far)
+- [Project Images](#Project-Images)
+- [Project Video](#Project-Video)
 
-# P.S. 
-<p>The content below is not very professional just yet, it's quite forward but I'll update it in due course.</p>
-
-<br><br><br><br><br>
-
-## Did I start this project a while ago?
-<p>Short answer is, <strong>yes</strong>. I was working on this project after I was done my final semester of college. I started to make this project while I waited to get my college results. But once the results 
-came out, I just stopped working on the project. This was back roughly at some time in June 2025.</p>
-
-## Why Have I Returned?
-<p>The main reason to why I returned to this project, is boredom. I was working on a project but now that project is complete. After I completed that project, I thought of two ideas:
-  <ol>
-    <li>A Game</li>
-    <li>Job Application Tracker</li>
-  </ol>
-  . I thought of making a video game, but after some thought and analysis, I decided to not proceed with this project (I will mabye come back to it in the future...). The after about omne or two days I thought of another project, Job Application Tracker. A project to keep track of job applications that you have submitted. With this project I did do some work on it for about a week, but then I realized that I am creating a pointless project. Why is it pointless, I was not using it for tracking my application (I was using excel...), so after some further analysis I decided to abort this project. 
+## Did I Start This Project a While Ago?
+<p>
+  Yes. I began working on this project after completing my final college semester, using the time while waiting for results to explore blockchain development. Once my results were released, I paused the project. This was around June 2025.
 </p>
 
-<p>Then I started to think of some new project ideas: 
-    <ol>
-      <li>Spotify Clone</li>
-      or
-      <li>Linkedin Clone</li>
-    </ol>
-    . But then I thought I have my blockchain project on my portfolio that I started a few months back - I could go back to that project (that would be very fun!). So that night I thought if I wanted to revist my blockchain project and after a bit of thinking I said: "yes why not!". And now, I'm having lots of writing code, debugging issues and many more issues / problems that you always encounter when making a project (but, this is part of the learing phase!) 
+## Why I Returned?
+<p>
+  I returned to this project primarily because I had free time after completing another project. I initially considered two new ideas:
 </p>
 
-## What is the importance of this project?
-<p>The main objective / importance of this project is to create a fully working project and to learn as much as I can. But, another importance of this project is to 
-show future / potential employers that I'm capable of developing a full-stack project, from nothing -> a fully working project (or product, if I was working on a 
-  company project.). Although I don't have any professional software devlopment experience, I have lots of expiernce with most of the topics in software development, such 
-  as: Dev-Ops, Unit testing, UML, Concurrent Development, Data Structures & algorithms, operating systems, object orientied programming (oop), Software Engineering, Design Patterns, Data Science & Machine Learning and so much more. I also have some expeince in the world of retail. I worked in my local cineam for 3 years and 7 months. While I 
-  worked at my local cinema (Movies@ Gorey), I developed these soft skills: teamwork, communication, problem solving, dealing with hard / difficult customers, this developed   my patince, active listening and always being polite no matter the situation and most importantly always being professional in a work environment. 
+<ol>
+  <li>A Video Game</li>
+  <li>A Job Application Tracker</li>
+</ol>
+
+<p>
+  After some analysis, I decided not to pursue the game for now. I then explored the Job Application Tracker idea and worked on it for about a week. Ultimately, I realized it wasn’t the right project for me at the moment, as I wasn't using it personally (Excel worked better for my workflow).
 </p>
 
-## What is this project? 
-<p>This project is a small simulation of a blockchain system. The core idea of this project is to create a full-stack project that simiulates how a blockchain system operates.</p>
+<p>
+  A few days later, I brainstormed new ideas such as:
+</p>
+
+<ol>
+  <li>A Spotify clone</li>
+  <li>A LinkedIn clone</li>
+</ol>
+
+<p>
+  Then I remembered this blockchain project, the one already in my portfolio. I realized it would be far more enjoyable and meaningful to revisit it. After some reflection, I decided to continue development. Since returning, I’ve been enjoying the process of writing code, debugging, solving problems and learning throughout the development cycle.
+</p>
+
+## Importance of This Project
+<p>
+  The main objective of this project is to create a fully functional system while expanding my knowledge of blockchain concepts. It also serves as an opportunity to demonstrate to future employers that I can independently develop a full-stack application from the ground up.
+</p>
+
+<p>
+  While I don’t yet have professional software development experience, I do have extensive exposure to many areas of Computer Science and Software Engineering, including: DevOps, Testing (Unit, Integration), UML, Concurrent Development, Data Structures & Algorithms, Operating Systems, Object-Oriented Programming (OOP), Software Engineering principles, Design Patterns, Data Science & machine learning and more.
+</p>
+
+<p>
+  Additionally, I have over three years of experience in retail at Movies@ Gorey, where I developed key soft skills such as teamwork, communication, problem-solving, handling difficult customer interactions, patience, active listening and maintaining professionalism in a work environment.
+</p>
+
+## What is this Project?
+<p>
+  This project is a small-scale simulation of a blockchain system. The goal is to develop a full-stack application that demonstrates how a blockchain functions from end to end.
+</p>
 
 ## Technology Stack
-<p>This project is split into both frontend, backend and deployment. See below headings for the tech stack:</p>
+<p>
+  This project includes frontend, backend and (eventually) deployment components.
+</p>
+
 <h3>Frontend</h3>
 <ul>
   <li>HTML</li>
@@ -59,96 +74,77 @@ show future / potential employers that I'm capable of developing a full-stack pr
   <li>React</li>
 </ul>
 
-<!-- <br> -->
-
 <h3>Backend</h3>
 <ul>
-  <li>Go (currently my entire backend is in <strong><u>Go</u></strong>)</li>
-  <li>Python (mabye in the later stages of the project)</li>
+  <<li>Go (the entire backend is currently written in Go)</li>
+  <li>Python (possible future integration)</li>
 </ul>
 
-<!-- <br> -->
-
 <h3>Version Control</h3>
-<p>It's very important to keep a log to some degree, so I am using:</p>
+<p>Version control is essential and I am using:</p>
 
 <ul>
   <li>Git</li>
 </ul>
 
-<!-- <br> -->
-<p>to do this for my project. Git is a very good resouce to keep track of your current and old code.</p>
-
-<!-- <br> -->
+<p>Git allows me to maintain a detailed and reliable history of the project.</p>
 
 <h3>Deployment</h3>
-<p>This part I have not gotten to yet, I'm currently developing the project locally but once the project is coming to a close or looks better than it's currently I will get it to deployed, so people can use and viee my 
-this project that I have created. When the project is deployed I'm thinking of using the following deployment stack, see below:</p>
+<p>
+  Deployment has not yet been implemented. Once the project reaches a more complete state, I plan to deploy it publicly. Potential deployment tools include:
+</p>
 
 <ul>
   <li>Docker</li>
-  <li>AWS (mabye!)</li>
+  <li>AWS (potentially)</li>
   <li>Vercel</li>
-  <li>and I'll do further research of other deployment technologys that I can use</li>
+  <li>Additional deployment technologies (to be researched)</li>
 </ul>
 
-<!-- <br> -->
-
 ## Current Features
-<!-- <p>### TODO</p> -->
-<p>Below are the features that I have so far for my project:</p>
+<p>Current functionality includes:</p>
 <ul>
-  <li>creating blocks</li>
-  <li>proof of work (pow) algorithm (this is what each block needs to make a block on my blockchain at the moment)</li>
-  <li>proof of stake algorithm (I did this a while ago, I need to make my pos algorithm much better)</li>
-  <li>have the backend connect to the frontend</li>
+  <li>Block creation</li>
+  <li>Proof of Work (PoW) algorithm (this is what each block needs to make a block on my blockchain at the moment)</li>
+  <li>Proof of Stake (PoS) algorithm (I did this a while ago, I need to make my pos algorithm much better)</li>
+  <li>Backend-to-frontend integration</li>
 </ul>
 
 ## Potential Features
-<!-- <p>### TODO</p> -->
-<p>below are the upcoming / potential features, see below:</p>
+<p>Upcoming and potential enhancements include:</p>
 <ul>
-  <li>block rewards</li>
-  <li>transaction fee's</li>
-  <li>Decentralized Autonomous Organization (DAO) - I'm going to make my own DAO, but my DAO will take a good bit of inspiration from 
+  <li>Block rewards</li>
+  <li>Transaction fees</li>
+  <li>A Decentralized Autonomous Organization (DAO) - I'm going to make my own DAO, but my DAO will take a good bit of inspiration from 
     <a href="https://nouns.wtf/">nouns.wtf</a>.</li>
-  <li>I'm not sure what other features that I might develop, but I'll hopefully come up with some ideas...</li>
 </ul>
 
-## Images of the project
-<!-- <h3>This image is how my project looked when I came back to it</h3> -->
-<pre>Image 1:</pre>
-<p>This image, is what I did on the day that came back to this project. I did have it to just show each blocks data on the frontend.</p>
+<p>Additional features to be determined as the project evolves.</p>
+
+## Project Images
+<h3>Image 1</h3>
+<p>This image shows how the project appeared on the day I returned to development. At this point, the frontend simply displayed each block’s data.</p>
 <img src="images/13thofnovember.jpg" width="600" height="400" alt="13thofnovember">
 
-<pre>Image 2 & Image 3:</pre>
-<p>The next day, I worked on putting each blocks data into its own div. So, each block is it's own div. And in order to see the blocks data you need to click on the button: "Show Data", once this is 
-clicked it will show the data in each block, then the button state will change to: "Hide Data" once the button is clicked again, the data in each block will be hidden. I was not sure how to do this, so I asked 
-ChatGPT for some help with this and he did help me implement this feature.</p>
+<h3>Image 2 & Image 3</h3>
+<p>
+  The next day, I updated the UI so that each block appears in its own container. Users can toggle block data visibility using a “Show Data” / “Hide Data” button. I sought help from ChatGPT for part of this implementation.
+</p>
+
 <p>Image 2:</p><img src="images/14thofnovemberimg1.jpg" width="600" height="400" alt="14thofnovemberimg1">
 <p>Image 3:</p><img src="images/14thofnovemberimg2.jpg" width="600" height="400" alt="14thofnovemberimg2">
 
-<!-- <pre>Image 3:</pre> -->
-<!-- <p>todo</p> -->
+<h3>Image 4 & Image 5</h3>
+<p>
+  On November 16th, I redesigned each block’s container to display the block number and included a dividing line for clarity. I also added arrows to show how each block links to the next—except the last block, which naturally cannot point to a successor until a new block is mined.
 
-<pre>Image 4:</pre>
-<p>On Sunday the 16th of November, I updated how a blocks div looks. Before the block was completyly empty until you click on the "Show Data" button. Now I updated it to show what Block is for each div and a line to make 
-  reading the data about each block more each to view / see / read. I also added an arrow from one block to the next block, this is to show that the first block (genesis block) is linked to the next n blocks that are created. The last block that is created in the blockchain will not have an arrow, why? because he is the last block in the chain and he is not "chained" to another block just yet, but we mine (create) more blocks he will then get an arrow.  
-</p>
 <p>Image 4:</p><img src="images/16thofnovember.jpg" width="600" height="400" alt="16thofnovember">
 <p>Image 5:</p><img src="images/17thofnovember.jpg" width="600" height="400" alt="17thofnovember">
 
-<h3><strong>Note:</strong></h3>
-
-<!-- <br> -->
-
+<h3>strong>Note:</strong></h3>
 <p>
-  When you look at image 5, you will see that the arrow is in the div for the block (this is for each block). I didn't want it to look like that, but unfortunatly, due to the design of React, I cannot have the arrow outside   of the div :( My idea was to have each block have it's data and outside of each block have the arrow point to the next block but I cannot do this with React... This part of the project might change later on! 
+  In Image 5, you may notice the arrow is placed inside the block’s container. Ideally, I wanted the arrow positioned outside the block, pointing to the next one. Unfortunately, due to React's component structure, this isn’t directly feasible in the current design. This part of the project may be redesigned later.
 </p>
-  
-<!-- <pre>Image 5:</pre> -->
-<!-- <p>todo</p> -->
 
-## Video of the project so far
-<!-- <p>### TODO</p> -->
-<a href="" placeholder="">this will be a link to youtube - this will be a video of my project so far...</a>
+## Project Video 
+<a href="">A YouTube link will be added here soon, showcasing the current state of the project once the video is recorded.</a>
