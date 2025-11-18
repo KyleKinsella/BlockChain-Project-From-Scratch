@@ -17,55 +17,38 @@ Blockchain From Scratch is a personal project simulating a blockchain system end
 - [Contact](#Contact)
 
 ## Did I Start This Project a While Ago?
-<p>
-  Yes. I began working on this project after completing my final college semester, using the time while waiting for results to explore blockchain development. Once my results were released, I paused the project. This was around June 2025.
-</p>
+Yes. I began working on this project after completing my final college semester, using the time while waiting for results to explore blockchain development. Once my results were released, I paused the project. This was around June 2025.
+
 
 ## Why I Returned
-<p>
-  I returned to this project primarily because I had free time after completing another project. I initially considered two new ideas:
-</p>
+I returned to this project primarily because I had free time after completing another project. I initially considered two new ideas:
 
-<ol>
-  <li>A Video Game</li>
-  <li>A Job Application Tracker</li>
-</ol>
+- A Video Game
+- A Job Application Tracker
 
-<p>
-  After some analysis, I decided not to pursue the game for now. I then explored the Job Application Tracker idea and worked on it for about a week. Ultimately, I realized it wasn’t the right project for me at the moment, as I wasn't using it personally (Excel worked better for my workflow).
-</p>
+After some analysis, I decided not to pursue the game for now. I then explored the Job Application Tracker idea and worked on it for about a week. Ultimately, I realized it wasn’t the right project for me at the moment, as I wasn't using it personally (Excel worked better for my workflow).
 
-<p>
-  A few days later, I brainstormed new ideas such as:
-</p>
+A few days later, I brainstormed new ideas such as:
 
-<ol>
-  <li>A Spotify clone</li>
-  <li>A LinkedIn clone</li>
-</ol>
+- A Spotify clone
+- A LinkedIn clone
 
-<p>
-  Then I remembered this blockchain project, the one already in my portfolio. I realized it would be far more enjoyable and meaningful to revisit it. After some reflection, I decided to continue development. Since returning, I’ve been enjoying the process of writing code, debugging, solving problems and learning throughout the development cycle.
-</p>
+Then I remembered this blockchain project, the one already in my portfolio. I realized it would be far more enjoyable and meaningful to revisit it. After some reflection, I decided to continue development. Since returning, I’ve been enjoying the process of writing code, debugging, solving problems and learning throughout the development cycle.
 
 ## Importance of This Project
-<p>
-  The main objective of this project is to create a fully functional system while expanding my knowledge of blockchain concepts. It also serves as an opportunity to demonstrate to future employers that I can independently develop a full-stack application from the ground up.
-</p>
+The main objective of this project is to create a fully functional system while expanding my knowledge of blockchain concepts. It also serves as an opportunity to demonstrate to future employers that I can independently develop a full-stack application from the ground up.
 
-<p>
-  While I don’t yet have professional software development experience, I do have extensive exposure to many areas of Computer Science, including: 
-  <ul>
-    <li>DevOps</li>
-    <li>Testing (Unit, Integration)</li>
-    <li>Unified Modeling Language (UML)</li>
-    <li>Concurrent Development</li>
-    <li>Data Structures & Algorithms</li>
-    <li>Operating Systems</li>
-    <li>Object-Oriented Programming (OOP)</li>
-    <li>Design Patterns</li>
-    <li>Data Science & machine learning</li>
-    <li>and more</li>
+While I don’t yet have professional software development experience, I do have extensive exposure to many areas of Computer Science, including: 
+    - DevOps
+    - Testing (Unit, Integration)
+    - Unified Modeling Language (UML)
+    - Concurrent Development
+    - Data Structures & Algorithms
+    - Operating Systems
+    - Object-Oriented Programming (OOP)
+    - Design Patterns
+    - Data Science & machine learning
+    - and more
   </ul>
 </p>
 
