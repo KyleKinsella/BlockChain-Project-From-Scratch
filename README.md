@@ -30,5 +30,13 @@
 <img src="images/14thofnovemberimg1.jpg" width="600" height="400" alt="14thofnovemberimg1">
 
 <pre>Image 3:</pre>
+<p>todo</p>
 <img src="images/14thofnovemberimg2.jpg" width="600" height="400" alt="14thofnovemberimg2">
 
+<pre>Image 4:</pre>
+<p>todo</p>
+<img src="images/16thofnovember.jpg" width="600" height="400" alt="16thofnovember">
+
+<pre>Image 5:</pre>
+<p>todo</p>
+<img src="images/17thofnovember.jpg" width="600" height="400" alt="17thofnovember">
