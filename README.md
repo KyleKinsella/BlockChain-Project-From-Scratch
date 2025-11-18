@@ -69,6 +69,16 @@ show future / potential employers that I'm capable of developing a full-stack pr
 
 <br>
 
+<h3>Version Control</h3>
+<p>It's very important to keep a log to some degree, so I am using:</p>
+
+<ul>
+  <li>Git</li>
+</ul>
+to do this for my project. Git is a very good resouce to keep track of your current and old code.
+
+<br>
+
 <h3>Deployment</h3>
 <p>This part I have not gotten to yet, I'm currently developing the project locally but once the project is coming to a close or looks better than it's currently I will get it to deployed, so people can use and viee my 
 this project that I have created. When the project is deployed I'm thinking of using the following deployment stack, see below:</p>
