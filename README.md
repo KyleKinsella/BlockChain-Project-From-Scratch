@@ -148,6 +148,6 @@ In Image 5, you may notice the arrow is placed inside the block’s container. I
 | Deployment        | Planned | Docker, AWS, Vercel |
 
 ## Contact
-If you have read this README or reviewed parts of the codebase (for example, Block/block.go, which currently contains the core logic), I would greatly appreciate any feedback. If you notice potential issues or areas for improvement, whether in the backend or frontend, your insights would be extremely valuable.
+If you have read this README or reviewed parts of the codebase (for example, Blocks/block.go, which currently contains the core logic), I would greatly appreciate any feedback. If you notice potential issues or areas for improvement, whether in the backend or frontend, your insights would be extremely valuable.
 
 Additionally, if you believe I may be a good fit for your team or are interested in discussing potential opportunities, please feel free to reach out to me on LinkedIn. I am passionate about building meaningful software, whether for personal development or contributing to a company’s success.
