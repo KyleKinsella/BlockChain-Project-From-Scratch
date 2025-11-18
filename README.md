@@ -59,7 +59,7 @@ show future / potential employers that I'm capable of developing a full-stack pr
   <li>React</li>
 </ul>
 
-<br>
+<!-- <br> -->
 
 <h3>Backend</h3>
 <ul>
@@ -67,7 +67,7 @@ show future / potential employers that I'm capable of developing a full-stack pr
   <li>Python (mabye in the later stages of the project)</li>
 </ul>
 
-<br>
+<!-- <br> -->
 
 <h3>Version Control</h3>
 <p>It's very important to keep a log to some degree, so I am using:</p>
@@ -79,7 +79,7 @@ show future / potential employers that I'm capable of developing a full-stack pr
 <br>
 <p>to do this for my project. Git is a very good resouce to keep track of your current and old code.</p>
 
-<br>
+<!-- <br> -->
 
 <h3>Deployment</h3>
 <p>This part I have not gotten to yet, I'm currently developing the project locally but once the project is coming to a close or looks better than it's currently I will get it to deployed, so people can use and viee my 
