@@ -82,6 +82,13 @@ this project that I have created. When the project is deployed I'm thinking of u
 
 ## Current Features
 ### TODO
+<p>Below are the features that I have so far for my project:</p>
+<ul>
+  <li>creating blocks</li>
+  <li>proof of work (pow) algorithm</li>
+  <li>proof of stake algorithm</li>
+  <li>have the backend connect to the frontend</li>
+</ul>
 
 ## Potential Features
 ### TODO
