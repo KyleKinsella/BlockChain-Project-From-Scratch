@@ -5,7 +5,7 @@
 - [Technology Stack that I'm using](#Technology-Stack-that-I'm-using)
 - [Current Features](#Current-Features)
 - [Upcoming / Potential Features](#Features)
-- [Images of the project (at the moment](#Images-of-the-project- (at the moment))
+- [Images of the project](#Images-of-the-project)
 
 ## What is this project? 
 // TODO
@@ -19,8 +19,8 @@
 ## Upcoming / Potential Features
 // TODO
 
-## Images of the project (at the moment)
-<img src="images/13thofnovember" width="200" alt="test">
+## Images of the project
+<img src="images/13thofnovember.jpg" width="200" alt="test">
 
 I am currently building a blockchain project, with some of the core features of the blockchain such as: Proof of work algorithm, blocks, wallets, public and private keypairs, consensus and much more. I am building this project primarily with the Go programming language, I might use Python in the later stages of this project. I am using React to make my user-interface for this project.
 
