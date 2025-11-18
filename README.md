@@ -35,7 +35,7 @@ came out, I just stopped working on the project. This was back roughly at some t
 
 ## What is the importance of this project?
 <p>The main objective / importance of this project is to create a fully working project and to learn as much as I can. But, another importance of this project is to 
-show future / potential employers that I'm capable of developing a full-stack project, for nothing -> a fully working project (or product, if I was working on a 
+show future / potential employers that I'm capable of developing a full-stack project, from nothing -> a fully working project (or product, if I was working on a 
   company project.). Although I don't have any professional software devlopment experience, I have lots of expiernce with most of the topics in software development, such 
   as: Dev-Ops, Unit testing, UML, Concurrent Development, Data Structures & algorithms, operating systems, object orientied programming (oop), Software Engineering, Design Patterns, Data Science & Machine Learning and so much more. </p>
 
