@@ -141,7 +141,7 @@
 <p>Image 4:</p><img src="images/16thofnovember.jpg" width="600" height="400" alt="16thofnovember">
 <p>Image 5:</p><img src="images/17thofnovember.jpg" width="600" height="400" alt="17thofnovember">
 
-<h3>strong>Note:</strong></h3>
+<h3><strong>Note:</strong></h3>
 <p>
   In Image 5, you may notice the arrow is placed inside the block’s container. Ideally, I wanted the arrow positioned outside the block, pointing to the next one. Unfortunately, due to React's component structure, this isn’t directly feasible in the current design. This part of the project may be redesigned later.
 </p>
