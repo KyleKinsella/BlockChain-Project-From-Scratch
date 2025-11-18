@@ -1,6 +1,6 @@
 # BlockChain-Project-From-Scratch
 
-# Table of Contents
+## Table of Contents
 - [What is this project](#What-is-this-project)
 - [Technology Stack that I'm using](#Technology-Stack-that-I'm-using)
 - [Current Features](#Current-Features)
