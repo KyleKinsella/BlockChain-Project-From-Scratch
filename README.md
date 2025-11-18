@@ -8,19 +8,20 @@
 - [Images of the project](#Images-of-the-project)
 
 ## What is this project? 
-// TODO
+### TODO
 
 ## Technology Stack
-// TODO
+### TODO
 
 ## Current Features
-// TODO
+### TODO
 
 ## Potential Features
-// TODO
+### TODO
 
 ## Images of the project
-<h3>This image is how my project looked when I came back to it</h3>
+<!-- <h3>This image is how my project looked when I came back to it</h3> -->
+<pre>Image 1:</pre>
 <img src="images/13thofnovember.jpg" width="600" height="400" alt="13thofnovember">
 
 
