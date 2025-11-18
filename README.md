@@ -16,7 +16,7 @@
   Yes. I began working on this project after completing my final college semester, using the time while waiting for results to explore blockchain development. Once my results were released, I paused the project. This was around June 2025.
 </p>
 
-## Why I Returned?
+## Why I Returned
 <p>
   I returned to this project primarily because I had free time after completing another project. I initially considered two new ideas:
 </p>
