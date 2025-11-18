@@ -33,7 +33,7 @@ came out, I just stopped working on the project. This was back roughly at some t
     . But then I thought I have my blockchain project on my portfolio that I started a few months back - I could go back to that project (that would be very fun!). So that night I thought if I wanted to revist my blockchain project and after a bit of thinking I said: "yes why not!". And now, I'm having lots of writing code, debugging issues and many more issues / problems that you always encounter when making a project (but, this is part of the learing phase!) 
 </p>
 
-## What is the importance of this project ?
+## What is the importance of this project?
 
 ## What is this project? 
 <p>This project is a small simulation of a blockchain system. The core idea of this project is to create a full-stack project that simiulates how a blockchain system operates.</p>
