@@ -1,5 +1,8 @@
 # Blockchain from Scratch Project
 
+## Project Summary
+Blockchain From Scratch is a personal project simulating a blockchain system end-to-end. It demonstrates full-stack development skills, including backend logic in Go, frontend display with React, and integration between the two. The project explores core blockchain concepts like Proof of Work, Proof of Stake, and block linking, with future plans for DAO functionality and block rewards. This project showcases problem-solving, iterative development, and practical implementation of blockchain principles.
+
 ## Table of Contents
 - [Did I Start This Project a While Ago](#Did-I-Start-This-Project-a-While-Ago)
 - [Why I Returned](#Why-I-Returned)
@@ -50,7 +53,19 @@
 </p>
 
 <p>
-  While I don’t yet have professional software development experience, I do have extensive exposure to many areas of Computer Science and Software Engineering, including: DevOps, Testing (Unit, Integration), UML, Concurrent Development, Data Structures & Algorithms, Operating Systems, Object-Oriented Programming (OOP), Software Engineering principles, Design Patterns, Data Science & machine learning and more.
+  While I don’t yet have professional software development experience, I do have extensive exposure to many areas of Computer Science, including: 
+  <ul>
+    <li>DevOps</li>
+    <li>Testing (Unit, Integration)</li>
+    <li>Unified Modeling Language (UML)</li>
+    <li>Concurrent Development</li>
+    <li>Data Structures & Algorithms</li>
+    <li>Operating Systems</li>
+    <li>Object-Oriented Programming (OOP)</li>
+    <li>Design Patterns</li>
+    <li>Data Science & machine learning</li>
+  </ul>
+   and more.
 </p>
 
 <p>
