@@ -125,8 +125,8 @@ this project that I have created. When the project is deployed I'm thinking of u
 <p>The next day, I worked on putting each blocks data into its own div. So, each block is it's own div. And in order to see the blocks data you need to click on the button: "Show Data", once this is 
 clicked it will show the data in each block, then the button state will change to: "Hide Data" once the button is clicked again, the data in each block will be hidden. I was not sure how to do this, so I asked 
 ChatGPT for some help with this and he did help me implement this feature.</p>
-<img src="images/14thofnovemberimg1.jpg" width="600" height="400" alt="14thofnovemberimg1">
-<img src="images/14thofnovemberimg2.jpg" width="600" height="400" alt="14thofnovemberimg2">
+<p>Image 2:</p><img src="images/14thofnovemberimg1.jpg" width="600" height="400" alt="14thofnovemberimg1">
+<p>Image 3:</p><img src="images/14thofnovemberimg2.jpg" width="600" height="400" alt="14thofnovemberimg2">
 
 <!-- <pre>Image 3:</pre> -->
 <!-- <p>todo</p> -->
