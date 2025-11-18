@@ -64,8 +64,8 @@ Blockchain From Scratch is a personal project simulating a blockchain system end
     <li>Object-Oriented Programming (OOP)</li>
     <li>Design Patterns</li>
     <li>Data Science & machine learning</li>
+    <li>and more</li>
   </ul>
-   and more.
 </p>
 
 <p>
