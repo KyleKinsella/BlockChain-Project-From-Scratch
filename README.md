@@ -1,6 +1,7 @@
 # BlockChain-Project-From-Scratch
 
 ## Table of Contents
+- [Did I start this project a while ago](#Did-I-start-this-project-a-while-ago)
 - [What is this project](#What-is-this-project)
 - [Technology Stack](#Technology-Stack)
 - [Current Features](#Current-Features)
@@ -8,8 +9,10 @@
 - [Images of the project](#Images-of-the-project)
 - [Video of the project so far](#Video-of-the-project-so-far)
 
+## Did I start this project a while ago?
+
 ## What is this project? 
-### TODO
+<p></p>
 
 ## Technology Stack
 ### TODO
