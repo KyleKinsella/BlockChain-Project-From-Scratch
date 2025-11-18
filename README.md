@@ -76,7 +76,7 @@
 
 <h3>Backend</h3>
 <ul>
-  <<li>Go (the entire backend is currently written in Go)</li>
+  <li>Go (the entire backend is currently written in Go)</li>
   <li>Python (possible future integration)</li>
 </ul>
 
