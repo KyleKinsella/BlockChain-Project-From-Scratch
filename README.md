@@ -58,7 +58,7 @@ This project is a small-scale simulation of a blockchain system. The goal is to 
 ## Technology Stack
 This project includes frontend, backend and (eventually) deployment components.
 
-<h3>Frontend</h3>
+Frontend
 - HTML
 - CSS
 - JavaScript
