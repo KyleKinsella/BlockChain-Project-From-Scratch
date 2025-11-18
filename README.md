@@ -10,7 +10,7 @@
 - [Potential Features](#Potential-Features)
 - [Project Images](#Project-Images)
 - [Project Video](#Project-Video)
-- [Feedback](#Feedback)
+- [Contact](#Contact)
 
 ## Did I Start This Project a While Ago?
 <p>
@@ -152,7 +152,7 @@
 ## Project Video 
 <a href="">A YouTube link will be added here soon, showcasing the current state of the project once the video is recorded.</a>
 
-## Feedback
+## Contact
 <p>
  If you have read this README or reviewed parts of the codebase (for example, Block/block.go, which currently contains the core logic), I would greatly appreciate any feedback. If you notice potential issues or areas for improvement, whether in the backend or frontend, your insights would be extremely valuable.
 
