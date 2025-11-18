@@ -11,6 +11,11 @@
 - [Images of the project](#Images-of-the-project)
 - [Video of the project so far](#Video-of-the-project-so-far)
 
+# P.S. 
+<p>The content below is not very professional just yet, it's quite forward but I'll update it in due course.</p>
+
+<br><br><br><br><br>
+
 ## Did I start this project a while ago?
 <p>Short answer is, <strong>yes</strong>. I was working on this project after I was done my final semester of college. I started to make this project while I waited to get my college results. But once the results 
 came out, I just stopped working on the project. This was back roughly at some time in June 2025.</p>
