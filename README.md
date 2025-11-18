@@ -167,6 +167,16 @@ Blockchain From Scratch is a personal project simulating a blockchain system end
 ## Project Video 
 <a href="">A YouTube link will be added here soon, showcasing the current state of the project once the video is recorded.</a>
 
+## Roadmap
+
+| Feature          | Status   | Notes |
+|-----------------|---------|-------|
+| Block Rewards     | Planned | Will simulate miner incentives |
+| Transaction Fees  | Planned | Integrate fees per transaction |
+| DAO               | Planned | Inspired by nouns.wtf |
+| Improved PoS      | Planned | Enhance Proof of Stake algorithm |
+| Deployment        | Planned | Docker, AWS, Vercel |
+
 ## Contact
 <p>
  If you have read this README or reviewed parts of the codebase (for example, Block/block.go, which currently contains the core logic), I would greatly appreciate any feedback. If you notice potential issues or areas for improvement, whether in the backend or frontend, your insights would be extremely valuable.
