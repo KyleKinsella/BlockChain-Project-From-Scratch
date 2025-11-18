@@ -112,7 +112,7 @@ The next day, I updated the UI so that each block appears in its own container. 
 
 On November 16th, I redesigned each block’s container to display the block number and included a dividing line for clarity. I also added arrows to show how each block links to the next, except the last block, which naturally cannot point to a successor until a new block is mined.
 
-<h3>Image 4:</h3>h3><img src="images/16thofnovember.jpg" width="600" height="400" alt="16thofnovember">
+<h3>Image 4:</h3><img src="images/16thofnovember.jpg" width="600" height="400" alt="16thofnovember">
 <h3>Image 5:</h3><img src="images/17thofnovember.jpg" width="600" height="400" alt="17thofnovember">
 
 <strong>Note:</strong>
