@@ -99,9 +99,7 @@ Additional features to be determined as the project evolves.
 ## Project Images
 This image shows how the project appeared on the day I returned to development. At this point, the frontend simply displayed each block’s data.
 
-### Image 1
-![13thofnovember](images/13thofnovember.jpg)
-
+<h3>Image 1</h3><img src="images/13thofnovember.jpg" width="600" height="400" alt="14thofnovemberimg1">
 <br>
 
 The next day, I updated the UI so that each block appears in its own container. Users can toggle block data visibility using a “Show Data” / “Hide Data” button. I sought help from ChatGPT for part of this implementation.
