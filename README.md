@@ -63,7 +63,7 @@ show future / potential employers that I'm capable of developing a full-stack pr
 
 <h3>Backend</h3>
 <ul>
-  <li>Go</li>
+  <li>Go (currently my entire backend is in <strong><u>Go</u></strong>)</li>
   <li>Python (mabye in the later stages of the project)</li>
 </ul>
 
