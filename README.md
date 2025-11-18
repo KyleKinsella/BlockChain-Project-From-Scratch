@@ -135,7 +135,7 @@ On November 16th, I redesigned each block’s container to display the block num
 In Image 5, you may notice the arrow is placed inside the block’s container. Ideally, I wanted the arrow positioned outside the block, pointing to the next one. Unfortunately, due to React's component structure, this isn’t directly feasible in the current design. This part of the project may be redesigned later.
 
 ## Project Video 
-<a href="">A YouTube link will be added here soon, showcasing the current state of the project once the video is recorded.</a>
+<a href="">Have a look at my project...</a>
 
 ## Roadmap
 
