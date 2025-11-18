@@ -3,7 +3,7 @@
 ## Table of Contents
 - [Did I start this project a while ago](#Did-I-start-this-project-a-while-ago)
 - [Why Have I Returned](#Why-Have-I-Returned)
-- [What is the importance of this project](#What-is-the-importance-of-this-project])
+- [What is the importance of this project](#What-is-the-importance-of-this-project)
 - [What is this project](#What-is-this-project)
 - [Technology Stack](#Technology-Stack)
 - [Current Features](#Current-Features)
