@@ -99,13 +99,21 @@ this project that I have created. When the project is deployed I'm thinking of u
 <p>Below are the features that I have so far for my project:</p>
 <ul>
   <li>creating blocks</li>
-  <li>proof of work (pow) algorithm</li>
-  <li>proof of stake algorithm</li>
+  <li>proof of work (pow) algorithm (this is what each block needs to make a block on my blockchain at the moment)</li>
+  <li>proof of stake algorithm (I did this a while ago, I need to make my pos algorithm much better)</li>
   <li>have the backend connect to the frontend</li>
 </ul>
 
 ## Potential Features
 ### TODO
+<p>below are the upcoming / potential features, see below:</p>
+<ul>
+  <li>block rewards</li>
+  <li>transaction fee's</li>
+  <li>Decentralized Autonomous Organization (DAO) - I'm going to make my own DAO, but my DAO will take a good bit of inspiration from 
+    <a href="https://nouns.wtf/">nouns.wtf</a>.</li>
+  <li>I'm not sure what other features that I might develop, but I'll hopefully come up with some ideas...</li>
+</ul>
 
 ## Images of the project
 <!-- <h3>This image is how my project looked when I came back to it</h3> -->
