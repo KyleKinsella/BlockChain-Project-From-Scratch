@@ -97,9 +97,8 @@ Upcoming and potential enhancements include:
 Additional features to be determined as the project evolves.
 
 ## Project Images
-Image 1
 This image shows how the project appeared on the day I returned to development. At this point, the frontend simply displayed each block’s data.
-<img src="images/13thofnovember.jpg" width="600" height="400" alt="13thofnovember">
+<h3>Image 1:</h3>h3><img src="images/13thofnovember.jpg" width="600" height="400" alt="13thofnovember">
 
 <br>
 
