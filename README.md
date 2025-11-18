@@ -92,10 +92,10 @@ this project that I have created. When the project is deployed I'm thinking of u
   <li>and I'll do further research of other deployment technologys that I can use</li>
 </ul>
 
-<br>
+<!-- <br> -->
 
 ## Current Features
-### TODO
+<p### TODO</p>
 <p>Below are the features that I have so far for my project:</p>
 <ul>
   <li>creating blocks</li>
@@ -105,7 +105,7 @@ this project that I have created. When the project is deployed I'm thinking of u
 </ul>
 
 ## Potential Features
-### TODO
+<p>### TODO</p>
 <p>below are the upcoming / potential features, see below:</p>
 <ul>
   <li>block rewards</li>
