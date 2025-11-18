@@ -5,7 +5,7 @@
 - [Technology Stack that I'm using](#Technology-Stack-that-I'm-using)
 - [Current Features](#Current-Features)
 - [Upcoming / Potential Features](#Features)
-- [Images of the project](#Images-of-the-project)
+- [Images of the project (at the moment)](#Images-of-the-project)
 
 ## What is this project? 
 // TODO
