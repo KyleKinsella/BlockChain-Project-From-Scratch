@@ -76,7 +76,7 @@ show future / potential employers that I'm capable of developing a full-stack pr
   <li>Git</li>
 </ul>
 
-<br>
+<!-- <br> -->
 <p>to do this for my project. Git is a very good resouce to keep track of your current and old code.</p>
 
 <!-- <br> -->
