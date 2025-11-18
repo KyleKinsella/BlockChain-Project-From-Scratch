@@ -135,7 +135,9 @@ On November 16th, I redesigned each block’s container to display the block num
 In Image 5, you may notice the arrow is placed inside the block’s container. Ideally, I wanted the arrow positioned outside the block, pointing to the next one. Unfortunately, due to React's component structure, this isn’t directly feasible in the current design. This part of the project may be redesigned later.
 
 ## Project Video 
-<a href="">Have a look at my project...</a>
+Watch a live demo of the Blockchain From Scratch project in action: [Click here to view on YouTube](https://www.youtube.com/watch?v=jVPlQYKiZJE)
+
+<!-- <a href="https://www.youtube.com/watch?v=jVPlQYKiZJE">Have a look at my project...</a> -->
 
 ## Roadmap
 
