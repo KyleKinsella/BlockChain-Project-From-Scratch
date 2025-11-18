@@ -173,7 +173,7 @@ Blockchain From Scratch is a personal project simulating a blockchain system end
 |-----------------|---------|-------|
 | Block Rewards     | Planned | Will simulate miner incentives |
 | Transaction Fees  | Planned | Integrate fees per transaction |
-| DAO               | Planned | Inspired by nouns.wtf |
+| DAO               | Planned | Inspired by <a href="https://nouns.wtf/">nouns.wtf</a> |
 | Improved PoS      | Planned | Enhance Proof of Stake algorithm |
 | Deployment        | Planned | Docker, AWS, Vercel |
 
