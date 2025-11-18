@@ -136,7 +136,7 @@
 
 <h3>Image 4 & Image 5</h3>
 <p>
-  On November 16th, I redesigned each block’s container to display the block number and included a dividing line for clarity. I also added arrows to show how each block links to the next—except the last block, which naturally cannot point to a successor until a new block is mined.
+  On November 16th, I redesigned each block’s container to display the block number and included a dividing line for clarity. I also added arrows to show how each block links to the next, except the last block, which naturally cannot point to a successor until a new block is mined.
 
 <p>Image 4:</p><img src="images/16thofnovember.jpg" width="600" height="400" alt="16thofnovember">
 <p>Image 5:</p><img src="images/17thofnovember.jpg" width="600" height="400" alt="17thofnovember">
