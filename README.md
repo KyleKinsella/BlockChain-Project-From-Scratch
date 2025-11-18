@@ -150,5 +150,5 @@ ChatGPT for some help with this and he did help me implement this feature.</p>
 <!-- <p>todo</p> -->
 
 ## Video of the project so far
-### TODO
+<!-- <p>### TODO</p> -->
 <a href="" placeholder="">this will be a link to youtube - this will be a video of my project so far...</a>
