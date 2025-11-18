@@ -20,7 +20,16 @@ came out, I just stopped working on the project. This was back roughly at some t
     <li>A Game</li>
     <li>Job Application Tracker</li>
   </ol>
-  .
+  . I thought of making a video game, but after some thought and analysis, I decided to not proceed with this project (I will mabye come back to it in the future...). The after about omne or two days I thought of another project, Job Application Tracker. A project to keep track of job applications that you have submitted. With this project I did do some work on it for about a week, but then I realized that I am creating a pointless project. Why is it pointless, I was not using it for tracking my application (I was using excel...), so after some further analysis I decided to abort this project. 
+</p>
+
+<p>Then I started to think of some new project ideas: 
+    <ol>
+      <li>Spotify Clone</li>
+      or
+      <li>Linkedin Clone</li>
+    </ol>
+    . But then I thought I have my blockchain project on my portfolio that I started a few months back - I could go back to that project (that would be very fun!). So that night I thought if I wanted to revist my blockchain project and after a bit of thinking I said: "yes why not!". And now, I'm having lots of writing code, debugging issues and many more issues / problems that you always encounter when making a project (but, this is part of the learing phase!) 
 </p>
 
 ## What is this project? 
