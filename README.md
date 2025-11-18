@@ -39,18 +39,16 @@ Then I remembered this blockchain project, the one already in my portfolio. I re
 The main objective of this project is to create a fully functional system while expanding my knowledge of blockchain concepts. It also serves as an opportunity to demonstrate to future employers that I can independently develop a full-stack application from the ground up.
 
 While I don’t yet have professional software development experience, I do have extensive exposure to many areas of Computer Science, including: 
-    - DevOps
-    - Testing (Unit, Integration)
-    - Unified Modeling Language (UML)
-    - Concurrent Development
-    - Data Structures & Algorithms
-    - Operating Systems
-    - Object-Oriented Programming (OOP)
-    - Design Patterns
-    - Data Science & machine learning
-    - and more
-  </ul>
-</p>
+- DevOps
+- Testing (Unit, Integration)
+- Unified Modeling Language (UML)
+- Concurrent Development
+- Data Structures & Algorithms
+- Operating Systems
+- Object-Oriented Programming (OOP)
+- Design Patterns
+- Data Science & machine learning
+- and more
 
 <p>
   Additionally, I have over three years of experience in retail at Movies@ Gorey, where I developed key soft skills such as teamwork, communication, problem-solving, handling difficult customer interactions, patience, active listening and maintaining professionalism in a work environment.
