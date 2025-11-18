@@ -6,6 +6,7 @@
 - [Current Features](#Current-Features)
 - [Potential Features](#Potential-Features)
 - [Images of the project](#Images-of-the-project)
+- [Video of the project so far](#Video-of-the-project-so-far)
 
 ## What is this project? 
 ### TODO
@@ -40,3 +41,7 @@
 <pre>Image 5:</pre>
 <p>todo</p>
 <img src="images/17thofnovember.jpg" width="600" height="400" alt="17thofnovember">
+
+## Video of the project so far
+### TODO
+<a href="" placeholder="this will be a link to youtube - this will be a video of my project so far...">
