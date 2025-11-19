@@ -10,7 +10,7 @@
 ![Status](https://img.shields.io/badge/Status-In%20Progress-yellow)
 
 ## Project Summary
-Blockchain From Scratch is a personal project simulating a blockchain system end-to-end. It demonstrates full-stack development skills, including backend logic in Go, frontend display with React, and integration between the two. The project explores core blockchain concepts like Proof of Work, Proof of Stake, and block linking, with future plans for DAO functionality and block rewards. This project showcases problem-solving, iterative development, and practical implementation of blockchain principles.
+Blockchain From Scratch is a personal project simulating a blockchain system end-to-end. It demonstrates full-stack development skills, including backend logic in Go, frontend display with React and integration between the two. The project explores core blockchain concepts like Proof of Work, Proof of Stake and block linking, with future plans for DAO functionality and block rewards. This project showcases problem-solving, iterative development and practical implementation of blockchain principles.
 
 ## Table of Contents
 - [Did I Start This Project a While Ago](#Did-I-Start-This-Project-a-While-Ago)
