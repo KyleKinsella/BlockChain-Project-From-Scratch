@@ -1,4 +1,4 @@
-package main
+package Blocks
 
 import (
 	"BlockChainProjectFromScratch/KeyPairs"
@@ -31,7 +31,7 @@ type Transaction struct {
 
 var blockchain []Block
 
-func createBlockZero(w http.ResponseWriter, r *http.Request) {
+func CreateBlockZero(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
 
@@ -51,7 +51,7 @@ func createBlockZero(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(blockchain)
 }
 
-func createBlocksForFrontend(w http.ResponseWriter, r*http.Request) {
+func CreateBlocksForFrontend(w http.ResponseWriter, r*http.Request) {
 	var n int
 	fmt.Println("How many blocks do you want to make?")
 	fmt.Scan(&n)
@@ -251,12 +251,4 @@ func processTransaction(transaction *Transaction, read []string, block *Block) (
 		tx := createTransaction(*transaction, transaction.Sender, transaction.Receiver, random)
 		return tx, nil
 	}
-}
-
-func main() {
-	http.HandleFunc("/genesis", createBlockZero)
-	http.HandleFunc("/mine", createBlocksForFrontend)
-
-	fmt.Println("My API is running on: http://localhost:8080")
-	http.ListenAndServe(":8080", nil)
 }
