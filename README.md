@@ -67,23 +67,23 @@ This project is a small-scale simulation of a blockchain system. The goal is to 
 ## Technology Stack
 This project includes frontend, backend and (eventually) deployment components.
 
-Frontend
+### Frontend
 - HTML
 - CSS
 - JavaScript
 - React
 
-Backend
+### Backend
 - Go (the entire backend is currently written in Go)
 - Python (possible future integration)
 
-Version Control
+### Version Control
 Version control is essential and I am using:
 - Git
 
 Git allows me to maintain a detailed and reliable history of the project.
 
-Deployment
+### Deployment
 Deployment has not yet been implemented. Once the project reaches a more complete state, I plan to deploy it publicly. Potential deployment tools include:
 - Docker
 - AWS (potentially)
