@@ -51,9 +51,15 @@ func CreateBlockZero(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(blockchain)
 }
 
-func CreateBlocksForFrontend(w http.ResponseWriter, r*http.Request) {
+func CreateBlocksForFrontend(w http.ResponseWriter, r *http.Request) {
 	var n int
 	fmt.Println("How many blocks do you want to make?")
+
+	if n == 0 {
+		fmt.Println("you cannot make zero blocks!")
+		return
+	}
+
 	fmt.Scan(&n)
 	fmt.Println("You are creating:", n, "blocks")
 	

@@ -17,8 +17,12 @@ func TestValidGenesisBlock(t *testing.T) {
 	got := block.getBlockData(1, timestamp(), nil, Transaction{}, true, hashBlock(&block))
 
 	if got != block {
-		t.Errorf("got %v  want%v:", got, block)
+		t.Errorf("got=%v want=%v:", got, block)
 	}
+}
+
+func TestInvalidGenesisBlock(t *testing.T) {
+	// TODO
 }
 
 // This test should always pass //
@@ -27,7 +31,7 @@ func TestEmptyTransaction(t *testing.T) {
 	trans := Transaction{}
 
 	if emptyTransaction != trans {
-		t.Errorf("got %v    want%v", trans, emptyTransaction)
+		t.Errorf("got=%v want=%v", trans, emptyTransaction)
 	}
 }
 
@@ -41,11 +45,48 @@ func TestInvalidTransaction(t *testing.T) {
 	invalidTransaction := Transaction{Sender: "door", Receiver: "car", Amount: 0.00000001}
 
 	if validTransaction != invalidTransaction {
-		t.Errorf("got %v   want%v", invalidTransaction, validTransaction)
+		t.Errorf("got=%v want=%v", invalidTransaction, validTransaction)
 	}
 }
 
-// This is a helper function 
+func TestLengthOfBlockchain(t *testing.T) {
+	startLength := len(blockchain)
+
+	block := Block{}
+
+	for range 10 {
+		startLength++
+		blockchain = append(blockchain, block)
+	}
+
+	if startLength != len(blockchain) {
+		t.Errorf("start length is not the length of the blockchain. got=%v want=%v", blockchain, startLength)
+	}
+}
+
+func TestMiningNBlocks(t *testing.T) {
+	startLength := len(blockchain)
+
+	for i := 0; i<6; i++ {
+		block := Block{}
+
+		block.Index = i
+		block.Timestamp = timestamp()
+		block.PrevHash = getLastBlockHash(blockchain)
+		block.Transactions = Transaction{}
+		block.ProofOfWork = false
+		block.BlockHash = hashBlock(&block)
+
+		startLength++
+		blockchain = append(blockchain, block)
+	}
+
+	if startLength != len(blockchain) {
+		t.Errorf("the start length != to the blockchain's Length. got=%v want=%v", blockchain, 6)
+	}
+}
+
+// This is a helper function that gives us data about a block // 
 func (block Block) getBlockData(index int, timestamp string, prevHash interface{}, trans Transaction, pow bool, blockHash string) Block {
 	return Block {
 		Index: index,
