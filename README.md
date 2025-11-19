@@ -56,8 +56,8 @@ While I don’t yet have professional software development experience, I do have
 - Operating Systems
 - Object-Oriented Programming (OOP)
 - Design Patterns
-- Data Science & machine learning
-- and more
+- Data Science & Machine Learning
+- And more
 
 Additionally, I have over three years of experience in retail at Movies@ Gorey, where I developed key soft skills such as teamwork, communication, problem-solving, handling difficult customer interactions, patience, active listening and maintaining professionalism in a work environment.
 
