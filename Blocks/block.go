@@ -54,13 +54,13 @@ func CreateBlockZero(w http.ResponseWriter, r *http.Request) {
 func CreateBlocksForFrontend(w http.ResponseWriter, r *http.Request) {
 	var n int
 	fmt.Println("How many blocks do you want to make?")
+	fmt.Scan(&n)
 
 	if n == 0 {
 		fmt.Println("you cannot make zero blocks!")
 		return
 	}
 
-	fmt.Scan(&n)
 	fmt.Println("You are creating:", n, "blocks")
 	
 	w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -237,6 +237,11 @@ func processTransaction(transaction *Transaction, read []string, block *Block) (
 	}
 
 	random := crand.Float32()
+
+	if len(read) == 0 {
+		fmt.Println("file must contain data, in order to have the correct sender and receiver")
+		return Transaction{}, nil
+	}
 
 	if len(read) == 2 {
 		transaction.Sender = read[0]
