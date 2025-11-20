@@ -121,27 +121,6 @@ func timestamp() string {
 	return timeAndDate
 }
 
-func addBlockToChain(chain []Block) []Block {
-	lastBlock := chain[len(chain)-1]
-	if lastBlock.Index == 0 {
-		fmt.Println("you cannot make a zero block!")
-		return nil
-	}
-
-	newBlock := Block{}
-
-	newBlock.Index = lastBlock.Index + 1
-	time.Sleep(time.Second) // I use time.Sleep to simulate a block being made
-	newBlock.Timestamp = timestamp()
-	newBlock.PrevHash = lastBlock.PrevHash
-	newBlock.Transactions = lastBlock.Transactions
-	newBlock.ProofOfWork = pow.ProofOfWork("0000abc", "0000")
-	newBlock.BlockHash = hashBlock(&newBlock)
-	
-	chain = append(chain, newBlock)
-	return chain
-}
-
 func getLastBlockHash(chain []Block) string {
 	if len(chain) == 0 {
 		fmt.Println("you are on the genesis block!")
@@ -158,69 +137,6 @@ func getRandomString(arr []string) string {
 	rand.Seed(time.Now().UnixNano()) // Seed the RNG
 	randomIndex := rand.Intn(len(arr))
 	return arr[randomIndex]
-}
-
-func createGenesisBlock() []Block {
-	var chain []Block
-	genesis := Block{}
-
-	genesis.Index = 0
-	time.Sleep(time.Second) // I use time.Sleep to simulate a block being made
-	genesis.Timestamp = timestamp()
-	genesis.PrevHash = "00000000000000000000000000000"
-	transaction := Transaction{}
-	genesis.Transactions = transaction
-	genesis.ProofOfWork = false
-	genesis.BlockHash = hashBlock(&genesis)
-
-	chain = append(chain, genesis)
-	return chain
-}
-
-func createBlock(n int) []Block {
-	if n == 0 {
-		fmt.Println("you cannot make a zero block!")
-		return nil
-	}
-
-	blockData := []Block{}
-
-	for i:=0; i<n; i++ {
-		block := Block{}
-
-		if i == 0 {
-			block.PrevHash = "Genesis Block"
-			fmt.Println("block.prevHash:", block.PrevHash)
-		} 
-		fmt.Println("Building Block", i, "on iteration", i, "/", n)
-		
-		block.Index = i + 1
-		time.Sleep(time.Second) // I use time.Sleep to simulate a block being made
-		block.Timestamp = timestamp()
-
-		block.PrevHash = getLastBlockHash(blockData)
-
-		readAddresses := "Addresses.txt"
-		transaction := Transaction{}
-		read := ReadFile.ReadAddresses(readAddresses)
-
-		process, err := processTransaction(&transaction, read, &block)
-		if err != nil {
-			fmt.Println("something went wrong...")
-			panic(err)
-		}
-		block.Transactions = process
-
-		wordToFind := "keywords.txt"
-		randomToFindValue := ReadFile.ReadKeywords(wordToFind)
-		toFind := getRandomString(randomToFindValue)
-		block.ProofOfWork = pow.ProofOfWork("0000abc", toFind)
-
-		block.BlockHash = hashBlock(&block)
-
-		blockData = append(blockData, block)
-	}
-	return blockData 
 }
 
 func createTransaction(transaction Transaction, sender string, receiver string, amount float32) Transaction {

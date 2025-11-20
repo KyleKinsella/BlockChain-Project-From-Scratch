@@ -21,8 +21,41 @@ func TestValidGenesisBlock(t *testing.T) {
 	}
 }
 
+// This test also took a good bit of time to write! //
 func TestInvalidGenesisBlock(t *testing.T) {
-	// TODO
+	block := Block{}
+
+	var blockData []interface{}
+
+	index := block.Index
+	timestamp := timestamp()
+	prevHash := block.PrevHash
+	transaction := block.Transactions
+	proofOfWork := block.ProofOfWork
+	blockHash := block.BlockHash
+
+	blockData = append(blockData, index, timestamp, prevHash, transaction, proofOfWork, blockHash)
+
+	emptyValues := []string{}
+
+	indexEmpty := ""
+	timestampEmpty := ""
+	prevHashEmpty := ""
+	transactionEmpty := ""
+	proofOfWorkEmpty := ""
+	blockHashEmpty := ""
+
+	emptyValues = append(emptyValues, indexEmpty, timestampEmpty, prevHashEmpty, transactionEmpty, proofOfWorkEmpty, blockHashEmpty)
+
+	randomVal := getRandomString(emptyValues)
+
+	for i := range blockData {
+		blockData[i] = randomVal
+
+		if blockData[i] != emptyValues[i] {
+			t.Errorf("block data at index=[got=%d] != to empty values at index=[want=%s].", blockData[i], emptyValues[i])
+		}
+	}
 }
 
 // This test should always pass //
@@ -86,6 +119,39 @@ func TestMiningNBlocks(t *testing.T) {
 	}
 }
 
+// This unit test took quite a bit of work to get working - but I'm really happy that it works! //
+func TestValidHashBlock(t *testing.T) {
+	block := Block{}
+
+	blockData := block.getBlockData(1, "", nil, Transaction{Sender: "", Receiver: "", Amount: 0}, false, "")
+
+	hashedBlock := hashBlock(&blockData)
+
+	blockHashedConverted, err := convertStringToBool(blockData.BlockHash, hashedBlock)
+	if err != nil {
+		panic(err)
+	}
+
+	if blockHashedConverted {
+		t.Errorf("the block data is not hashed - big problem. got=%v, want=%v", !blockHashedConverted, blockHashedConverted)
+	}
+}
+
+func TestInvalidHashBlock(t *testing.T) {
+	block := Block{}
+
+	blockData := block.getBlockData(1, "", nil, Transaction{Sender: "", Receiver: "", Amount: 0}, false, "")
+
+	blockHashedConverted, err := convertStringToBool(blockData.BlockHash, blockData.BlockHash)
+	if err != nil {
+		panic(err)
+	}
+
+	if !blockHashedConverted {
+		t.Errorf("the block data is in plain text... really really bad! got=%v, want=%v", blockHashedConverted, !blockHashedConverted)
+	}
+}
+
 // This is a helper function that gives us data about a block // 
 func (block Block) getBlockData(index int, timestamp string, prevHash interface{}, trans Transaction, pow bool, blockHash string) Block {
 	return Block {
@@ -97,3 +163,10 @@ func (block Block) getBlockData(index int, timestamp string, prevHash interface{
 		BlockHash: blockHash,
 	}
 }
+
+func convertStringToBool(valueToConvert string, hashedBlock string) (bool, error) {
+	if valueToConvert == hashedBlock {
+		return true, nil
+	}
+	return false, nil
+} 
