@@ -29,26 +29,26 @@ type Transaction struct {
 	Amount float32
 }
 
-var blockchain []Block
+var Blockchain []Block
 
 func CreateBlockZero(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
 
-	if len(blockchain) == 0 {
+	if len(Blockchain) == 0 {
 		genesis := Block{}
 	
 		genesis.Index = 1
 		time.Sleep(time.Second)
-		genesis.Timestamp = timestamp()
+		genesis.Timestamp = Timestamp()
 		genesis.PrevHash = nil
 		genesis.Transactions = Transaction{}
 		genesis.ProofOfWork = true
 		genesis.BlockHash = hashBlock(&genesis)
 		
-		blockchain = append(blockchain, genesis)
+		Blockchain = append(Blockchain, genesis)
 	}
-	json.NewEncoder(w).Encode(blockchain)
+	json.NewEncoder(w).Encode(Blockchain)
 }
 
 func CreateBlocksForFrontend(w http.ResponseWriter, r *http.Request) {
@@ -73,11 +73,11 @@ func CreateBlocksForFrontend(w http.ResponseWriter, r *http.Request) {
 			fmt.Println("block.prevHash:", block.PrevHash)
 		} 
 
-		block.Index = len(blockchain) + 1
+		block.Index = len(Blockchain) + 1
 		time.Sleep(time.Second) // I use time.Sleep to simulate a block being made
-		block.Timestamp = timestamp()
+		block.Timestamp = Timestamp()
 
-		block.PrevHash = getLastBlockHash(blockchain)
+		block.PrevHash = GetLastBlockHash(Blockchain)
 
 		read := ReadFile.ReadAddresses("Addresses.txt")
 
@@ -103,9 +103,9 @@ func CreateBlocksForFrontend(w http.ResponseWriter, r *http.Request) {
 
 		block.BlockHash = hashBlock(&block)
 
-		blockchain = append(blockchain, block)
+		Blockchain = append(Blockchain, block)
 	}
-	json.NewEncoder(w).Encode(blockchain)
+	json.NewEncoder(w).Encode(Blockchain)
 }
 
 func hashBlock(block *Block) string {
@@ -114,16 +114,15 @@ func hashBlock(block *Block) string {
 	return hex.EncodeToString(hash[:])
 }
 
-func timestamp() string {
+func Timestamp() string {
 	location, _ := time.LoadLocation("Europe/Dublin")
 	currentTime := time.Now().In(location)
 	timeAndDate := currentTime.Format("2006-01-02 15:04:05")   
 	return timeAndDate
 }
 
-func getLastBlockHash(chain []Block) string {
+func GetLastBlockHash(chain []Block) string {
 	if len(chain) == 0 {
-		fmt.Println("you are on the genesis block!")
 		return ""
 	}	
 	blockHash := chain[len(chain)-1]
