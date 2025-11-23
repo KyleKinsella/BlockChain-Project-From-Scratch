@@ -36,6 +36,7 @@ function Block() {
                 <p>Amount: {block.Transactions?.Amount}</p>
                 <p>ProofOfWork: {JSON.stringify(block.ProofOfWork)}</p>
                 <p>BlockHash: {block.BlockHash}</p>
+                <p>BlockReward: {block.BlockReward?.BlockRewardTotal}</p>
                 {/* Ideally I would have the arrow outside of the div, but due to the design of react I cannot have this arrow outside of the div - if I did react would break and complain
                 (this might change later on in the project...) */}
                 {i < blocks.length - 1 && <div className="chain-arrow"></div>}

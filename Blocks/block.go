@@ -4,6 +4,7 @@ import (
 	"BlockChainProjectFromScratch/KeyPairs"
 	"BlockChainProjectFromScratch/ReadFile"
 	"BlockChainProjectFromScratch/pow"
+	"BlockChainProjectFromScratch/MyCurrency"
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
@@ -14,6 +15,12 @@ import (
 	"time"
 )
 
+type BlockReward struct {
+	Subsidy float32 
+	TransactionFees float32
+	BlockRewardTotal float32
+}
+
 type Block struct {
 	Index int
 	Timestamp string 
@@ -21,6 +28,7 @@ type Block struct {
 	Transactions Transaction
 	ProofOfWork bool 
 	BlockHash string 
+	BlockReward BlockReward
 }
 
 type Transaction struct {
@@ -28,6 +36,8 @@ type Transaction struct {
 	Receiver string
 	Amount float32
 }
+
+const TransactionFee = 0.0001
 
 var Blockchain []Block
 
@@ -45,6 +55,13 @@ func CreateBlockZero(w http.ResponseWriter, r *http.Request) {
 		genesis.Transactions = Transaction{}
 		genesis.ProofOfWork = true
 		genesis.BlockHash = hashBlock(&genesis)
+
+		total, err := genesis.computeBlockRewardForABlock(&genesis)
+		if err != nil {
+			fmt.Printf("Error: %v", err)
+			panic(err)
+		}
+		genesis.BlockReward.BlockRewardTotal = total
 		
 		Blockchain = append(Blockchain, genesis)
 	}
@@ -95,6 +112,13 @@ func CreateBlocksForFrontend(w http.ResponseWriter, r *http.Request) {
 		if block.ProofOfWork {
 			// We have computed a valid proof of work field // 
 			fmt.Println("Building Block", i, "on iteration", i, "/", n)
+
+			total, err := block.computeBlockRewardForABlock(&block)
+			if err != nil {
+				fmt.Printf("Error: %v", err)
+				panic(err)
+			}
+			block.BlockReward.BlockRewardTotal = total
 		} else {
 			// don't make the block and don't send the block to the frontend //
 			fmt.Println("Block", i, "discontinued on iteration", i, "/", n)
@@ -109,7 +133,7 @@ func CreateBlocksForFrontend(w http.ResponseWriter, r *http.Request) {
 }
 
 func hashBlock(block *Block) string {
-	data := fmt.Sprintf("%d%s%v%s%v", block.Index, block.Timestamp, block.Transactions, block.PrevHash, block.ProofOfWork)
+	data := fmt.Sprintf("%d%s%v%s%v%v%v%v", block.Index, block.Timestamp, block.Transactions, block.PrevHash, block.ProofOfWork, block.BlockReward.Subsidy, block.BlockReward.TransactionFees, block.BlockReward.BlockRewardTotal)
 	hash := sha256.Sum256([]byte(data))
 	return hex.EncodeToString(hash[:])
 }
@@ -177,4 +201,22 @@ func processTransaction(transaction *Transaction, read []string, block *Block) (
 		tx := createTransaction(*transaction, transaction.Sender, transaction.Receiver, random)
 		return tx, nil
 	}
+}
+
+func (b *Block) computeBlockRewardForABlock(block *Block) (float32, error) {
+	var subsidy float32
+	subsidyValues := []float32{}
+
+	for range 5 {
+		block.BlockReward.Subsidy = MyCurrency.MyCurrency()
+		subsidyValues = append(subsidyValues, block.BlockReward.Subsidy)
+
+		for i, n := range subsidyValues {
+			subsidy = n + subsidyValues[i] * 5
+		}
+		block.BlockReward.Subsidy = subsidy
+		block.BlockReward.TransactionFees = TransactionFee
+		block.BlockReward.BlockRewardTotal = block.BlockReward.Subsidy + block.BlockReward.TransactionFees
+	}
+	return b.BlockReward.BlockRewardTotal, nil
 }
