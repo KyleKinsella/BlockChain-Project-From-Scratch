@@ -82,7 +82,7 @@ func CreateBlocksForFrontend(w http.ResponseWriter, r *http.Request) {
 		read := ReadFile.ReadAddresses("Addresses.txt")
 
 		randomToFindValue := ReadFile.ReadKeywords("keywords.txt")
-		toFind := getRandomString(randomToFindValue)
+		toFind := GetRandomString(randomToFindValue)
 		block.ProofOfWork = pow.ProofOfWork("0000abc", toFind)
 
 		process, err := processTransaction(&Transaction{}, read, &block)
@@ -129,7 +129,7 @@ func GetLastBlockHash(chain []Block) string {
 	return blockHash.BlockHash
 }
 
-func getRandomString(arr []string) string {
+func GetRandomString(arr []string) string {
 	if len(arr) == 0 {
 		return ""
 	}

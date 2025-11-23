@@ -47,7 +47,7 @@ func TestInvalidGenesisBlock(t *testing.T) {
 
 	emptyValues = append(emptyValues, indexEmpty, timestampEmpty, prevHashEmpty, transactionEmpty, proofOfWorkEmpty, blockHashEmpty)
 
-	randomVal := getRandomString(emptyValues)
+	randomVal := GetRandomString(emptyValues)
 
 	for i := range blockData {
 		blockData[i] = randomVal
