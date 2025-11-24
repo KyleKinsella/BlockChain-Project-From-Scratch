@@ -22,7 +22,7 @@ function Block() {
       {blocks.map((block, i) => (        
         <div key={i} className="block">
 
-          <h4>Block {i+1}</h4>
+          <h4>Block {i+1} | Block Reward: {block.BlockReward?.BlockRewardTotal}</h4>
           <hr />
             {/* Only visible when button clicked */}
             {showData && (
@@ -36,7 +36,6 @@ function Block() {
                 <p>Amount: {block.Transactions?.Amount}</p>
                 <p>ProofOfWork: {JSON.stringify(block.ProofOfWork)}</p>
                 <p>BlockHash: {block.BlockHash}</p>
-                <p>BlockReward: {block.BlockReward?.BlockRewardTotal}</p>
                 {/* Ideally I would have the arrow outside of the div, but due to the design of react I cannot have this arrow outside of the div - if I did react would break and complain
                 (this might change later on in the project...) */}
                 {i < blocks.length - 1 && <div className="chain-arrow"></div>}

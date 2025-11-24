@@ -10,7 +10,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"math/rand"
-	crand "math/rand/v2"
 	"net/http"
 	"time"
 )
@@ -37,7 +36,8 @@ type Transaction struct {
 	Amount float32
 }
 
-const TransactionFee = 0.0001
+var TransactionFee float32 = 0.0001
+const THRESHOLD = 10
 
 var Blockchain []Block
 
@@ -56,10 +56,14 @@ func CreateBlockZero(w http.ResponseWriter, r *http.Request) {
 		genesis.ProofOfWork = true
 		genesis.BlockHash = hashBlock(&genesis)
 
-		total, err := genesis.computeBlockRewardForABlock(&genesis)
+		total, err := genesis.computeBlockReward(genesis.Index)
 		if err != nil {
 			fmt.Printf("Error: %v", err)
 			panic(err)
+		}
+
+		if total == 0 {
+			genesis.BlockReward.TransactionFees = TransactionFee
 		}
 		genesis.BlockReward.BlockRewardTotal = total
 		
@@ -82,13 +86,8 @@ func CreateBlocksForFrontend(w http.ResponseWriter, r *http.Request) {
 	
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
-	for i:=0; i<n; i++ {
+	for i := 1; i <= n; i++ {
 		block := Block{}
-
-		if i == 0 {
-			block.PrevHash = nil
-			fmt.Println("block.prevHash:", block.PrevHash)
-		} 
 
 		block.Index = len(Blockchain) + 1
 		time.Sleep(time.Second) // I use time.Sleep to simulate a block being made
@@ -101,8 +100,8 @@ func CreateBlocksForFrontend(w http.ResponseWriter, r *http.Request) {
 		randomToFindValue := ReadFile.ReadKeywords("keywords.txt")
 		toFind := GetRandomString(randomToFindValue)
 		block.ProofOfWork = pow.ProofOfWork("0000abc", toFind)
-
-		process, err := processTransaction(&Transaction{}, read, &block)
+			
+		process, countedTransactions, err := processTransaction(&Transaction{}, read, &block, i)
 		if err != nil {
 			fmt.Println("something went wrong...")
 			panic(err)
@@ -113,7 +112,7 @@ func CreateBlocksForFrontend(w http.ResponseWriter, r *http.Request) {
 			// We have computed a valid proof of work field // 
 			fmt.Println("Building Block", i, "on iteration", i, "/", n)
 
-			total, err := block.computeBlockRewardForABlock(&block)
+			total, err := block.computeBlockReward(countedTransactions)
 			if err != nil {
 				fmt.Printf("Error: %v", err)
 				panic(err)
@@ -130,6 +129,7 @@ func CreateBlocksForFrontend(w http.ResponseWriter, r *http.Request) {
 		Blockchain = append(Blockchain, block)
 	}
 	json.NewEncoder(w).Encode(Blockchain)
+	fmt.Printf("Finished constructing %d Blocks!\n", n)
 }
 
 func hashBlock(block *Block) string {
@@ -169,25 +169,20 @@ func createTransaction(transaction Transaction, sender string, receiver string, 
 	return transaction
 }
 
-func processTransaction(transaction *Transaction, read []string, block *Block) (Transaction, error) {	
+func processTransaction(transaction *Transaction, read []string, block *Block, count int) (Transaction, int, error) {	
 	if len(read) == 0 {
-		fmt.Println("file is empty")
-		return *transaction, nil
+		fmt.Println("File is empty!\nFile must contain data, in order to have the correct Sender and Receiver")
+		return Transaction{}, 0, nil
 	}
 
-	random := crand.Float32()
-
-	if len(read) == 0 {
-		fmt.Println("file must contain data, in order to have the correct sender and receiver")
-		return Transaction{}, nil
-	}
+	random := rand.Float32()
 
 	if len(read) == 2 {
 		transaction.Sender = read[0]
 		transaction.Receiver = read[1]
 
 		tx := createTransaction(*transaction, transaction.Sender, transaction.Receiver, random)
-		return tx, nil
+		return tx, 0, nil
 	} else {
 		if block.ProofOfWork {
 			KeyPairs.GenerateKeys()
@@ -199,24 +194,23 @@ func processTransaction(transaction *Transaction, read []string, block *Block) (
 		} 
 
 		tx := createTransaction(*transaction, transaction.Sender, transaction.Receiver, random)
-		return tx, nil
+		count++
+		return tx, count, nil
 	}
 }
 
-func (b *Block) computeBlockRewardForABlock(block *Block) (float32, error) {
-	var subsidy float32
-	subsidyValues := []float32{}
-
-	for range 5 {
-		block.BlockReward.Subsidy = MyCurrency.MyCurrency()
-		subsidyValues = append(subsidyValues, block.BlockReward.Subsidy)
-
-		for i, n := range subsidyValues {
-			subsidy = n + subsidyValues[i] * 5
-		}
-		block.BlockReward.Subsidy = subsidy
+func (block *Block) computeBlockReward(counted int) (float32, error) {	
+	if counted > THRESHOLD {
+		// Compute a new transaction fee // 
+		block.BlockReward.TransactionFees = (TransactionFee * float32(counted)) + 1
+	} else {
 		block.BlockReward.TransactionFees = TransactionFee
-		block.BlockReward.BlockRewardTotal = block.BlockReward.Subsidy + block.BlockReward.TransactionFees
 	}
-	return b.BlockReward.BlockRewardTotal, nil
+
+	Subsidy := MyCurrency.MyCurrency()
+	block.BlockReward.Subsidy = Subsidy / float32(block.Index)
+
+	block.BlockReward.BlockRewardTotal = block.BlockReward.Subsidy + block.BlockReward.TransactionFees
+	
+	return block.BlockReward.BlockRewardTotal, nil
 }
