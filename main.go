@@ -4,14 +4,15 @@ import (
 	"BlockChainProjectFromScratch/Blocks"
 	"fmt"
 	"net/http"
+	"BlockChainProjectFromScratch/DAO"
 )
 
 func main() {
 	var answer int
 
 	var questions = []string{
-		"1. Do you want to run the creation of the Genesis & n Blocks?",
-		// there will be many more to come
+		"1. Create the Genesis and many other Blocks?",
+		"2. DAO",
 	}
 
 	for _, n := range questions {
@@ -28,7 +29,10 @@ func main() {
 		fmt.Println("My App is running on: http://localhost:8080")
 		http.ListenAndServe(":8080", nil)
 	case 2:
-		// Was POS - not doing anymore - might do it later on in the project!
+		http.HandleFunc("/dao", dao.DAO)
+
+		fmt.Println("My App is running on: http://localhost:8080")
+		http.ListenAndServe(":8080", nil)
 	default: 
 		fmt.Println("I only have numbers 1 and 2 for the moment! Try again...")
 		return

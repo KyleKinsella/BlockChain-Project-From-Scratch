@@ -2,9 +2,10 @@ package Blocks
 
 import (
 	"BlockChainProjectFromScratch/KeyPairs"
-	"BlockChainProjectFromScratch/ReadFile"
-	"BlockChainProjectFromScratch/pow"
 	"BlockChainProjectFromScratch/MyCurrency"
+	"BlockChainProjectFromScratch/ReadFile"
+	"BlockChainProjectFromScratch/Wallet"
+	"BlockChainProjectFromScratch/pow"
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
@@ -36,10 +37,14 @@ type Transaction struct {
 	Amount float32
 }
 
-var TransactionFee float32 = 0.0001
-const THRESHOLD = 10
+var (
+	TransactionFee float32 = 0.0001
+	Blockchain []Block
+)
 
-var Blockchain []Block
+const (
+	THRESHOLD = 10
+)
 
 func CreateBlockZero(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -118,6 +123,11 @@ func CreateBlocksForFrontend(w http.ResponseWriter, r *http.Request) {
 				panic(err)
 			}
 			block.BlockReward.BlockRewardTotal = total
+
+			wall := setWalletFunds(&block)
+
+			setFunds := wallet.SetWalletFunds(wall)
+			wallet.GetWalletFunds(setFunds)
 		} else {
 			// don't make the block and don't send the block to the frontend //
 			fmt.Println("Block", i, "discontinued on iteration", i, "/", n)
@@ -213,4 +223,13 @@ func (block *Block) computeBlockReward(counted int) (float32, error) {
 	block.BlockReward.BlockRewardTotal = block.BlockReward.Subsidy + block.BlockReward.TransactionFees
 	
 	return block.BlockReward.BlockRewardTotal, nil
+}
+
+func setWalletFunds(block *Block) wallet.Wallet {
+	currency := MyCurrency.MyCurrency()
+	tokens := block.BlockReward.BlockRewardTotal / currency
+
+	return wallet.Wallet{
+		Funds: tokens,
+	}
 }
