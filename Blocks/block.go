@@ -4,7 +4,7 @@ import (
 	"BlockChainProjectFromScratch/KeyPairs"
 	"BlockChainProjectFromScratch/MyCurrency"
 	"BlockChainProjectFromScratch/ReadFile"
-	"BlockChainProjectFromScratch/Wallet"
+	// "BlockChainProjectFromScratch/Wallet"
 	"BlockChainProjectFromScratch/pow"
 	"crypto/sha256"
 	"encoding/hex"
@@ -124,10 +124,10 @@ func CreateBlocksForFrontend(w http.ResponseWriter, r *http.Request) {
 			}
 			block.BlockReward.BlockRewardTotal = total
 
-			wall := setWalletFunds(&block)
+			// wall := setWalletFunds(&block)
 
-			setFunds := wallet.SetWalletFunds(wall)
-			wallet.GetWalletFunds(setFunds)
+			// setFunds := wallet.SetWalletFunds(wall)
+			// wallet.GetWalletFunds(setFunds)
 		} else {
 			// don't make the block and don't send the block to the frontend //
 			fmt.Println("Block", i, "discontinued on iteration", i, "/", n)
@@ -225,11 +225,11 @@ func (block *Block) computeBlockReward(counted int) (float32, error) {
 	return block.BlockReward.BlockRewardTotal, nil
 }
 
-func setWalletFunds(block *Block) wallet.Wallet {
-	currency := MyCurrency.MyCurrency()
-	tokens := block.BlockReward.BlockRewardTotal / currency
+// func setWalletFunds(block *Block) wallet.Wallet {
+// 	currency := MyCurrency.MyCurrency()
+// 	tokens := block.BlockReward.BlockRewardTotal / currency
 
-	return wallet.Wallet{
-		Funds: tokens,
-	}
-}
+// 	return wallet.Wallet{
+// 		Funds: tokens,
+// 	}
+// }

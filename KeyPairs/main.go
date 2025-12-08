@@ -10,7 +10,7 @@ import (
 	"os"
 )
 
-func GenerateKeys() {
+func GenerateKeys() (*ecdsa.PrivateKey, ecdsa.PublicKey) {
 	// privateKey is random and unique
 	privateKey, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
 	if err != nil {
@@ -29,6 +29,8 @@ func GenerateKeys() {
 	defer file.Close()
 
 	file.WriteString(fmt.Sprintf("%s\n", address))
+
+	return privateKey, publicKey
 }
 
 func address(publicKey ecdsa.PublicKey) common.Address {
