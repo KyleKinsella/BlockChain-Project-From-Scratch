@@ -1,16 +1,18 @@
 import Block from "./Block/Block.jsx"
-import Transaction from './transaction.jsx';
 import Home from "./HomePage.jsx"
 import "./index.css";
 import Wallet from './Wallet/wallet.jsx'
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import Simulation from "./Simulation.jsx";
-
 import SetupWallet from "./Wallet/walletSetup.jsx";
 import Password from './Wallet/password.jsx'
-// import phrase from './Wallet/phrase.jsx'
 import Phrase from "./Wallet/phrase.jsx";
+import Contact from './Contact/contact.jsx'
+import SecretSeedPhrase from "./Wallet/viewSecretSeedPhrase.jsx";
+import Words from './Wallet/words.jsx'
+import ConfirmPhrase from "./Wallet/confirm.jsx";
+import ImportWallet from "./Wallet/importWallet.jsx";
+import WalletSetupComplete from "./Wallet/complete.jsx";
+// import ErrorCreatingWallet from "./Wallet/error.jsx";
 
 function App() {
   return (
@@ -19,15 +21,18 @@ function App() {
       <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/block" element={<Block />} />
-          {/* <Route path="/transaction" element={<Transaction />}></Route> */}
-          {/* <Route path="/sim" element={<Simulation />}></Route> */}
           <Route path="/wallet" element={<Wallet />}></Route>
-
-          {/* <Route path="/wallet" element={<Wallet />} /> */}
+          <Route path="/contact" element={<Contact />}></Route>
           <Route path="/walletsetup" element={<SetupWallet />} />
           <Route path="/passwordsetup" element={<Password />} />
-
           <Route path="/phrase" element={<Phrase />} />
+          <Route path="/ssp" element={<SecretSeedPhrase />} />
+          <Route path="/words" element={<Words />} />
+          <Route path="/confirm" element={<ConfirmPhrase />} />
+          <Route path="importWallet" element={<ImportWallet />} />
+
+          <Route path="/done" element={<WalletSetupComplete />} />
+          {/* <Route path="/done" element={<ErrorCreatingWallet />} /> */}
         </Routes>
     </Router>
     </>

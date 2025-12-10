@@ -74,12 +74,12 @@ img {
   text-align: center;
 }
 
-.icon {
+{{/* .icon {
   float: right;
   margin-right: 1rem;
   cursor: pointer;
   margin-top: -120px;
-}
+} */}}
 
 @media (prefers-color-scheme: light) {
   :root {

@@ -5,7 +5,11 @@ function SetupWallet() {
 
     return (
         <div>
-            <h1>Let's get your Wallet setup, shall we!</h1>
+            <h1>Wallet Creation</h1>
+            <p>
+                Here you will create a wallet, your wallet stores your assets such as: <strong>NFT'S</strong> and <strong>tokens</strong>.
+                <br /><br /> Click the button below to get started!
+            </p>
             
             <button class="button" onClick={() => navigate("/passwordsetup")}>Create a new Wallet</button>
         </div>
