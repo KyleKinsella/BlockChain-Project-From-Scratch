@@ -2,7 +2,9 @@ package main
 
 import (
 	"BlockChainProjectFromScratch/Blocks"
+	"BlockChainProjectFromScratch/ReadFile"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -43,12 +45,7 @@ func createFile(words []string) {
 	}
 }
 
-// this function will send the random words in the "file.txt" to the frontend
-func SendRandomWordsToFrontend(w http.ResponseWriter, r *http.Request) {
-	// TODO 
-}
-
-func main() {
+func initSeed() {
 	var seedPhrase []string
 
 	for range 12 {
@@ -59,4 +56,18 @@ func main() {
 	}
 
 	createFile(seedPhrase)
+}
+
+func SendRandomWordsToFrontend(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	
+	file := ReadFile.ReadKeywords("./file.txt")
+	json.NewEncoder(w).Encode(file)
+}
+
+func main() {
+	http.HandleFunc("/seed", SendRandomWordsToFrontend)
+	
+	fmt.Println("My App is running on: http://localhost:8080")
+	http.ListenAndServe(":8080", nil)
 }
