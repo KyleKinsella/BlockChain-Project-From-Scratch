@@ -68,6 +68,6 @@ func SendRandomWordsToFrontend(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/seed", SendRandomWordsToFrontend)
 	
-	fmt.Println("My App is running on: http://localhost:8080")
-	http.ListenAndServe(":8080", nil)
+	fmt.Println("My App is running on: http://localhost:8081")
+	http.ListenAndServe(":8081", nil)
 }

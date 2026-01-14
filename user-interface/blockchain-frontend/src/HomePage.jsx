@@ -14,7 +14,7 @@ function Home() {
         <header>
             <h1>Building a Blockchain from the Ground Up</h1>
             <p>
-                Welcome, to my blockchain project! My name is Kyle and I currently developing my very own blockchain simulation project.
+                Welcome, to my blockchain project! My name is Kyle and I am currently developing my very own blockchain simulation project.
                 In order to view how my project operates you will need to click on the hamburger menu below. 
             </p>
 
