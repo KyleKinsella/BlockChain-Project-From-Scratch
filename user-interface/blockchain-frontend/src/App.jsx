@@ -13,6 +13,7 @@ import ConfirmPhrase from "./Wallet/confirm.jsx";
 import ImportWallet from "./Wallet/importWallet.jsx";
 import WalletSetupComplete from "./Wallet/complete.jsx";
 // import ErrorCreatingWallet from "./Wallet/error.jsx";
+import DAO from "./Wallet/dao/dao.jsx";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="importWallet" element={<ImportWallet />} />
 
           <Route path="/done" element={<WalletSetupComplete />} />
+          <Route path="/dao" element={<DAO />} />
           {/* <Route path="/done" element={<ErrorCreatingWallet />} /> */}
         </Routes>
     </Router>

@@ -4,8 +4,7 @@ function ImportWallet() {
     return (
         <div>
             <h1>Import Wallet</h1>
-            <p>Fill in the below form, with your <strong>Secret Recovery Phrase</strong>. Once you 
-            have supplied your secret seed phrase, you will be able to gain access back to your wallet.</p>
+            <p>Enter your <strong>secret recovery phrase</strong> to restore access to your wallet.</p>
 
             <form action="">
                 <FillInPhrase />

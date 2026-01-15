@@ -9,11 +9,9 @@ function Password() {
 
     return (
         <div>
-            <h1>Create password</h1>
-            <p>
-                This password is required in order to get access to your wallet. <br /> <br />
-                <strong>Note:</strong> No data is stored, but there is a file on your computer with this password - hashed!
-            </p>
+            <h1>Create a Password</h1>
+            <h3>Step 2</h3>
+            <p>Create a password to unlock your wallet.</p>
 
             <form>
                 Password:
@@ -25,11 +23,7 @@ function Password() {
                 <DownloadLink label="Download file" filename="data.txt" exportFile={() => sha256(inputRef.current.value)} />
             </form>
 
-            <br />
-
-            <p>
-                Once you have came up with a strong password, click the button below to continue your wallet setup.
-            </p>
+            <p>Choose a strong password to continue setting up your wallet.</p>
 
             <button onClick={() => navigate("/phrase")}>Next Step</button>
         </div>

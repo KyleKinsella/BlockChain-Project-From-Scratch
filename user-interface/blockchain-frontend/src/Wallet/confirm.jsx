@@ -1,10 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-function correct(seed) {
-	alert("Seed '" + seed + "' is correct.");
-}
-
 function printWrongAnswers(wrongAnswers) {
 	alert("You entered the following seed values incorrectly, try again:" +  "\n\n" + wrongAnswers + ".");
 }
@@ -23,13 +19,10 @@ function ConfirmPhrase() {
 			.map(w => w.trim())
 			.filter(Boolean);
 			
-			{/*I need to fix the indexs from 0-11 to be from 1-12*/}
-			
 			setSeedValues(result);
 		});
 	}, []);
-
-    // I'm currently working on trying to validate to see if you have typed in the correct seed values 
+	
     const handleSubmit = (e) => {
         e.preventDefault();
         
@@ -44,21 +37,14 @@ function ConfirmPhrase() {
 			}
 			
 			if (userTypedValues[i] != seedValues[i]) {
-				alert("You entered '" + userTypedValues[i] + "' this is incorrect, try again.");
 				wrongAnswers.push(userTypedValues[i]);
-			}
-			
-			if (i != 11 && userTypedValues[i] == seedValues[i]) {
-				correct(i);
 			}
 			
 			if (i == 11 && userTypedValues[i] != seedValues[i]) {
 				printWrongAnswers(wrongAnswers);
 			}
 			
-			// the last iteration
 			if (i == 11 && userTypedValues[i] == seedValues[i]) {
-				correct(i);
 				if (wrongAnswers.length != 0) {
 					printWrongAnswers(wrongAnswers);
 				}
@@ -69,30 +55,14 @@ function ConfirmPhrase() {
 				}
 			}
 		}
-
-        //for(let i = 0; i < userTypedValues.length; i++) {
-			//console.log(i, userTypedValues[i]);
-        //}
-        
-        //for(let k = 0; k < seedValues.length; k++) {
-			//console.log(k, seedValues[k])
-		//}
-		
-		
-		// I'm going to use the two below lines of commented out code for something later on:
-		
-		//let seed = {words}; // object
-        //let stuff = Object.entries(seed); // array
     };
     
     return (
         <div>
-            <h1>Confirm your Secret Recovery Phrase</h1>
-            <p>Fill in the below form in the correct order that the words were shown to you.</p>
+            <h1>Confirm Your Recovery Phrase</h1>
+            <h3><strong>Final Step</strong></h3>
+            <p>Enter the words from your recovery phrase in the <strong>correct order</strong> to verify your wallet.</p>
 
-            {/* I will have backend code to check for the correct values in the form */}
-            {/* if the form has all of the correct values - render: "complete.jsx" */}
-            {/* otherwise, render: "error.jsx" */}
             <form onSubmit={handleSubmit}>
                 <label htmlFor="">1: </label>
                 <input name="one" type="text" />  
@@ -156,10 +126,6 @@ function ConfirmPhrase() {
 
                 <button type="submit">Submit</button>
             </form>
-            
-            <br />
-            
-            {/* <button onClick={() => navigate("/done")}>Finish wallet setup</button> */}
         </div>
     )
 }

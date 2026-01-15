@@ -6,10 +6,14 @@ function Wallet() {
 
     return (
         <div className="block-container">
-            <h1 class="title">Wallet Setup</h1>
+            <h1 class="title">Welcome to your Wallet</h1>
+            <h3>Step 0</h3>
             <p class="intro">
-                On this section of my project you will be able to either import your wallet using your secret seed phrase <strong>or</strong> you can create a new wallet.
-                <br /><br /> Get started by clicking on one of the below buttons!
+				Your wallet lets you securely <strong>buy, swap & send</strong> digital assets, while maintaining full control of your funds.
+            
+				Create a new wallet <strong>or</strong> import an existing one. <strong>You control your assets!</strong> <br /> <br />
+				            
+                Select an option below to continue.
             </p>
 
             {/* This needs to be designed for the frontend */}

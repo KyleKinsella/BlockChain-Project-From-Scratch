@@ -13,8 +13,9 @@ function GeneratedWords() {
 
     return (
         <div>
-            <h1>Write down your Secret Recovery Phrase down</h1>
-            <p>Below are your generated words for your Secret Recovery Phrase, write them down.</p>
+            <h1>Write Down Your Recovery Phrase</h1>
+            <h3>Step 5</h3>
+            <p>Write these words down in order and store them safely offline.</p>
 
             {seed.map((data, i) => (        
                 <div key={i} className="seed">        
@@ -26,7 +27,7 @@ function GeneratedWords() {
                 </div>
             ))}
 
-            <button onClick={() => navigate("/confirm")}>Confirm - Secret Recovery Phrase</button>
+            <button onClick={() => navigate("/confirm")}>Confirm Secret Recovery Phrase</button>
         </div>
     )
 }
