@@ -1,17 +1,15 @@
 import { useState } from "react";
 
 function DAO() {
-	const [walletConnected, setWalletConnected] = useState("");
-	
+	const [walletConnected, setWalletConnected] = useState(null);
+		
 	const handleSubmit = (e) => {
 		e.preventDefault();	
 		
-		// It is not going to be staying like this but for now it does the job //
-		// The next step is to actually get the wallet that you made to connect to this DAO - this will be done in the backend
-		// that is the next step:
-		
-		let s = "wallet connected";
-		setWalletConnected(s);
+		fetch("http://localhost:8082/initWallet")
+			.then(res => res.json())
+			.then(data => setWalletConnected(data));
+			alert("Wallet Connected!");
 	};	
 
 	return (
@@ -24,10 +22,15 @@ function DAO() {
 			<form onSubmit={handleSubmit}>
 				<button type="submit">Connect Wallet</button>
 			</form>
-			
-			<h3>{walletConnected}</h3>
+			   
+			{walletConnected && (
+				<div className="wallet">
+					<p>Address: {walletConnected.Address}</p>
+					<p>Balance: {walletConnected.Balance}</p>
+				</div>
+			)}
 		</div>
-	)
+	);
 }
 
 export default DAO;

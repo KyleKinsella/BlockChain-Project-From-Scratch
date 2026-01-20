@@ -1,4 +1,4 @@
-import FillInPhrase from "./fillInPhrase"
+import ConfirmUserInput from './confirmUserInput';
 
 function ImportWallet() {
     return (
@@ -6,13 +6,7 @@ function ImportWallet() {
             <h1>Import Wallet</h1>
             <p>Enter your <strong>secret recovery phrase</strong> to restore access to your wallet.</p>
 
-            <form action="">
-                <FillInPhrase />
-            </form>
-
-            <br />
-
-            <button onClick={() => navigate("")}>Import Wallet</button>
+			<ConfirmUserInput buttonText="Import Wallet" message="You have successfully imported your wallet."/>
         </div>
     )
 }

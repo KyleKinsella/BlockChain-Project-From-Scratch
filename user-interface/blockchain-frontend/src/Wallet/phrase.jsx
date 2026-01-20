@@ -19,18 +19,18 @@ function Phrase() {
             
             <h2>What to Do</h2>
             <ul>
-				<li>Write your recovery phrase down on paper</li>
-				<li>Store it offline in a safe, private location</li>				
-				<li>Keep it somewhere you won’t lose or forget</li>
+				<li>Write your recovery phrase down on paper.</li>
+				<li>Store it offline in a safe, private location.</li>				
+				<li>Keep it somewhere you won’t lose or forget.</li>
             </ul>
             
             <h2>What Not to Do</h2>
             <p>Never store your recovery phrase digitally. This includes:</p>
             <ul>
-				<li>Email or cloud services (Google Docs, Drive, etc.)</li>
-				<li>Files on your computer (Word, text files, spreadsheets)</li>
-				<li>Screenshots or notes on your phone</li>
-				<li>Any online or internet-connected storage</li>
+				<li>Email or cloud services (Google Docs, Drive, etc).</li>
+				<li>Files on your computer (Word, text files, spreadsheets).</li>
+				<li>Screenshots or notes on your phone.</li>
+				<li>Any online or internet-connected storage.</li>
             </ul>
             
             <h2>Why this Matters</h2>

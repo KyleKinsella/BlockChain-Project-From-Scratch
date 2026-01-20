@@ -1,83 +1,95 @@
-// This package will store your funds.
-// These funds in your wallet will be used for paying transaction fees
-// and
-// whatever funds you "bid" for an asset or "nft" in my DAO
-
-// Potential Idea's:
-// The wallet might have an address for where the funds are, but I'm not sure if I'll do this... //
-
 package wallet
 
 import (
-	"crypto/ecdsa"
-	// "crypto/sha256"
-	// "encoding/hex"
+	//"crypto/ecdsa"
+
+	"math/rand"
+	"time"
 	"encoding/json"
-	// "fmt"
 	"net/http"
+	"fmt"
 )
-
-var (
-	TransactionRecords []TransactionRecord
-	TypeOfTransaction []string
-)
-
-type TransactionRecord struct {
-    Timestamp string
-    TxID int
-    Amount float32
-    Type string 
-}
 
 type Wallet struct {
+	Index int
 	Address string
 	Balance float32
-	Nonce bool
-	History []TransactionRecord
-	PrivateKey *ecdsa.PrivateKey
-	PublicKey ecdsa.PublicKey
+	PrivateKey string
+	PublicKey string
+
+	//PrivateKey *ecdsa.PrivateKey
+	//PublicKey ecdsa.PublicKey
 }
 
-type PasswordInput struct {
-    Password string `json:"Password"`
+const (
+	LOW = 0.001
+	USERS = 1000000
+)
+
+func randomWalletAddress() string {
+	rng := rand.New(rand.NewSource(time.Now().UnixNano()))
+	chars := "0123456789abcdef"
+	addr := "0x"
+	
+	for i := 0; i < 40; i++ {
+		addr += string(chars[rng.Intn(16)])
+	}
+	return addr
 }
 
-func GetUserPassword(w http.ResponseWriter, r *http.Request) {
+func createMultipleWallets(w http.ResponseWriter, n int) {
+	if n > USERS {
+		fmt.Println("My DAO can only support", USERS, "sorry about this, try again.")
+		return
+	}
+	
+	var wallets []Wallet
+	
+	for i := 1; i <= n; i++ {
+		wallet := Wallet{
+			Index: i,
+			Address: randomWalletAddress(),
+			Balance: LOW,
+			PrivateKey: "",
+			PublicKey: "",
+		}	
+	
+		wallets = append(wallets, wallet)
+		//wallets.append(wallets, wallet)
+	}
+	
+	json.NewEncoder(w).Encode(wallets)
+}
+
+var wallet *Wallet
+
+func SetupWallet(w http.ResponseWriter, r *http.Request) {	
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
-
 	
-	var input PasswordInput
-
-    // Decode JSON from the frontend
-    err := json.NewDecoder(r.Body).Decode(&input)
-    if err != nil {
-        http.Error(w, err.Error(), http.StatusBadRequest)
-        return
-    }
-
-    // Hash the password (sha256 for example)
-
-
-    // hash := sha256.Sum256([]byte(input.Password))
-    // hashedPassword := hex.EncodeToString(hash[:])
-
-	// fmt.Println("User password is:", hashedPassword)
+	if wallet == nil {
+		wallet = &Wallet{
+			Address: randomWalletAddress(),
+			Balance: LOW,
+			PrivateKey: "",
+			PublicKey: "",
+		}
+	} 
+	
+	//else {		
+		//wallet.Address = randomWalletAddress()
+	//}
+	
+	
+	
+	
+	//createMultipleWallets(w, 100)
+	
+	//wallets := createMultipleWallets(USERS) 
+			
+	//for _, n := range wallets {
+		//fmt.Println(n)
+	//}
+			
+	json.NewEncoder(w).Encode(wallet)
 }
-
-
-// var WalletData = []Wallet{}
-
-// func InitWallet(w http.ResponseWriter, r *http.Request) {	
-// 	wallet := Wallet{
-// 		Address: "Ox",
-// 		Balance: 0,
-// 		Nonce: false,
-// 		History: []TransactionRecord{},
-// 		PrivateKey: nil,
-// 		PublicKey: ecdsa.PublicKey{},
-// 	}
-	
-// 	WalletData = append(WalletData, wallet)
-// 	json.NewEncoder(w).Encode(wallet)
-// }

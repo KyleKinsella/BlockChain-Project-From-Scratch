@@ -69,5 +69,5 @@ func main() {
 	http.HandleFunc("/seed", SendRandomWordsToFrontend)
 	
 	fmt.Println("My App is running on: http://localhost:8081")
-	http.ListenAndServe(":8081", nil)
+	http.ListenAndServe("0.0.0.0:8081", nil)
 }
