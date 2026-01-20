@@ -6,7 +6,7 @@ function Block() {
   const [showData, setShowData] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:8080/genesis")
+    fetch("http://192.168.200.89:8080/genesis")
       .then(res => res.json())
       .then(data => setBlocks(data));
   }, []);

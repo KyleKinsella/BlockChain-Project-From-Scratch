@@ -6,7 +6,7 @@ function GeneratedWords() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch("http://localhost:8081/seed")
+        fetch("http://192.168.200.89:8081/seed")
         .then(res => res.json())
         .then(data => setSeed(data));
     }, []);

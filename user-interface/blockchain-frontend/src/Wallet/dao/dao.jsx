@@ -2,9 +2,10 @@ import { useState } from "react";
 
 function DAO() {
 	const [walletConnected, setWalletConnected] = useState(null);
-		
+	const [dao, setDao] = useState(null);
+	
 	const handleSubmit = (e) => {
-		e.preventDefault();	
+		e.preventDefault();
 		
 		fetch("http://localhost:8082/initWallet")
 			.then(res => res.json())
@@ -12,6 +13,22 @@ function DAO() {
 			alert("Wallet Connected!");
 	};	
 
+	const handleSubmit2 = (e) => {
+		e.preventDefault();	
+		
+		fetch("http://localhost:8083/dao")
+			.then(res => res.json())
+			.then(data2 => setDao(data2))
+	};	
+	
+	const getBidAmount = (e) => {
+		e.preventDefault();	
+
+		const bidAmount = e.target.bidAmount.value;
+		alert("you bidded:" + bidAmount);
+		// The next step is to get the wallet funds / balance and check if they can do the bid!
+	};
+	
 	return (
 		<div>		
 			<h1>Kyle's DAO</h1>
@@ -29,6 +46,30 @@ function DAO() {
 					<p>Balance: {walletConnected.Balance}</p>
 				</div>
 			)}
+			
+			<br />
+			
+			<hr />
+			<h3> Let's get going shall we?  </h3>
+			<p>Click the button below to see what you could win today!</p>
+			
+			<form onSubmit={handleSubmit2}>
+				<button type="submit">Todays DAO Thing to Win</button>
+			</form>
+			
+			<hr />
+			{dao && (
+				<div className="dao">
+					<pre><strong>Achievement Card for your profile: </strong>{dao}</pre>
+			</div>
+			)}
+			<hr />
+			
+			<form onSubmit={getBidAmount}>
+				<input type="number" name="bidAmount" placeholder="Enter an amount to bid..."/>		
+				<br /><br />
+				<button type="submit">Bid</button>
+			</form>
 		</div>
 	);
 }

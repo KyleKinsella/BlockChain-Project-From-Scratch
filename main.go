@@ -6,6 +6,7 @@ import (
 	"net/http"
 	//"BlockChainProjectFromScratch/DAO"
 	"BlockChainProjectFromScratch/Wallet"
+	"BlockChainProjectFromScratch/DAO"
 )
 
 func main() {
@@ -14,6 +15,8 @@ func main() {
 	var questions = []string{
 		"1. Create the Genesis and many other Blocks?",
 		"2. Wallet",
+		"3. DAO",
+		
 		//"2. DAO",
 		//"3. Run my wallet code, so far...",
 		//"4. Get user password from frontend",
@@ -37,9 +40,16 @@ func main() {
 		
 		fmt.Println("My App is running on: http://localhost:8082")
 		http.ListenAndServe("0.0.0.0:8082", nil)
-	default: 
-		fmt.Println("I only have numbers 1 and 2 for the moment! Try again...")
-		return
+	case 3:
+		http.HandleFunc("/dao", dao.DAO)
+		
+		fmt.Println("My App is running on: http://localhost:8083")
+		http.ListenAndServe("0.0.0.0:8083", nil)
+	
+	
+	//default: 
+		//fmt.Println("I only have numbers 1 and 2 for the moment! Try again...")
+		//return
 	}
 		
 		

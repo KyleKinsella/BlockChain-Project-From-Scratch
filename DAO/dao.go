@@ -1,10 +1,35 @@
 package dao
 
 import (
-	"encoding/json"
+	//"encoding/json"
 	"net/http"
+	//"BlockChainProjectFromScratch/DAORewards"
 )
 
+// ideas for my dao - I got help from gpt...
+
+// a user profile - there profile will show your address, balance and an "Achievement Cards" (an Achievement Card will show something like this on your profile: e.g. “Genesis Miner”, “DAO Founder”, “Validator”)
+
+// the next idea is having perks / updates for the blockchain only for the winner.
+// you could win one of the following:
+
+// Mining Boosts -- +10% block rewards for 24 hours
+// Gas Discounts -- Less transaction fee in your simulation
+// Extra Vote Power -- For a limited time
+
+// the last idea for my dao is - a secret channel. 
+// For example, if you win the dao today, you win access to a discord server (made by me and possibly a discord bot...)
+// this would give my users of my dao a very good insentive to want to use my dao, because they can be "Beta tester(s)", "early access to new features" and "vip dao meetings"
+
+// I am going to combine these above 3 ideas into the one dao project. So you could win either, a awesome name for your profile, win higher block rewards or win access to a private (VIP) discord or slack community! 
+
 func DAO(w http.ResponseWriter, r *http.Request) {
-	json.NewEncoder(w).Encode("This is going to be my DAO code...")
+	//json.NewEncoder(w).Encode("This is going to be my DAO code...")
+	
+	//DAORewards.CallFuncs(w)
+	
+	//CallFuncs(w)
+	
+	values := []string{"Genesis Miner", "DAO Founder", "Validator"}
+	CreateAchievementCards(w, values)
 }
