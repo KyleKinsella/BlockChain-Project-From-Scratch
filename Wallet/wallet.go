@@ -22,7 +22,7 @@ type Wallet struct {
 }
 
 const (
-	LOW = 0.001
+	LOW = 0.01
 	USERS = 1000000
 )
 
@@ -80,16 +80,5 @@ func SetupWallet(w http.ResponseWriter, r *http.Request) {
 		//wallet.Address = randomWalletAddress()
 	//}
 	
-	
-	
-	
-	//createMultipleWallets(w, 100)
-	
-	//wallets := createMultipleWallets(USERS) 
-			
-	//for _, n := range wallets {
-		//fmt.Println(n)
-	//}
-			
 	json.NewEncoder(w).Encode(wallet)
 }

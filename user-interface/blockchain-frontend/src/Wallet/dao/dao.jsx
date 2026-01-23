@@ -1,9 +1,34 @@
 import { useState } from "react";
 
+const LOWEST = 0.01;
+
+function checkWalletForValidBalance(amount, bidAmount) {	
+	const numAmount = parseFloat(amount);
+	
+	if (isNaN(numAmount) || numAmount <= 0) {
+		alert(`Oops! ${amount} isn’t a valid bid. Please enter a number greater than 0.`);
+		return;
+	}
+	
+	if (amount <= LOWEST) {
+		alert("Oops! Your wallet doesn’t have enough funds to place this bid. Try a higher amount.");
+		return;
+	}
+	
+	if (amount > LOWEST) {
+		let numAmount = parseFloat(amount);
+		numAmount = parseFloat(numAmount.toFixed(2));
+	}
+	
+	return numAmount;
+}
+
 function DAO() {
 	const [walletConnected, setWalletConnected] = useState(null);
 	const [dao, setDao] = useState(null);
-	
+	const [bid, setBid] = useState(0.01);
+	const [funds, setFunds] = useState(0);
+		
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		
@@ -12,7 +37,7 @@ function DAO() {
 			.then(data => setWalletConnected(data));
 			alert("Wallet Connected!");
 	};	
-
+	
 	const handleSubmit2 = (e) => {
 		e.preventDefault();	
 		
@@ -24,9 +49,14 @@ function DAO() {
 	const getBidAmount = (e) => {
 		e.preventDefault();	
 
-		const bidAmount = e.target.bidAmount.value;
-		alert("you bidded:" + bidAmount);
-		// The next step is to get the wallet funds / balance and check if they can do the bid!
+		var bidAmount = e.target.bidAmount.value;	
+		var validBalance = checkWalletForValidBalance(bidAmount, walletConnected.Balance);
+		
+		if (validBalance > LOWEST) {
+			setBid(prevBid => prevBid + validBalance);
+		} 
+		
+		e.target.bidAmount.value = "";
 	};
 	
 	return (
@@ -57,16 +87,20 @@ function DAO() {
 				<button type="submit">Todays DAO Thing to Win</button>
 			</form>
 			
-			<hr />
+			<br /><br/><br/><br/><br/><br/>
+			
+			{/*<hr />*/}
 			{dao && (
 				<div className="dao">
 					<pre><strong>Achievement Card for your profile: </strong>{dao}</pre>
 			</div>
 			)}
-			<hr />
+			{/*<hr />*/}
+			
+			<p>Current Bid is: {bid}</p>
 			
 			<form onSubmit={getBidAmount}>
-				<input type="number" name="bidAmount" placeholder="Enter an amount to bid..."/>		
+				<input type="number" step="0.01" name="bidAmount" placeholder="Enter an amount to bid..."/>		
 				<br /><br />
 				<button type="submit">Bid</button>
 			</form>
