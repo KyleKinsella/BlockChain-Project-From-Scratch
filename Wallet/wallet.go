@@ -23,6 +23,7 @@ type Wallet struct {
 
 const (
 	LOW = 0.01
+	START_FUNDS = 100.00
 	USERS = 1000000
 )
 
@@ -70,7 +71,7 @@ func SetupWallet(w http.ResponseWriter, r *http.Request) {
 	if wallet == nil {
 		wallet = &Wallet{
 			Address: randomWalletAddress(),
-			Balance: LOW,
+			Balance: START_FUNDS,
 			PrivateKey: "",
 			PublicKey: "",
 		}
