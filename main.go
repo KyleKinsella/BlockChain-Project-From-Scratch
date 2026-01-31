@@ -32,6 +32,7 @@ func main() {
 		http.ListenAndServe(":8080", nil)
 	case 2:
 		http.HandleFunc("/initWallet", wallet.SetupWallet)
+		http.HandleFunc("/nwallets", wallet.CreateMultipleWallets)
 		
 		fmt.Println("My App is running on: http://localhost:8082")
 		http.ListenAndServe("0.0.0.0:8082", nil)

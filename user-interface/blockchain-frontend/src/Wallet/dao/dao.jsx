@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Treasury from './treasury.jsx';
+import { useNavigate } from "react-router-dom";
+import WalletMainUI from './walletHomePage.jsx';
 
 const LOWEST = 0.01;
 
@@ -50,6 +52,7 @@ function DAO() {
 	const [funds, setFunds] = useState(0);
 	const [buttonClicked, setButtonClicked] = useState(false);
 	const [walletBalance, setWalletBalance] = useState(0);
+	const navigate = useNavigate();
 	
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -72,6 +75,20 @@ function DAO() {
 			.then(data2 => setDao(data2))
 	};	
 	
+	const rewardExpired = (exactTimeHour) => {
+		var hour = date.getHours();
+
+		if (bids.length === 0) {
+			alert("No bids have been placed yet. The reward remains unclaimed. Place a bid to participate!");
+			return;
+		}
+		
+		if (hour === exactTimeHour) {
+			alert("Congratulations 🎉\n\nThe winner of the reward: '" + dao + "' is: " + walletConnected.Address + "\n\nCheck your Wallet to see your brand new Achievement Card!"); 
+			navigate("/done", { state: { reward: dao } });
+		}
+	}
+	
 	const getBidAmount = (e) => {
 		e.preventDefault();	
 
@@ -91,6 +108,7 @@ function DAO() {
 			
 			setWalletBalance(prevBalance => parseFloat((prevBalance - validBalance).toFixed(2)));
 			alert("Your bid has placed successfully!");
+			rewardExpired(22);
 		} 
 		
 		e.target.bidAmount.value = "";
@@ -112,7 +130,6 @@ function DAO() {
 			{walletConnected && (
 				<div className="wallet">
 					<p>Wallet: {walletConnected.Address}</p>
-					{/*<p>Balance: {walletConnected.Balance}</p>*/}
 					<p>Balance: {walletBalance}</p>
 				</div>
 			)}

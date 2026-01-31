@@ -38,7 +38,12 @@ func randomWalletAddress() string {
 	return addr
 }
 
-func createMultipleWallets(w http.ResponseWriter, n int) {
+func CreateMultipleWallets(w http.ResponseWriter, r *http.Request) {
+	
+	var n int
+	fmt.Println("How many wallets do you want to create?")
+	fmt.Scan(&n)
+	
 	if n > USERS {
 		fmt.Println("My DAO can only support", USERS, "sorry about this, try again.")
 		return
