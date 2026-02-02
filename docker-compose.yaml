@@ -1,0 +1,29 @@
+services:
+  main-app:
+    build: .
+    depends_on:
+      - blocks
+      - wallet
+      - seedbackend
+      - dao
+
+  blocks:
+    image: blocks
+    ports:
+      - "8080:8080"
+
+  wallet:
+    image: wallet
+    ports:
+      - "8082:8082"
+
+  seedbackend:
+    image: seedbackend
+    ports:
+      - "8081:8081"
+
+  dao:
+    image: dao
+    ports:
+      - "8083:8083"
+      

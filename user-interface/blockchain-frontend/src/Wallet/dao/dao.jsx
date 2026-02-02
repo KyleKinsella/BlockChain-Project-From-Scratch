@@ -3,7 +3,7 @@ import Treasury from './treasury.jsx';
 import { useNavigate } from "react-router-dom";
 import WalletMainUI from './walletHomePage.jsx';
 
-const LOWEST = 0.01;
+const LOWEST = 1;
 
 const date = new Date();	
 const formtatDate = date.toLocaleDateString("en-US", {		
@@ -23,9 +23,9 @@ function sumValuesForTreasury(values) {
 }
 
 function checkWalletForValidBalance(amount, bidAmount) {	
-	let numAmount = parseFloat(amount);
+	let numAmount = parseInt(amount);
 	
-	if (numAmount === 0.0 || numAmount <= 0) {
+	if (numAmount === 0 || numAmount <= 0) {
 		alert("Oops! You don’t have enough funds in your wallet to place a bid.");
 		return;
 	}
@@ -36,11 +36,11 @@ function checkWalletForValidBalance(amount, bidAmount) {
 	}
 	
 	if (numAmount <= LOWEST) {
-		alert("Oops! Your wallet doesn’t have enough funds to place this bid. Try a higher amount.");
+		alert("Invalid bid: " + numAmount + ".\n\nPlease enter a bid greater than " + LOWEST + ".");
 		return;
 	}
 	
-	numAmount = parseFloat(numAmount.toFixed(2));
+	numAmount = parseInt(numAmount);
 	
 	return numAmount;
 }
@@ -48,13 +48,14 @@ function checkWalletForValidBalance(amount, bidAmount) {
 function DAO() {
 	const [walletConnected, setWalletConnected] = useState(null);
 	const [dao, setDao] = useState(null);
-	const [bid, setBid] = useState(0.01);
-	const [funds, setFunds] = useState(0);
+	const [bid, setBid] = useState(1);
 	const [buttonClicked, setButtonClicked] = useState(false);
 	const [walletBalance, setWalletBalance] = useState(0);
+	const [disableBidBtn, setDisableBidBtn] = useState(false);
 	const navigate = useNavigate();
-	
-	const handleSubmit = (e) => {
+	const [btn, setBtn] = useState(false);
+		
+	const createWallet = (e) => {
 		e.preventDefault();
     
 		fetch("http://192.168.200.89:8082/initWallet")
@@ -67,12 +68,15 @@ function DAO() {
 			});
 	};
 
-	const handleSubmit2 = (e) => {
+	const daoReward = (e) => {
 		e.preventDefault();	
 		
 		fetch("http://192.168.200.89:8083/dao")
 			.then(res => res.json())
-			.then(data2 => setDao(data2))
+			.then(data2 => {
+				setDao(data2);
+				setBtn(true);
+			});
 	};	
 	
 	const rewardExpired = (exactTimeHour) => {
@@ -84,31 +88,43 @@ function DAO() {
 		}
 		
 		if (hour === exactTimeHour) {
-			alert("Congratulations 🎉\n\nThe winner of the reward: '" + dao + "' is: " + walletConnected.Address + "\n\nCheck your Wallet to see your brand new Achievement Card!"); 
-			navigate("/done", { state: { reward: dao } });
+			alert("Congratulations 🎉\n\nThe winner of the reward: '" + dao + "' is: " + walletConnected.Address + "\n\nCheck your Wallet to see your brand new Achievement Card!"); 	
+			
+			setDisableBidBtn(true);
+			
+			//navigate("/done", { state: { reward: dao } });
 		}
 	}
 	
 	const getBidAmount = (e) => {
 		e.preventDefault();	
-
-		var bidAmount = parseFloat(e.target.bidAmount.value);
-		bidAmount = parseFloat(bidAmount.toFixed(2));	
+		
+		var bidAmount = parseInt(e.target.bidAmount.value);
+		bidAmount = parseInt(bidAmount);	
+		
+		if (bidAmount === 0 || bidAmount < 0) {
+			alert("Please enter a bid greater than zero. Negative values are not allowed.");
+			e.target.bidAmount.value = "";
+			return;
+		}
+		
+		var currentBid = bidAmount + LOWEST;
 		
 		if (bidAmount > walletBalance) {
 			alert("Oops! You don’t have enough funds to place that bid. Try a smaller amount.");
+			e.target.bidAmount.value = "";
 			return;
 		}
 		
 		var validBalance = checkWalletForValidBalance(bidAmount, walletConnected.Balance);
 		
-		if (validBalance > LOWEST) {
+		if (currentBid === LOWEST || validBalance > LOWEST) {
 			setBid(prevBid => prevBid + validBalance);
-			bids.push(parseFloat((validBalance + LOWEST).toFixed(2)));
+			bids.push(parseInt((validBalance + LOWEST)));
 			
-			setWalletBalance(prevBalance => parseFloat((prevBalance - validBalance).toFixed(2)));
+			setWalletBalance(prevBalance => parseInt((prevBalance - validBalance)));
 			alert("Your bid has placed successfully!");
-			rewardExpired(22);
+			rewardExpired(20);
 		} 
 		
 		e.target.bidAmount.value = "";
@@ -121,7 +137,7 @@ function DAO() {
 				Welcome! Connect your wallet, check today’s reward and place bids for a chance to win exclusive achievement cards!
 			</p>
 			
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={createWallet}>
 			  <button type="submit" disabled={buttonClicked}>
 				{buttonClicked ? "Wallet Connected" : "Connect Wallet"}
 			  </button>
@@ -137,7 +153,7 @@ function DAO() {
 			<br />
 			
 			<hr />
-			<Treasury amount={sumValuesForTreasury(bids).toFixed(2)}/>
+			<Treasury amount={sumValuesForTreasury(bids)}/>
 			<br />
 			
 			<h3>Today's Reward</h3>
@@ -145,8 +161,8 @@ function DAO() {
 			
 			<p>Place your bids to compete for this amazing achievement!</p>
 			
-			<form onSubmit={handleSubmit2}>
-				<button type="submit">Reveal Today’s Reward</button>
+			<form onSubmit={daoReward}>
+				<button type="submit" disabled={btn}>Reveal Today’s Reward</button>
 			</form>
 			
 			<br />
@@ -157,12 +173,12 @@ function DAO() {
 			</div>
 			)}
 			
-			<p>Current Bid is: {bid.toFixed(2)}</p>
+			<p>Current Bid is: {bid}</p>
 			
 			<form onSubmit={getBidAmount}>
-				<input type="number" step="0.01" name="bidAmount" placeholder="Enter your bid"/>		
-				<br /><br />
-				<button type="submit">Place Bid</button>
+				<input type="number" step="1" name="bidAmount" placeholder="Enter your bid"/>		
+				<br /><br />				
+				<button type="submit" disabled={disableBidBtn}>Place Bid</button>
 			</form>
 		</div>
 	);

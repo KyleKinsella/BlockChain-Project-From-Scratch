@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"fmt"
+	"BlockChainProjectFromScratch/MyCurrency"
 )
 
 type Wallet struct {
@@ -26,6 +27,38 @@ const (
 	START_FUNDS = 100.00
 	USERS = 1000000
 )
+
+func initWalletWithFunds(n int) []float32 {
+	var arrFunds []float32
+	for i := 0; i < n; i++ {
+		funds := MyCurrency.MyCurrency()
+		arrFunds = append(arrFunds, funds)
+	}
+	return arrFunds 
+}
+
+func sum(arr []float32) float32 {
+	var sum float32
+	for i := 0; i < len(arr); i++ {
+		sum += arr[i]
+	}
+	return sum
+}
+
+func randomNumsInRange(min, max int) int {
+	if max <= min {
+		panic("max must be greater than min")
+	}
+	
+	return min + rand.Intn(max-min)
+}
+
+func run() float32 {
+	randomVal := randomNumsInRange(50, 100)
+	funds := initWalletWithFunds(randomVal)
+	sum := sum(funds)
+	return sum
+}
 
 func randomWalletAddress() string {
 	rng := rand.New(rand.NewSource(time.Now().UnixNano()))
