@@ -94,14 +94,17 @@ Deployment has not yet been implemented. Once the project reaches a more complet
 Current functionality includes:
 - Block creation
 - Proof of Work (PoW) algorithm (this is what each block needs to make a block on my blockchain at the moment)
-- Proof of Stake (PoS) algorithm (I did this a while ago, I need to make my pos algorithm much better)
 - Backend-to-frontend integration
-
-## Potential Features
-Upcoming and potential enhancements include:
 - Block rewards
-- Transaction fees
-- A Decentralized Autonomous Organization (DAO) - I'm going to make my own DAO, but my DAO will take a good bit of inspiration from <a href="https://nouns.wtf/">nouns.wtf</a>.
+- Fluctuating Transaction fees - depending on the state of the blockchain the transaction fees might be slow or high
+- Wallet creation
+- Decentralized Autonomous Organization (DAO) integration
+
+## Upcoming Features
+Upcoming and potential enhancements include:
+- A peer-to-peer network
+- Allow my blockchain to fork (I know a blockchain should not fork but this is for learning purposes...)
+- Each block has a block height
 
 Additional features to be determined as the project evolves.
 
