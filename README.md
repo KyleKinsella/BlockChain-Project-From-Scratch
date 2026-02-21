@@ -92,16 +92,16 @@ Deployment has not yet been implemented. Once the project reaches a more complet
 
 ## Current Features
 Current functionality includes:
-- Block creation
-- Proof of Work (PoW) algorithm (this is what each block needs to make a block on my blockchain at the moment)
-- Backend-to-frontend integration
-- Block rewards
-- Fluctuating Transaction fees - depending on the state of the blockchain the transaction fees might be slow or high
-- Wallet creation
+- Block Creation
+- Proof of Work (PoW) algorithm (this is what each block needs to make a block on my blockchain)
+- Backend-to-Frontend integration
+- Block Rewards
+- Fluctuating Transaction fees - depending on the state of the blockchain the transaction fees might be low or high
+- Wallet Creation
 - Decentralized Autonomous Organization (DAO) integration
 
 ## Upcoming Features
-Upcoming and potential enhancements include:
+Upcoming enhancements include:
 - A peer-to-peer network
 - Allow my blockchain to fork (I know a blockchain should not fork but this is for learning purposes...)
 - Each block has a block height
