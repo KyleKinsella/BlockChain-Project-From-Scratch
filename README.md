@@ -146,10 +146,10 @@ Watch a live demo of the Blockchain From Scratch project in action: [Click here 
 
 | Feature          | Status   | Notes |
 |-----------------|---------|-------|
-| Block Rewards     | Planned | Will simulate miner incentives |
-| Transaction Fees  | Planned | Integrate fees per transaction |
-| DAO               | Planned | Inspired by <a href="https://nouns.wtf/">nouns.wtf</a> |
-| Improve PoS      | Planned | Enhance Proof of Stake algorithm |
+| Block Rewards     | Done | Will simulate miner incentives |
+| Fluctuating Transaction Fees  | Done | Integrate fees per transaction |
+| DAO               | In Progress | Inspired by <a href="https://nouns.wtf/">nouns.wtf</a> |
+| Improve PoS      | Deferred | Enhance Proof of Stake algorithm |
 | Deployment        | Planned | Docker, AWS, Vercel |
 
 ## Contact
