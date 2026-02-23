@@ -100,7 +100,7 @@ Current functionality includes:
 - Wallet Creation
 - Decentralized Autonomous Organization (DAO) integration
 
-## Upcoming Features
+## Potential Features
 Upcoming enhancements include:
 - A peer-to-peer network
 - Allow my blockchain to fork (I know a blockchain should not fork but this is for learning purposes...)

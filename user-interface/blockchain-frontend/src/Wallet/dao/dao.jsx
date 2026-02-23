@@ -145,7 +145,7 @@ function DAO() {
             .then(res => res.json())
             .then(data3 => {
                 setMultipleWallets(data3);
-                alert("50 Wallets have been created!");
+                alert("5 Wallets have been created!");
             });
     };  
     
@@ -170,6 +170,20 @@ function DAO() {
             )}
             
             <br />
+
+            <form onSubmit={multipleWallet}>
+                  <button type="submit">View Multiple Wallets</button>
+            </form>
+            
+            {multipleWallets.map((data, i) => (       
+                <div className="seed">        
+                    <>
+                    <ul>
+                        <p>Wallet({i+1}): {data.Address} <br /> Balance: {data.Balance}</p>
+                    </ul>
+                    </>
+                </div>
+            ))}
             
             <hr />
             <Treasury amount={sumValuesForTreasury(bids)}/>
@@ -199,21 +213,6 @@ function DAO() {
                 <br /><br />                
                 <button type="submit" disabled={disableBidBtn}>Place Bid</button>
             </form>
-
-            <br /> <br /> <br />
-            <form onSubmit={multipleWallet}>
-                  <button type="submit">View Multiple Wallets</button>
-            </form>
-            
-            {multipleWallets.map((data, i) => (       
-                <div className="seed">        
-                    <>
-                    <ul>
-                        <p>Wallet({i+1}): {data.Address} <br /> Balance: {data.Balance}</p>
-                    </ul>
-                    </>
-                </div>
-            ))}
         </div>
     );
 }

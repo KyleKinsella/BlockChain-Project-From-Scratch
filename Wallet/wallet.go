@@ -78,7 +78,7 @@ func CreateMultipleWallets(w http.ResponseWriter, r *http.Request) {
     
     if wallets == nil {
         
-        n := 50
+        n := 5
         for i := 1; i <= n; i++ {
             wallet := Wallet{
                 Index: i,
