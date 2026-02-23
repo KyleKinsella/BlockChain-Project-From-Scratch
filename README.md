@@ -101,7 +101,7 @@ Current functionality includes:
 - Decentralized Autonomous Organization (DAO) integration
 
 ## Potential Features
-Upcoming enhancements include:
+Potential enhancements include:
 - A peer-to-peer network
 - Allow my blockchain to fork (I know a blockchain should not fork but this is for learning purposes...)
 - Each block has a block height
