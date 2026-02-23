@@ -56,6 +56,23 @@ function DAO() {
     const [disableBidBtn, setDisableBidBtn] = useState(false);
     const [btn, setBtn] = useState(false);
     const [multipleWallets, setMultipleWallets] = useState([]);
+    
+    useEffect(() => {
+        const walletData = localStorage.getItem("walletData");
+        
+        if(walletData) { 
+            try {
+                const data = JSON.parse(walletData);
+                
+                setWalletConnected(data);
+                setWalletBalance(Number(data.Balance));
+                setButtonClicked(true);
+            } catch (err) {
+                console.error("Invalid wallet in storage");
+                localStorage.removeItem("walletData");
+            }
+        }
+    }, [])
 
     const createWallet = (e) => {
         e.preventDefault();
@@ -68,12 +85,9 @@ function DAO() {
                 setWalletBalance(Number(data.Balance));
                 setButtonClicked(true);
                 
-                //localStorage.clear();
-                //localStorage.setItem("walletAddress", data.Address);
-                //localStorage.setItem("walletBalance", data.Balance);
-                //const address = localStorage.getItem("walletAddress");
-                //const balance = localStorage.getItem("walletBalance");
-            });
+                localStorage.setItem("walletData", JSON.stringify(data));
+            })
+            .catch(err => console.error(err));
     };
     
     const daoReward = (e) => {
@@ -147,7 +161,13 @@ function DAO() {
                 setMultipleWallets(data3);
                 alert("5 Wallets have been created!");
             });
-    };  
+    };
+
+    const clearLocalStorage = (e) => {
+        e.preventDefault(); 
+
+        localStorage.clear();
+    };
     
     return (
         <div>       
@@ -155,22 +175,29 @@ function DAO() {
             <p>
                 Welcome! Connect your wallet, check today’s reward and place bids for a chance to win exclusive achievement cards!
             </p>
-            
+
+            {walletConnected && (                                                 
+                <div className="wallet">
+                    <p>Wallet: {walletConnected?.Address}</p>
+                    <p>Balance: {walletBalance}</p>
+                </div>
+            )}
+           
             <form onSubmit={createWallet}>
               <button type="submit" disabled={buttonClicked}>
                 {buttonClicked ? "Wallet Connected" : "Connect Wallet"}
               </button>
-            </form>
-            
-            {walletConnected && (                                                 
-                <div className="wallet">
-                    <p>Wallet: {walletConnected.Address}</p>
-                    <p>Balance: {walletBalance}</p>
-                </div>
-            )}
+            </form>  
+
+           <br />
+
+           <form onSubmit={clearLocalStorage}>
+                <button type="submit">Reset Page</button>
+           </form>
             
             <br />
 
+            {/*
             <form onSubmit={multipleWallet}>
                   <button type="submit">View Multiple Wallets</button>
             </form>
@@ -184,6 +211,7 @@ function DAO() {
                     </>
                 </div>
             ))}
+            */}
             
             <hr />
             <Treasury amount={sumValuesForTreasury(bids)}/>
