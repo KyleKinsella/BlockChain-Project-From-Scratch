@@ -12,6 +12,8 @@ const formtatDate = date.toLocaleDateString("en-US", {
     year: "numeric",
 });
 
+const hourIs = date.getHours(); 
+
 function sumValuesForTreasury(values) {
     var sum = 0;
     for (let i = 0; i < values.length; i++) {
@@ -58,7 +60,7 @@ function DAO() {
     const [currentBid, setCurrentBid] = useState(1);
     const [loaded, setLoaded] = useState(false);
     const [t, setT] = useState(0);
-       
+               
     const [bids, setBids] = useState(() => {
         const storedBids = localStorage.getItem("bids");
         return storedBids ? JSON.parse(storedBids) : [];
@@ -183,7 +185,7 @@ function DAO() {
     const rewardExpired = (exactTimeHour) => {
         var hour = date.getHours();
 
-        if (bids.length === 0) {
+        if (bids === 0) {
             alert("No bids have been placed yet. The reward remains unclaimed. Place a bid to participate!");
             return;
         }
@@ -239,10 +241,10 @@ function DAO() {
             })
             
             alert("Your bid has placed successfully!");
-            rewardExpired(23);
-        } 
-        
-        e.target.bidAmount.value = "";
+            rewardExpired(hourIs);
+        }
+
+        e.target.bidAmount.value = "";               
     };
 
      const multipleWallet = (e) => {
@@ -267,7 +269,7 @@ function DAO() {
     
     return (
         <div>       
-            <h1>Kyle's DAO</h1>
+            <h1>Kyle's Decentralized Autonomous Organization (DAO)</h1>
             <p>
                 Welcome! Connect your wallet, check today’s reward and place bids for a chance to win exclusive achievement cards!
             </p>
@@ -321,7 +323,8 @@ function DAO() {
                     <pre><strong>Achievement Card: </strong>{dao}</pre>
             </div>
             )}
-            
+
+            {/*<p><strong>Note:</strong> The last person to bid before the hour {hourIs} wins the achievement card.<br /><br />Time left: {hourIs}</p>*/}
             <p>Current Bid is: {currentBid}</p>
             
             <form onSubmit={getBidAmount}>
@@ -330,11 +333,17 @@ function DAO() {
                 <button type="submit" disabled={disableBidBtn}>Place Bid</button>
             </form>
 
-            <br />               
+            {/*
+            <button onClick={() => navigate("/done", { state: { reward: dao } })}>View Your Wallet</button>
 
+            <br />              
+            */}
+
+            {/*
             <form onSubmit={clearLocalStorage}>
                 <button type="submit">Reset Page</button>
-           </form>
+            </form>
+            */}
         </div>
     );
 }
