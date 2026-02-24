@@ -12,8 +12,6 @@ const formtatDate = date.toLocaleDateString("en-US", {
     year: "numeric",
 });
 
-//const bids = [];
-
 function sumValuesForTreasury(values) {
     var sum = 0;
     for (let i = 0; i < values.length; i++) {
@@ -82,13 +80,15 @@ function DAO() {
 
         const treasuryBids = localStorage.getItem("Treasury-Amount");
         const bds = localStorage.getItem("bids");
+
+        const updatedWall = localStorage.getItem("updatedBalance");
         
         if(walletData) { 
             try {
                 const data = JSON.parse(walletData);
                 
                 setWalletConnected(data);
-                setWalletBalance(Number(data.Balance));
+                setWalletBalance(Number(data.Balance)); 
                 setButtonClicked(true);
             } catch (err) {
                 console.error("Invalid wallet in storage");
@@ -122,7 +122,7 @@ function DAO() {
 
         if(treasuryBids) {
             try {
-                const data4 = JSON.parse(ta);
+                const data4 = JSON.parse(treasuryBids);
                 setT(data4);
             } catch (err) {
                 console.error("Invalid currentBid in storage");
@@ -138,7 +138,17 @@ function DAO() {
                 console.error("Invalid bids in storage");
                 localStorage.removeItem("bids");
             }
-        }  
+        }
+
+        if(updatedWall) { 
+            try {
+                const data6 = JSON.parse(updatedWall);
+                setWalletBalance(data6.Balance);
+            } catch (err) {
+                console.error("Invalid currentBid in storage");
+                localStorage.removeItem("currentBid");
+            }
+        }
     }, [])
     
     const createWallet = (e) => {
@@ -211,12 +221,23 @@ function DAO() {
         
         if (currentBid === LOWEST || validBalance > LOWEST) {
             setBid(prevBid => prevBid + validBalance);
-            setCurrentBid(prev => prev + validBalance);    // + validBalance + LOWEST);
-            //bids.push(parseInt(validBalance));
-
+            setCurrentBid(prev => prev + validBalance);
             setBids(prevBids => [...prevBids, validBalance]);
             
-            setWalletBalance(prevBalance => parseInt((prevBalance - validBalance)));
+            setWalletBalance(prev => {
+                const newBalance = prev - validBalance;
+
+                const updatedWallet = {
+                    Address: walletConnected.Address,
+                    Balance: newBalance
+                };
+
+                setWalletConnected(updatedWallet);
+                localStorage.setItem("updatedBalance", JSON.stringify(updatedWallet));
+
+                return newBalance;
+            })
+            
             alert("Your bid has placed successfully!");
             rewardExpired(23);
         } 
