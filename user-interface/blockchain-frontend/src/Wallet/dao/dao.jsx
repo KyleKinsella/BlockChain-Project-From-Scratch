@@ -265,6 +265,16 @@ function DAO() {
         localStorage.clear();
     };
 
+    const findWalletBalanceForAlias = (e) => {
+        e.preventDefault();
+
+        const alias = e.target.aliasName.value;
+
+        // the rest of this function will be finding out what "Alias" name is mapped to whatever "Wallet Address"
+        // then get that wallet addresses balance
+        // then process, decrement the balance etc
+    };
+
     const total = sumValuesForTreasury(bids);
     
     return (
@@ -287,7 +297,6 @@ function DAO() {
                 </div>
             )}
                       
-            {/*
             <form onSubmit={multipleWallet}>
                   <button type="submit">View Multiple Wallets</button>
             </form>
@@ -296,12 +305,11 @@ function DAO() {
                 <div className="seed">        
                     <>
                     <ul>
-                        <p>Wallet({i+1}): {data.Address} <br /> Balance: {data.Balance}</p>
+                        <p>Alias: {data.Alias} <br /> Wallet({i+1}): {data.Address} <br /> Balance: {data.Balance}</p>
                     </ul>
                     </>
                 </div>
             ))}
-            */}
             
             <hr />
             <Treasury amount={total}/>
@@ -327,6 +335,17 @@ function DAO() {
             {/*<p><strong>Note:</strong> The last person to bid before the hour {hourIs} wins the achievement card.<br /><br />Time left: {hourIs}</p>*/}
             <p>Current Bid is: {currentBid}</p>
             
+            <form onSubmit={findWalletBalanceForAlias}>
+                <input type="text" name="aliasName" placeholder="Enter your Alias name"/>       
+                <br /><br />
+                {/*<button type="submit">Submit Alias</button>*/}
+            </form>
+
+            {/*
+            <input type="text" name="aliasName" placeholder="Enter your Alias name"/>    
+            <button type="submit" onClick={findWalletBalanceForAlias}>fuck me</button>
+            */}
+            
             <form onSubmit={getBidAmount}>
                 <input type="number" step="1" name="bidAmount" placeholder="Enter your bid"/>       
                 <br /><br />
@@ -343,6 +362,29 @@ function DAO() {
             <form onSubmit={clearLocalStorage}>
                 <button type="submit">Reset Page</button>
             </form>
+            */}
+
+            <br />
+            <hr />
+
+            <h3>Bid History</h3>
+            {walletConnected && (
+                
+            <ul>
+                <li>{walletConnected.Address} bidded: x amount</li>
+            </ul>
+            )}
+
+            {/*
+            {multipleWallets.map((data, i) => (     
+                <div className="bid">        
+                    <>
+                    <ul>
+                        <p>Wallet({i+1}): {data.Address} <br /> This will be whatever they bidded: {data.Balance}</p>
+                    </ul>
+                    </>
+                </div>
+            ))}
             */}
         </div>
     );
