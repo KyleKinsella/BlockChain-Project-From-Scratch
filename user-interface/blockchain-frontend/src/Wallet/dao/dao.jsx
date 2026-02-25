@@ -265,100 +265,16 @@ function DAO() {
         alert("Local Storage has been cleared!")
         localStorage.clear();
     };
-
-    {/*
-    const processFunds = (e, balance) => {
-        e.preventDefault();
-
-        if(balance <= 0) {
-            alert("balance cannot be zero!");
-            return;
-        }
-
-        if(balance === 100) {
-            alert("balance is 100!!!");
-            //return;
-        }
-
-        const bidAmount = e.target.bidAmount.value;
-        alert(bidAmount);
-
-        return balance - bidAmount;     
-    };
-    */}
-
+    
     const findWalletBalanceForAlias = (e) => {
         e.preventDefault();
 
         var alias = e.target.aliasName.value;
 
-        //var balance = multipleWallets[2]?.AliasToBalance?.[alias];
-
-        //var balances = [];
-        //for(var i = 0; i < multipleWallets.length; i++) {
-            //var balance = multipleWallets[i]?.AliasToBalance?.[alias];
-            //balances.push(balance);
-        //}
-        
         const lookup = multipleWallets[4]?.AliasToBalance?.[alias];
+        alert(lookup);
 
-        //alert(bid);
-
-        alert(lookup);          // - Number(bid));
-
-
-        //updatedFunds = processFunds(e, lookup);
-
-        //alert(updatedFunds);
-
-
-
-
-
-        //alert(lookup);
-        //alert(getBidAmount(e));
-    
-
-        //if(alias !== lookup) {
-            //alert(alias + " not found wallet " + 2);
-            //return;
-        //}
-                      
-        //var balance = lookup;
-
-
-        //for(var j = 0; j < balances.length; j++) {
-            //console.log(balances[j]);
-        //}
-
-
-        //alert(alias + ": " + balance);
-
-        //var x = 5;
-
-        //var newBalance = balance - x;
-
-        //5 -= balance;
-        //alert(alias + " has bidded:" + balance);
-
-
-        //alert(aliasToBalance);
-
-
-
-        //alert(alias);
-
-
-
-
-        //alert(multipleWallets);
-        //console.log(multipleWallets);
-
-
-
-        // the rest of this function will be finding out what "Alias" name is mapped to whatever "Wallet Address"
-        // then get that wallet addresses balance
-        // then process, decrement the balance etc
+        // More work to be done here // 
     };
 
     const total = sumValuesForTreasury(bids);
@@ -418,20 +334,13 @@ function DAO() {
             </div>
             )}
 
-            {/*<p><strong>Note:</strong> The last person to bid before the hour {hourIs} wins the achievement card.<br /><br />Time left: {hourIs}</p>*/}
             <p>Current Bid is: {currentBid}</p>
             
             <form onSubmit={findWalletBalanceForAlias}>
                 <input type="text" name="aliasName" placeholder="Enter your Alias name"/>       
                 <br /><br />
-                {/*<button type="submit">Submit Alias</button>*/}
             </form>
-
-            {/*
-            <input type="text" name="aliasName" placeholder="Enter your Alias name"/>    
-            <button type="submit" onClick={findWalletBalanceForAlias}>fuck me</button>
-            */}
-            
+               
             <form onSubmit={getBidAmount}>
                 <input type="number" step="1" name="bidAmount" placeholder="Enter your bid"/>       
                 <br /><br />
@@ -440,40 +349,23 @@ function DAO() {
 
             {/*
             <button onClick={() => navigate("/done", { state: { reward: dao } })}>View Your Wallet</button>
-
             <br />              
             */}
-
-            {/*
+            
             <form onSubmit={clearLocalStorage}>
                 <button type="submit">Reset Page</button>
             </form>
-            */}
 
-            {/*
             <br />
             <hr />
 
+            {/* in the un-ordered list below it will show everyone that has bidded in the DAO, it will show who bidded and how much they bidded. */}
             <h3>Bid History</h3>
             {walletConnected && (
-                
-            <ul>
-                <li>{walletConnected.Address} bidded: x amount</li>
-            </ul>
+                <ul>
+                    <li>{walletConnected.Address} bidded: x amount</li>
+                </ul>
             )}
-            */}
-
-            {/*
-            {multipleWallets.map((data, i) => (     
-                <div className="bid">        
-                    <>
-                    <ul>
-                        <p>Wallet({i+1}): {data.Address} <br /> This will be whatever they bidded: {data.Balance}</p>
-                    </ul>
-                    </>
-                </div>
-            ))}
-            */}
         </div>
     );
 }
