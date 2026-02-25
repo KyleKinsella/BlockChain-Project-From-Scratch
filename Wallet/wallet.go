@@ -17,9 +17,13 @@ type Wallet struct {
     Index int
     Alias string
     Address string
-    Balance float32
+    Balance int
     PrivateKey string
     PublicKey string
+    AliasToBalance map[string]int
+
+    //AliastoAddress map [string]string
+    //AddressToBalance map[string]int
 
     //PrivateKey *ecdsa.PrivateKey
     //PublicKey ecdsa.PublicKey
@@ -27,8 +31,9 @@ type Wallet struct {
 
 const (
     LOW = 0.01
-    START_FUNDS = 100.00
+    START_FUNDS = 100
     USERS = 1000000
+    FIVEFIVE = 50
 )
 
 //var aliases = []string{"Monster", "Sign", "Warning", "Spoon", "Drink"}
@@ -196,19 +201,54 @@ func CreateMultipleWallets(w http.ResponseWriter, r *http.Request) {
         
         n := 5
         alias := getNRandomWords(n)
-        fmt.Println(alias)
+        //fmt.Println(alias)
 
         //updated := removeDuplicates(alias)
         
         for i := 1; i <= n; i++ {
             wallet := Wallet{
+
+                //data := Wallet {
+                    //aliastoAddress: make(map[string]string),
+                //}
+
+                //data2 := Wallet {
+                    //addressToBalance: make(map[string]int),
+                //}
+            
+                //data := map[string]string {
+                    //wallet.Alias: wallet.Address,
+                //}
+
+                //walletAddressToBalance := map[string]int {
+                    //wallet.Address: wallet.Balance,
+                //}
+
                 Index: i,
                 Alias: alias[i - 1],                    //Blocks.GetRandomString(alias),
                 Address: randomWalletAddress(),
                 Balance: START_FUNDS,
                 PrivateKey: "",
                 PublicKey: "",
+
+                AliasToBalance: make(map[string]int),
+
+                //AliastoAddress: make(map[string]string),            //data.aliastoAddress[Alias] = Address,  //map[wallet.Alias]wallet.Address,
+                //AddressToBalance: make(map[string]int),             //data2.addressToBalance[Address] = Balance, //map[wallet.Address]wallet.Balance,
             }
+
+            //wallet.AliastoAddress[wallet.Alias] = wallet.Address
+            //wallet.AddressToBalance[wallet.Address] = wallet.Balance
+
+            wallet.AliasToBalance[wallet.Alias] = wallet.Balance
+            
+
+            //fmt.Println(wallet.AliastoAddress, "\n\n", wallet.AddressToBalance)
+            
+
+            //fmt.Println(data, "\n\n", walletAddressToBalance)
+
+
 
             //assignAliasToWalletAddress(wallet.Alias, wallet.Address)
 
@@ -218,6 +258,11 @@ func CreateMultipleWallets(w http.ResponseWriter, r *http.Request) {
             //if c {
                 //return
             //}
+
+            if i == n {
+                wallet.Balance = FIVEFIVE
+                wallet.AliasToBalance[wallet.Alias] = wallet.Balance
+            }
         
             wallets = append(wallets, wallet)
         }

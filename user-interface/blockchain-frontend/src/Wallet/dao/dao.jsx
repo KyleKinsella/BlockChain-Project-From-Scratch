@@ -255,6 +255,7 @@ function DAO() {
             .then(data3 => {
                 setMultipleWallets(data3);
                 alert("5 Wallets have been created!");
+                console.log(data3);
             });
     };
 
@@ -265,10 +266,95 @@ function DAO() {
         localStorage.clear();
     };
 
+    {/*
+    const processFunds = (e, balance) => {
+        e.preventDefault();
+
+        if(balance <= 0) {
+            alert("balance cannot be zero!");
+            return;
+        }
+
+        if(balance === 100) {
+            alert("balance is 100!!!");
+            //return;
+        }
+
+        const bidAmount = e.target.bidAmount.value;
+        alert(bidAmount);
+
+        return balance - bidAmount;     
+    };
+    */}
+
     const findWalletBalanceForAlias = (e) => {
         e.preventDefault();
 
-        const alias = e.target.aliasName.value;
+        var alias = e.target.aliasName.value;
+
+        //var balance = multipleWallets[2]?.AliasToBalance?.[alias];
+
+        //var balances = [];
+        //for(var i = 0; i < multipleWallets.length; i++) {
+            //var balance = multipleWallets[i]?.AliasToBalance?.[alias];
+            //balances.push(balance);
+        //}
+        
+        const lookup = multipleWallets[4]?.AliasToBalance?.[alias];
+
+        //alert(bid);
+
+        alert(lookup);          // - Number(bid));
+
+
+        //updatedFunds = processFunds(e, lookup);
+
+        //alert(updatedFunds);
+
+
+
+
+
+        //alert(lookup);
+        //alert(getBidAmount(e));
+    
+
+        //if(alias !== lookup) {
+            //alert(alias + " not found wallet " + 2);
+            //return;
+        //}
+                      
+        //var balance = lookup;
+
+
+        //for(var j = 0; j < balances.length; j++) {
+            //console.log(balances[j]);
+        //}
+
+
+        //alert(alias + ": " + balance);
+
+        //var x = 5;
+
+        //var newBalance = balance - x;
+
+        //5 -= balance;
+        //alert(alias + " has bidded:" + balance);
+
+
+        //alert(aliasToBalance);
+
+
+
+        //alert(alias);
+
+
+
+
+        //alert(multipleWallets);
+        //console.log(multipleWallets);
+
+
 
         // the rest of this function will be finding out what "Alias" name is mapped to whatever "Wallet Address"
         // then get that wallet addresses balance
@@ -364,6 +450,7 @@ function DAO() {
             </form>
             */}
 
+            {/*
             <br />
             <hr />
 
@@ -374,6 +461,7 @@ function DAO() {
                 <li>{walletConnected.Address} bidded: x amount</li>
             </ul>
             )}
+            */}
 
             {/*
             {multipleWallets.map((data, i) => (     
