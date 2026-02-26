@@ -101,7 +101,7 @@ func CreateMultipleWallets(w http.ResponseWriter, r *http.Request) {
     
     if wallets == nil {
         
-        n := 5
+        n := 2
         alias := getNRandomWords(n)
         
         for i := 1; i <= n; i++ {

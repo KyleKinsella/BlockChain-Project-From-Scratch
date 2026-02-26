@@ -1,3 +1,11 @@
+{/*
+   TODO:
+    - persist n wallets balance
+    - persist bid history
+    - allow for more than one wallet to bid (over-writting issue)
+    - determine the winner for the reward (highest bid wins!)
+*/}
+
 import { useState, useEffect } from "react";
 import Treasury from './treasury.jsx';
 import { useNavigate } from "react-router-dom";
@@ -56,11 +64,14 @@ function DAO() {
     const [disableBidBtn, setDisableBidBtn] = useState(false);
     const [btn, setBtn] = useState(false);
     const [multipleWallets, setMultipleWallets] = useState([]);
-
     const [currentBid, setCurrentBid] = useState(1);
     const [loaded, setLoaded] = useState(false);
     const [t, setT] = useState(0);
-               
+    const [aliasBiddedName, setAliasBiddedName] = useState("");
+    const [aliasBidAmount, setAliasBidAmount] = useState(0);
+    const [walletOne, setWalletOne] = useState("");
+    const [walletOneBidAmount, setWalletOneBidAmount] = useState(0);
+    
     const [bids, setBids] = useState(() => {
         const storedBids = localStorage.getItem("bids");
         return storedBids ? JSON.parse(storedBids) : [];
@@ -79,12 +90,10 @@ function DAO() {
         const walletData = localStorage.getItem("walletData");
         const reward = localStorage.getItem("reward");
         const curr = localStorage.getItem("currentBid");
-
         const treasuryBids = localStorage.getItem("Treasury-Amount");
         const bds = localStorage.getItem("bids");
-
         const updatedWall = localStorage.getItem("updatedBalance");
-        
+
         if(walletData) { 
             try {
                 const data = JSON.parse(walletData);
@@ -225,32 +234,43 @@ function DAO() {
             setBid(prevBid => prevBid + validBalance);
             setCurrentBid(prev => prev + validBalance);
             setBids(prevBids => [...prevBids, validBalance]);
+            
+            var typedAlias = e.target.aliasName.value;
 
             // This is the state for the first wallet // 
-            setWalletBalance(prev => {
-                const newBalance = prev - validBalance;
+            if (typedAlias === walletConnected.Alias) {
+                setWalletBalance(prev => {
+                    const newBalance = prev - validBalance;
 
-                const updatedWallet = {
-                    Alias: walletConnected.Alias,
-                    Address: walletConnected.Address,
-                    Balance: newBalance
-                };
+                    const updatedWallet = {
+                        Alias: walletConnected.Alias,
+                        Address: walletConnected.Address,
+                        Balance: newBalance
+                    };
 
-                setWalletConnected(updatedWallet);
-                localStorage.setItem("updatedBalance", JSON.stringify(updatedWallet));
+                    setWalletOne(updatedWallet.Address);
+                    setWalletOneBidAmount(bidAmount);
 
-                return newBalance;
-            })
+                    setWalletConnected(updatedWallet);
+                    localStorage.setItem("updatedBalance", JSON.stringify(updatedWallet));
 
+                    return newBalance;
+                })
+            }
+            
             // This is the state for the n other connected wallets //
-            var typedAlias = e.target.aliasName.value;
             setMultipleWallets(prevWallets =>
               prevWallets.map(wallet => {  
                 if (wallet.Alias === typedAlias) {
-                  return {
-                    ...wallet,
-                    Balance: wallet.Balance - validBalance
-                  };
+                    const updated = {
+                        ...wallet,
+                        Balance: wallet.Balance - validBalance
+                    };
+                    
+                    setAliasBiddedName(wallet.Address);
+                    setAliasBidAmount(bidAmount);
+                    
+                    return updated;
                 }
                 e.target.aliasName.value = "";
                 return wallet;
@@ -271,7 +291,7 @@ function DAO() {
             .then(res => res.json())
             .then(data3 => {
                 setMultipleWallets(data3);
-                alert("5 Wallets have been created!");
+                alert(data3.length + " Wallets have been created!");
                 console.log(data3);
             });
     };
@@ -282,14 +302,14 @@ function DAO() {
         alert("Local Storage has been cleared!")
         localStorage.clear();
     };
-    
+
     const total = sumValuesForTreasury(bids);
     
     return (
         <div>       
             <h1>Kyle's Decentralized Autonomous Organization (DAO)</h1>
             <p>
-                Welcome! Connect your wallet, check today’s reward and place bids for a chance to win exclusive achievement cards!
+                Welcome to my DAO! Connect your wallet, check today’s reward and place bids for a chance to win exclusive achievement cards!
             </p>
 
             <form onSubmit={createWallet}>
@@ -302,21 +322,21 @@ function DAO() {
                 <div className="wallet">
                     <p>
                         Alias: {walletConnected.Alias} <br />
-                        Wallet: {walletConnected?.Address} <br />
                         Balance: {walletBalance}
                     </p>
                 </div>
             )}
-
+            
             <form onSubmit={multipleWallet}>
                   <button type="submit">View Multiple Wallets</button>
             </form>
-            
+                        
             {multipleWallets.map((data, i) => (       
                 <div className="seed">        
                     <>
                     <ul>
-                        <p>Alias: {data.Alias} <br /> Wallet({i+1}): {data.Address} <br /> Balance: {data.Balance}</p>
+                        <p>Alias({i+1}): {data.Alias} <br />
+                        Balance: {data.Balance}</p>
                     </ul>
                     </>
                 </div>
@@ -324,6 +344,15 @@ function DAO() {
             
             <hr />
             <Treasury amount={total}/>
+            <br />
+
+            {/* There is more work to do with the Bid History */}
+            <h3>Bid History</h3>
+            <ul>
+                <li>{walletOne} bidded: {walletOneBidAmount}</li>
+                <li>{aliasBiddedName} bidded: {aliasBidAmount}</li>
+            </ul>
+
             <br />
             
             <h3>Today's Reward</h3>
@@ -358,26 +387,10 @@ function DAO() {
             <button onClick={() => navigate("/done", { state: { reward: dao } })}>View Your Wallet</button>
             <br />              
             */}
-
+            
             <form onSubmit={clearLocalStorage}>
                 <button type="submit">Reset Page</button>
             </form>
-            
-            {/*
-            <br />
-            <hr />
-            */}
-            
-            {/* in the un-ordered list below it will show everyone that has bidded in the DAO, it will show who bidded and how much they bidded. */}
-
-            {/*
-            <h3>Bid History</h3>
-            {walletConnected && (
-                <ul>
-                    <li>{walletConnected.Address} bidded: x amount</li>
-                </ul>
-            )}
-            */}
         </div>
     );
 }
