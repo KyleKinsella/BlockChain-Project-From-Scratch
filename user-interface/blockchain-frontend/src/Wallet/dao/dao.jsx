@@ -200,7 +200,13 @@ function DAO() {
     }
     
     const getBidAmount = (e) => {
-        e.preventDefault(); 
+        e.preventDefault();
+
+        //var alias = e.target.aliasName.value;
+
+        //const lookup = multipleWallets[4]?.AliasToBalance?.[alias];
+        
+        //alert("you typed: " + lookup);
         
         var bidAmount = parseInt(e.target.bidAmount.value);
         bidAmount = parseInt(bidAmount);    
@@ -225,23 +231,90 @@ function DAO() {
             setBid(prevBid => prevBid + validBalance);
             setCurrentBid(prev => prev + validBalance);
             setBids(prevBids => [...prevBids, validBalance]);
+
+            // 
+            // switch on the multipleWallets.Alias
+            // 
+
+            // naive approach 1st: do a check for a hard-coded value
+            // then, make the code better and more maintainable
+
+
             
-            setWalletBalance(prev => {
-                const newBalance = prev - validBalance;
 
-                const updatedWallet = {
-                    Address: walletConnected.Address,
-                    Balance: newBalance
-                };
 
-                setWalletConnected(updatedWallet);
-                localStorage.setItem("updatedBalance", JSON.stringify(updatedWallet));
+            //const typedAlias = e.target.aliasName.value;
 
-                return newBalance;
-            })
+            //var alias = e.target.aliasName.value;
+            //const lookup = multipleWallets[4]?.AliasToBalance?.[alias];
+            //alert("you typed: " + lookup);
+
+
+
+            //const aliasName = multipleWallets.Alias;
+            //alert("alias name is:" + aliasName);
+
+            //var name = multipleWallets[4]?.AliasToBalance?.[alias];
+
+            //if (alias === "oversupplies") {
+                //alert("YESSS!");
+
+                {/*
+                setWalletBalance(prev => {
+                    const newBalance = prev - validBalance;             //name - prev;
+
+                    const updatedWallet = {
+                        //Alias: multipleWallets.Alias,
+                        Address: walletConnected.Address,
+                        Balance: newBalance
+                    };
+
+                    setWalletConnected(updatedWallet);
+                    localStorage.setItem("updatedBalance", JSON.stringify(updatedWallet));
+
+                    return newBalance;
+                })
+            //} else {
+                //alert(alias + " not found! Try again.")
+            //}
+            */}
+
+                {/*
+                if (typedAlias != wallet.Alias) {
+                    alert("NO!");
+                    continue;
+                }
+                */} 
+
+            var typedAlias = e.target.aliasName.value;
+
+            setMultipleWallets(prevWallets =>
+              prevWallets.map(wallet => {
+
+                
+                  
+                if (wallet.Alias === typedAlias) {
+                  return {
+                    ...wallet,
+                    Balance: wallet.Balance - validBalance
+                  };
+                } 
+                return wallet;
+              })
+
+              
+            );
+
+
+           {/*
+              if (typedAlias != wallet.Alias) {
+                  alert(typedAlias + "not found. Try again.");
+                  return;
+              }
+              */}
             
             alert("Your bid has placed successfully!");
-            rewardExpired(hourIs);
+            //rewardExpired(hourIs);
         }
 
         e.target.bidAmount.value = "";               
@@ -265,7 +338,8 @@ function DAO() {
         alert("Local Storage has been cleared!")
         localStorage.clear();
     };
-    
+
+    {/*
     const findWalletBalanceForAlias = (e) => {
         e.preventDefault();
 
@@ -273,9 +347,10 @@ function DAO() {
 
         const lookup = multipleWallets[4]?.AliasToBalance?.[alias];
         alert(lookup);
-
+        
         // More work to be done here // 
     };
+    */}
 
     const total = sumValuesForTreasury(bids);
     
@@ -298,20 +373,6 @@ function DAO() {
                     <p>Balance: {walletBalance}</p>
                 </div>
             )}
-                      
-            <form onSubmit={multipleWallet}>
-                  <button type="submit">View Multiple Wallets</button>
-            </form>
-            
-            {multipleWallets.map((data, i) => (       
-                <div className="seed">        
-                    <>
-                    <ul>
-                        <p>Alias: {data.Alias} <br /> Wallet({i+1}): {data.Address} <br /> Balance: {data.Balance}</p>
-                    </ul>
-                    </>
-                </div>
-            ))}
             
             <hr />
             <Treasury amount={total}/>
@@ -335,37 +396,64 @@ function DAO() {
             )}
 
             <p>Current Bid is: {currentBid}</p>
-            
+
+            {/*
             <form onSubmit={findWalletBalanceForAlias}>
                 <input type="text" name="aliasName" placeholder="Enter your Alias name"/>       
                 <br /><br />
             </form>
-               
+            */}
+            
             <form onSubmit={getBidAmount}>
-                <input type="number" step="1" name="bidAmount" placeholder="Enter your bid"/>       
+                <input type="text" name="aliasName" placeholder="Enter your Alias name" required/>       
+                <input type="number" step="1" name="bidAmount" placeholder="Enter your bid"/>
+  
                 <br /><br />
                 <button type="submit" disabled={disableBidBtn}>Place Bid</button>
             </form>
+
+            <br />
+
+            <form onSubmit={multipleWallet}>
+                  <button type="submit">View Multiple Wallets</button>
+            </form>
+            
+            {multipleWallets.map((data, i) => (       
+                <div className="seed">        
+                    <>
+                    <ul>
+                        <p>Alias: {data.Alias} <br /> Wallet({i+1}): {data.Address} <br /> Balance: {data.Balance}</p>
+                    </ul>
+                    </>
+                </div>
+            ))}
 
             {/*
             <button onClick={() => navigate("/done", { state: { reward: dao } })}>View Your Wallet</button>
             <br />              
             */}
-            
+
+           
             <form onSubmit={clearLocalStorage}>
                 <button type="submit">Reset Page</button>
             </form>
+           
 
+            {/*
             <br />
             <hr />
-
+            */}
+            
             {/* in the un-ordered list below it will show everyone that has bidded in the DAO, it will show who bidded and how much they bidded. */}
+
+            {/*
             <h3>Bid History</h3>
             {walletConnected && (
                 <ul>
                     <li>{walletConnected.Address} bidded: x amount</li>
                 </ul>
             )}
+            */}
         </div>
     );
 }

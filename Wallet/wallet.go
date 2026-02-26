@@ -9,6 +9,7 @@ import (
     "net/http"
     "BlockChainProjectFromScratch/Blocks"
     "io"
+    //"fmt"
 )
 
 type Wallet struct {
@@ -63,12 +64,15 @@ func getRandomWords() []string {
 
     if err != nil {
         panic(err)
+        //fmt.Errorf("This is the problem here: %v", err)
     }
 
     data, err := io.ReadAll(res.Body) 
     if err != nil {
         panic(err)
     }
+
+    //fmt.Println("HERE IS WHAT DATA HAS:", data)
 
     var words []string
 
@@ -78,6 +82,45 @@ func getRandomWords() []string {
 
     return words
 }
+
+//var adjectives = []string{
+    //"silent", "blue", "red", "dark", "silver",
+    //"rapid", "frozen", "wild", "brave", "ancient",
+//}
+
+//var nouns = []string{
+    //"hawk", "forest", "falcon", "river", "wolf",
+    //"tiger", "shadow", "storm", "phoenix", "lion",
+//}
+
+//func makeAliases(n int) []string {
+    //var words []string
+    //const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+
+    //b := make([]byte, n)
+    //for i := range b {
+        //b[i] = letters[rand.Intn(len(letters))]
+        //str := string(b[i])
+        //words = append(words, str)
+    //}
+    
+    //return words
+//}
+
+//func makeAliases(n int) []string {
+    //var aliases []string
+
+    //for i := 0; i < n; i++ {
+        //adj := adjectives[rand.Intn(len(adjectives))]
+        //noun := nouns[rand.Intn(len(nouns))]
+        //number := rand.Intn(1000)
+
+        //alias := fmt.Sprintf("%s%s%d", adj, noun, number)
+        //aliases = append(aliases, alias)
+    //}
+
+    //return aliases
+//}
 
 func SetupWallet(w http.ResponseWriter, r *http.Request) {  
     w.Header().Set("Access-Control-Allow-Origin", "*")
