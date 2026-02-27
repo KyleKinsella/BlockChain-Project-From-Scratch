@@ -1,7 +1,7 @@
 {/*
    TODO:
     - persist n wallets balance
-    - persist bid history
+    - persist bid history --- done
     - allow for more than one wallet to bid (over-writting issue)  --- done
     - determine the winner for the reward (highest bid wins!) --- done
     - edge cases:
@@ -82,10 +82,10 @@ function DAO() {
     const [multipleWallets, setMultipleWallets] = useState([]);
     const [currentBid, setCurrentBid] = useState(1);
     const [loaded, setLoaded] = useState(false);
-    const [t, setT] = useState(0);
+    const [t, setT] = useState(0);    
     const [bidHistory, setBidHistory] = useState([]);
     const noDups = [...new Set(bidHistory)];
-    
+
     const [bids, setBids] = useState(() => {
         const storedBids = localStorage.getItem("bids");
         return storedBids ? JSON.parse(storedBids) : [];
@@ -107,6 +107,7 @@ function DAO() {
         const treasuryBids = localStorage.getItem("Treasury-Amount");
         const bds = localStorage.getItem("bids");
         const updatedWall = localStorage.getItem("updatedBalance");
+        const bh = localStorage.getItem("bidHistory");
         
         if(walletData) { 
             try {
@@ -175,15 +176,28 @@ function DAO() {
             }
         }
 
+        if(bh) {
+            try {
+                const data7 = JSON.parse(bh);
+                setBidHistory(data7);
+            } catch (err) {
+                console.error("Invalid bidHistory in storage");
+                localStorage.removeItem("bidHistory");
+            }
+        }
+    }, [])
+
+    useEffect(() => {
         var bidAmounts = [];
         var maxValue = 0;
-        
+         
         for(var i = 0; i < bidHistory.length; i++) {
             bidAmounts.push(bidHistory[i].Amount);
             maxValue = Math.max(...bidAmounts);
             
             if (hourIs === biddingIsOver) {
                 rewardExpired(hourIs, bidHistory[i].Address, maxValue);
+                break;
             }
         }
     }, [bidHistory])
@@ -337,10 +351,11 @@ function DAO() {
     };
 
     function handleBid(Address, Amount) {
-        setBidHistory(prev => [
-            ...prev,
-            { Address, Amount }
-        ]);
+        setBidHistory(prev => {
+            const bidInfo = [...prev, { Address, Amount }];
+            localStorage.setItem("bidHistory", JSON.stringify(bidInfo));
+            return bidInfo;
+        });
     }
     
     const total = sumValuesForTreasury(bids);
