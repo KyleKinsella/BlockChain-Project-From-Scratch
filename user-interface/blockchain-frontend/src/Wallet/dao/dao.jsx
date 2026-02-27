@@ -3,7 +3,7 @@
     - persist n wallets balance
     - persist bid history
     - allow for more than one wallet to bid (over-writting issue)  --- done
-    - determine the winner for the reward (highest bid wins!)
+    - determine the winner for the reward (highest bid wins!) --- done
     - edge cases:
         - invalid Alias names
         - whitespace before or after Alias name
