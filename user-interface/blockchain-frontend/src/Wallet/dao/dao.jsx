@@ -4,6 +4,21 @@
     - persist bid history
     - allow for more than one wallet to bid (over-writting issue)  --- done
     - determine the winner for the reward (highest bid wins!)
+    - edge cases:
+        - invalid Alias names
+        - whitespace before or after Alias name
+        - if the Alias "I-WAS-HERE-FIRST" balance is zero, any of the n other wallets cannot bid
+        - when any of the n wallets bids if they try to bid more than they have this will work and there balance goes into negative value
+            for eg. wallet balance: 100
+                    bid amount: 110
+                    = -10
+    
+    - proposals & candidates
+    - make the readme more developer / engineer like
+    - polishing up everthing
+    - styling (CSS - actual do it myself not ChatGPT, so learn lol, I know the basics...)
+    - make the user type how many blocks & wallets they want to make
+    - complete or make a dashboard to see traffic for my application/project 
 */}
 
 import { useState, useEffect } from "react";
@@ -21,6 +36,7 @@ const formtatDate = date.toLocaleDateString("en-US", {
 });
 
 const hourIs = date.getHours(); 
+const biddingIsOver = hourIs + 1;
 
 function sumValuesForTreasury(values) {
     var sum = 0;
@@ -54,7 +70,7 @@ function checkWalletForValidBalance(amount, bidAmount) {
 }
 
 function DAO() {
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
 
     const [walletConnected, setWalletConnected] = useState(null);
     const [dao, setDao] = useState(null);
@@ -67,11 +83,6 @@ function DAO() {
     const [currentBid, setCurrentBid] = useState(1);
     const [loaded, setLoaded] = useState(false);
     const [t, setT] = useState(0);
-    const [aliasBiddedName, setAliasBiddedName] = useState("");
-    const [aliasBidAmount, setAliasBidAmount] = useState(0);
-    const [walletOne, setWalletOne] = useState("");
-    const [walletOneBidAmount, setWalletOneBidAmount] = useState(0);
-    
     const [bidHistory, setBidHistory] = useState([]);
     const noDups = [...new Set(bidHistory)];
     
@@ -96,7 +107,7 @@ function DAO() {
         const treasuryBids = localStorage.getItem("Treasury-Amount");
         const bds = localStorage.getItem("bids");
         const updatedWall = localStorage.getItem("updatedBalance");
-
+        
         if(walletData) { 
             try {
                 const data = JSON.parse(walletData);
@@ -163,7 +174,19 @@ function DAO() {
                 localStorage.removeItem("currentBid");
             }
         }
-    }, [])
+
+        var bidAmounts = [];
+        var maxValue = 0;
+        
+        for(var i = 0; i < bidHistory.length; i++) {
+            bidAmounts.push(bidHistory[i].Amount);
+            maxValue = Math.max(...bidAmounts);
+            
+            if (hourIs === biddingIsOver) {
+                rewardExpired(hourIs, bidHistory[i].Address, maxValue);
+            }
+        }
+    }, [bidHistory])
     
     const createWallet = (e) => {
         e.preventDefault();
@@ -194,7 +217,7 @@ function DAO() {
             });
     };  
     
-    const rewardExpired = (exactTimeHour) => {
+    const rewardExpired = (exactTimeHour, address, winningBid) => {
         var hour = date.getHours();
 
         if (bids === 0) {
@@ -203,7 +226,9 @@ function DAO() {
         }
         
         if (hour === exactTimeHour) {
-            alert("Congratulations 🎉\n\nThe winner of the reward: '" + dao + "' is: " + walletConnected.Address + "\n\nCheck your Wallet to see your brand new Achievement Card!");     
+            alert("Congratulations 🎉\n\nThe winner of the reward: '" + dao + "' is: " + address + "\n\nThe winning bid was: " + winningBid);
+
+            //"\n\nCheck your Wallet to see your brand new Achievement Card!");     
             
             setDisableBidBtn(true);
             
@@ -256,12 +281,8 @@ function DAO() {
                         Address: walletConnected.Address,
                         Balance: newBalance
                     };
-
-                    setWalletOne(updatedWallet.Address);
-                    setWalletOneBidAmount(bidAmount);
-
-                    removeDupsInBidHistory(noDups);
                     
+                    removeDupsInBidHistory(noDups);
                     handleBid(updatedWallet.Address, bidAmount);
                     
                     setWalletConnected(updatedWallet);
@@ -280,11 +301,7 @@ function DAO() {
                         Balance: wallet.Balance - validBalance
                     };
                     
-                    setAliasBiddedName(wallet.Address);
-                    setAliasBidAmount(bidAmount);
-
                     removeDupsInBidHistory(noDups);
-                    
                     handleBid(wallet.Address, bidAmount);
                     
                     return updated;
@@ -296,7 +313,6 @@ function DAO() {
             );
             
             alert("Your bid has placed successfully!");
-            //rewardExpired(hourIs);
         }
 
         e.target.bidAmount.value = "";               
@@ -326,7 +342,7 @@ function DAO() {
             { Address, Amount }
         ]);
     }
-
+    
     const total = sumValuesForTreasury(bids);
          
     return (
@@ -396,7 +412,8 @@ function DAO() {
             </div>
             )}
 
-            <p>Current Bid is: {currentBid}</p>
+            <p>Time left to bid: {biddingIsOver} hrs (Irish Time)</p>
+            <p>Current Bid is: {currentBid}</p> 
                         
             <form onSubmit={getBidAmount}>
                 <input type="text" pattern="/^[A-Za-z-]+$/" name="aliasName" placeholder="Enter your Alias name" required/>
