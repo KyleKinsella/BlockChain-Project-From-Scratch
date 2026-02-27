@@ -2,7 +2,7 @@
    TODO:
     - persist n wallets balance
     - persist bid history
-    - allow for more than one wallet to bid (over-writting issue)
+    - allow for more than one wallet to bid (over-writting issue)  --- done
     - determine the winner for the reward (highest bid wins!)
 */}
 
@@ -71,6 +71,9 @@ function DAO() {
     const [aliasBidAmount, setAliasBidAmount] = useState(0);
     const [walletOne, setWalletOne] = useState("");
     const [walletOneBidAmount, setWalletOneBidAmount] = useState(0);
+    
+    const [bidHistory, setBidHistory] = useState([]);
+    const noDups = [...new Set(bidHistory)];
     
     const [bids, setBids] = useState(() => {
         const storedBids = localStorage.getItem("bids");
@@ -207,6 +210,10 @@ function DAO() {
             //navigate("/done", { state: { reward: dao } });
         }
     }
+
+    const removeDupsInBidHistory = (noDups) => {
+        setBidHistory(noDups);
+    };
     
     const getBidAmount = (e) => {
         e.preventDefault();
@@ -237,6 +244,8 @@ function DAO() {
             
             var typedAlias = e.target.aliasName.value;
 
+            // TODO - add error checking for invalid Alias name(s) // 
+          
             // This is the state for the first wallet // 
             if (typedAlias === walletConnected.Alias) {
                 setWalletBalance(prev => {
@@ -251,6 +260,10 @@ function DAO() {
                     setWalletOne(updatedWallet.Address);
                     setWalletOneBidAmount(bidAmount);
 
+                    removeDupsInBidHistory(noDups);
+                    
+                    handleBid(updatedWallet.Address, bidAmount);
+                    
                     setWalletConnected(updatedWallet);
                     localStorage.setItem("updatedBalance", JSON.stringify(updatedWallet));
 
@@ -260,7 +273,7 @@ function DAO() {
             
             // This is the state for the n other connected wallets //
             setMultipleWallets(prevWallets =>
-              prevWallets.map(wallet => {  
+              prevWallets.map(wallet => {
                 if (wallet.Alias === typedAlias) {
                     const updated = {
                         ...wallet,
@@ -269,9 +282,14 @@ function DAO() {
                     
                     setAliasBiddedName(wallet.Address);
                     setAliasBidAmount(bidAmount);
+
+                    removeDupsInBidHistory(noDups);
+                    
+                    handleBid(wallet.Address, bidAmount);
                     
                     return updated;
                 }
+                                
                 e.target.aliasName.value = "";
                 return wallet;
               })  
@@ -292,7 +310,6 @@ function DAO() {
             .then(data3 => {
                 setMultipleWallets(data3);
                 alert(data3.length + " Wallets have been created!");
-                console.log(data3);
             });
     };
 
@@ -303,8 +320,15 @@ function DAO() {
         localStorage.clear();
     };
 
+    function handleBid(Address, Amount) {
+        setBidHistory(prev => [
+            ...prev,
+            { Address, Amount }
+        ]);
+    }
+
     const total = sumValuesForTreasury(bids);
-    
+         
     return (
         <div>       
             <h1>Kyle's Decentralized Autonomous Organization (DAO)</h1>
@@ -346,13 +370,13 @@ function DAO() {
             <Treasury amount={total}/>
             <br />
 
-            {/* There is more work to do with the Bid History */}
             <h3>Bid History</h3>
             <ul>
-                <li>{walletOne} bidded: {walletOneBidAmount}</li>
-                <li>{aliasBiddedName} bidded: {aliasBidAmount}</li>
+                {bidHistory.map((bid) => (
+                    <li>{bid.Address} bidded: {bid.Amount}</li>
+                ))}
             </ul>
-
+            
             <br />
             
             <h3>Today's Reward</h3>
@@ -375,7 +399,7 @@ function DAO() {
             <p>Current Bid is: {currentBid}</p>
                         
             <form onSubmit={getBidAmount}>
-                <input type="text" name="aliasName" placeholder="Enter your Alias name" required/>
+                <input type="text" pattern="/^[A-Za-z-]+$/" name="aliasName" placeholder="Enter your Alias name" required/>
                 <br /><br />
                 <input type="number" step="1" name="bidAmount" placeholder="Enter your bid"/>
   
