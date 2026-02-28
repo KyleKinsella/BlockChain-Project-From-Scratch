@@ -1,12 +1,12 @@
 {/*
    TODO:
-    - persist n wallets balance
+    - persist n wallets balance  
     - persist bid history --- done
     - allow for more than one wallet to bid (over-writting issue)  --- done
     - determine the winner for the reward (highest bid wins!) --- done
     - edge cases:
-        - invalid Alias names
-        - whitespace before or after Alias name
+        - invalid Alias names --- done
+        - whitespace before or after Alias name --- done
         - if the Alias "I-WAS-HERE-FIRST" balance is zero, any of the n other wallets cannot bid
         - when any of the n wallets bids if they try to bid more than they have this will work and there balance goes into negative value
             for eg. wallet balance: 100
@@ -86,6 +86,19 @@ function DAO() {
     const [bidHistory, setBidHistory] = useState([]);
     const noDups = [...new Set(bidHistory)];
 
+    const [disableNWallets, setDisableNWallets] = useState(false);
+
+    {/*
+    const [disableNWallets, setDisableNWallets] = useState(() => {
+        const saved = localStorage.getItem("nWalletsInfo");
+        return saved ? JSON.parse(saved) : false;
+    });
+    */}
+
+    //useEffect(() => {
+        //localStorage.setItem("nWalletsInfo", JSON.stringify(disableNWallets));
+    //}, [disableNWallets]);
+
     const [bids, setBids] = useState(() => {
         const storedBids = localStorage.getItem("bids");
         return storedBids ? JSON.parse(storedBids) : [];
@@ -108,6 +121,8 @@ function DAO() {
         const bds = localStorage.getItem("bids");
         const updatedWall = localStorage.getItem("updatedBalance");
         const bh = localStorage.getItem("bidHistory");
+
+        //const nWalletsInfo = localStorage.getItem("nWalletsInfo");
         
         if(walletData) { 
             try {
@@ -185,7 +200,28 @@ function DAO() {
                 localStorage.removeItem("bidHistory");
             }
         }
+
+        //if(nWalletsInfo) {
+            //try {
+                //const data8 = JSON.parse(nWalletsInfo);
+                //setMultipleWallets(data8);
+                ////setMultipleWallets(nWalletsInfo(multipleWallets.Address, multipleWallets.Balance));
+                //setDisableNWallets(true);
+
+    
+                ////setBidHistory(data8);
+            //} catch (err) {
+                //console.error("Invalid nWalletsInfo in storage");
+                //localStorage.removeItem("nWalletsInfo");
+            //}
+        //}
     }, [])
+
+    //useEffect(() => {
+        //if(multipleWallets.length > 0) {
+            //setDisableNWallets(true);
+        //}
+    //}, [multipleWallets]);
 
     useEffect(() => {
         var bidAmounts = [];
@@ -277,14 +313,35 @@ function DAO() {
         var validBalance = checkWalletForValidBalance(bidAmount, walletConnected.Balance);
         
         if (currentBid === LOWEST || validBalance > LOWEST) {
-            setBid(prevBid => prevBid + validBalance);
-            setCurrentBid(prev => prev + validBalance);
-            setBids(prevBids => [...prevBids, validBalance]);
-            
             var typedAlias = e.target.aliasName.value;
 
-            // TODO - add error checking for invalid Alias name(s) // 
-          
+            if(typedAlias === walletConnected.Alias) {
+                typedAlias = typedAlias;
+            } else {
+                typedAlias = typedAlias.trim();
+            }
+            
+            // valid alias name ? //
+            var found = false;                               
+            for(var i = 0; i < multipleWallets.length; i++) {
+                if(typedAlias === multipleWallets[i].Alias || typedAlias === walletConnected.Alias) {
+
+                    setBid(prevBid => prevBid + validBalance);
+                    setCurrentBid(prev => prev + validBalance);
+                    setBids(prevBids => [...prevBids, validBalance]);
+
+                    found = true;
+                    break;
+                }
+            }
+
+            if(!found) {
+                alert("Sorry we could not find a valid wallet for '" + typedAlias + "'. Try again");
+                e.target.aliasName.value = "";
+                e.target.bidAmount.value = "";
+                return;
+            }
+                     
             // This is the state for the first wallet // 
             if (typedAlias === walletConnected.Alias) {
                 setWalletBalance(prev => {
@@ -315,6 +372,7 @@ function DAO() {
                         Balance: wallet.Balance - validBalance
                     };
                     
+                    //nWalletsInfo(wallet.Address, bidAmount);
                     removeDupsInBidHistory(noDups);
                     handleBid(wallet.Address, bidAmount);
                     
@@ -323,10 +381,15 @@ function DAO() {
                                 
                 e.target.aliasName.value = "";
                 return wallet;
-              })  
+              })
+
             );
             
             alert("Your bid has placed successfully!");
+
+            //for(var i = 0; i < multipleWallets.length; i++) {
+                //nWalletsInfo(multipleWallets[i].Address, prevWallets.Balance);
+            //}          
         }
 
         e.target.bidAmount.value = "";               
@@ -340,6 +403,7 @@ function DAO() {
             .then(data3 => {
                 setMultipleWallets(data3);
                 alert(data3.length + " Wallets have been created!");
+                setDisableNWallets(true);
             });
     };
 
@@ -357,9 +421,17 @@ function DAO() {
             return bidInfo;
         });
     }
+
+    function nWalletsInfo(Address, Balance) {
+        setBidHistory(prev => {
+            const data = [...prev, {Address: Address, Balance: Balance}];
+            localStorage.setItem("nWalletsInfo", JSON.stringify(data));
+            return data;
+        })
+    }
     
     const total = sumValuesForTreasury(bids);
-         
+          
     return (
         <div>       
             <h1>Kyle's Decentralized Autonomous Organization (DAO)</h1>
@@ -383,11 +455,11 @@ function DAO() {
             )}
             
             <form onSubmit={multipleWallet}>
-                  <button type="submit">View Multiple Wallets</button>
+               <button type="submit" disabled={disableNWallets}>View Multiple Wallets</button>
             </form>
-                        
+            
             {multipleWallets.map((data, i) => (       
-                <div className="seed">        
+                <div key={i} className="">        
                     <>
                     <ul>
                         <p>Alias({i+1}): {data.Alias} <br />
