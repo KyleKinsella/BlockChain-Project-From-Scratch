@@ -65,12 +65,12 @@ Video One:
 Video Two:
 [Second Video of my blockchain project](https://www.youtube.com/watch?v=18l1rLu0-WU).
 
-Video Three & Four:
-
 Note: there are two vidoes here because in the third video I had a technical issue so the forth video is a continuation of the third video.
 
+Video Three
 [Third Video of my blockchain project](https://www.youtube.com/watch?v=fUaya-eBS1A),
 
+Video Four:
 [Fourth Video of my blockchain project](https://www.youtube.com/watch?v=8HPL91NaN_o).
 
 Video Five:
