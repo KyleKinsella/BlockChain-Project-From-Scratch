@@ -25,6 +25,8 @@ function SecretSeedPhrase() {
                 <button onClick={() => navigate("/words")}>View</button>
                 
                 <p><strong>*Make sure no one is watching your screen*</strong></p>
+                <br />
+                <button onClick={(e) => {navigate("/phrase")}}>Go back to Step 2</button>
             </div>
         </div>
     )

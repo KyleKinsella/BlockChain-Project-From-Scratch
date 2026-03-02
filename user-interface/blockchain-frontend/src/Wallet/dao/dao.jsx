@@ -70,7 +70,7 @@ function checkWalletForValidBalance(amount, bidAmount) {
 }
 
 function DAO() {
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const [walletConnected, setWalletConnected] = useState(null);
     const [dao, setDao] = useState(null);
@@ -525,6 +525,10 @@ function DAO() {
             <form onSubmit={clearLocalStorage}>
                 <button type="submit">Reset Page</button>
             </form>
+
+            <br />
+
+           <button onClick={(e) => navigate("/")}>Go Back</button>
         </div>
     );
 }

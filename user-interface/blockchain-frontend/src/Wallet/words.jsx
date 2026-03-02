@@ -28,6 +28,8 @@ function GeneratedWords() {
             ))}
 
             <button onClick={() => navigate("/confirm")}>Confirm Secret Recovery Phrase</button>
+            <br />
+            <button onClick={(e) => navigate("/ssp")}>Go back to Step 3</button>
         </div>
     )
 }

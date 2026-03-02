@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import "./block.css";
+import { useNavigate } from "react-router-dom";
 
 function Block() {
   const [blocks, setBlocks] = useState([]);
   const [showData, setShowData] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://192.168.200.89:8080/genesis")
@@ -96,6 +98,8 @@ function Block() {
           </form>
 
           {loading && <p>⛏️ Mining blocks... please wait</p>}
+
+          <button onClick={(e) => navigate("/")}>Go Back</button>
         </div>
     );
 }

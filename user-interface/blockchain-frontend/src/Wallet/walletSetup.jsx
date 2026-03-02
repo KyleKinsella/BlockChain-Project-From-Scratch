@@ -12,6 +12,8 @@ function SetupWallet() {
             </p>
             
             <button class="button" onClick={() => navigate("/phrase")}>Create Wallet</button>
+            <br/> 
+            <button onClick={(e) => navigate("/wallet")}>Go back to Step 0</button>
         </div>
     )
 }
