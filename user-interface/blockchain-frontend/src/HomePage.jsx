@@ -12,10 +12,13 @@ function Home() {
 
     return(
         <header>
-            <h1>Building a Blockchain from the Ground Up</h1>
+            <h1>Blockchain from Scratch Project</h1>
             <p>
-                Welcome, to my blockchain project! My name is Kyle and I am currently developing my very own blockchain simulation project.
-                In order to view how my project operates you will need to click on the hamburger menu below. 
+                Welcome to my Blockchain Project! I’m Kyle and I’m building a simulation of a blockchain from the ground up.
+                <br/> <br/>
+                This project includes <strong>Block Creation, Wallet Creation and a Decentralized Autonomous Organization (DAO)</strong> with these features - bidding to win rewards, treasury management & more!
+                <br/> <br/>
+                Dive in and explore how it works using the menu below. Enjoy experimenting!
             </p>
 
             <GiHamburgerMenu className="icon" size={28} color="white" onClick={toggleMenu}/>

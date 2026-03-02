@@ -8,6 +8,7 @@ function Navigate() {
             <Link to="/block">Blocks</Link>
             <Link to="/wallet">Wallet</Link>
             <Link to="/dao">DAO</Link>
+            <Link to="projectMotivation"> Project Motivation</Link>
             <Link to="/contact">Contact</Link>
         </nav>
     );
