@@ -20,6 +20,10 @@ function Wallet() {
             <button class="" onClick={() => navigate("/importWallet")}>Import a wallet</button>
             
             <button class="button" onClick={() => navigate("/walletsetup")}>Create a new wallet</button>
+
+            <br />
+
+            <button onClick={(e) => navigate("/")}>Go Back</button>
         </div>
   );
 }
