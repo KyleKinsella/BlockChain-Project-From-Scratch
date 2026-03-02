@@ -25,7 +25,7 @@ function App() {
           <Route path="/wallet" element={<Wallet />}></Route>
           <Route path="/contact" element={<Contact />}></Route>
           <Route path="/walletsetup" element={<SetupWallet />} />
-          <Route path="/passwordsetup" element={<Password />} />
+          {/*<Route path="/passwordsetup" element={<Password />} /> */}
           <Route path="/phrase" element={<Phrase />} />
           <Route path="/ssp" element={<SecretSeedPhrase />} />
           <Route path="/words" element={<Words />} />

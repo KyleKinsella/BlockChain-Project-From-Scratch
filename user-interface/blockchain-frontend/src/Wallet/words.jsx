@@ -14,7 +14,7 @@ function GeneratedWords() {
     return (
         <div>
             <h1>Write Down Your Recovery Phrase</h1>
-            <h3>Step 5</h3>
+            <h3>Step 4</h3>
             <p>Write these words down in order and store them safely offline.</p>
 
             {seed.map((data, i) => (        
