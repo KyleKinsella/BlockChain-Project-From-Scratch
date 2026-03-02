@@ -15,9 +15,9 @@
     
     - proposals & candidates
     - make the readme more developer / engineer like --- in progress
-    - polishing up everthing --- in progress
-    - styling (CSS - actual do it myself not ChatGPT, so learn lol, I know the basics...) --- in progress
-    - make the user type how many blocks & wallets they want to make --- done!
+    - polishing up everthing --- (this is pretty much done!)
+    - styling (CSS - actual do it myself not ChatGPT, so learn lol, I know the basics...) --- (I am going to leave this until the project is completly done or very nearly done)
+    - make the user type how many blocks & wallets they want to make --- done! (01/03/2026)
     - complete or make a dashboard to see traffic for my application/project 
 */}
 
