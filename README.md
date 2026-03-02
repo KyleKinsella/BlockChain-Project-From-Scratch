@@ -10,7 +10,7 @@
 ![Status](https://img.shields.io/badge/Status-In%20Progress-yellow)
 
 ## Table of Contents
-- [Project Summary](#Project Summary)
+- [Project Summary](#Project-Summary)
 - [Technology Stack](#Technology-Stack)
 - [Current Features](#Current-Features)
 - [In Development](#In-Development)
@@ -20,35 +20,39 @@
 - [Contact](#Contact)
 
 ## Project Summary
-Blockchain From Scratch is a personal project simulating a blockchain system end-to-end. It demonstrates full-stack development skills, including backend logic in Go, frontend display with React and integration between the two. The project explores core blockchain concepts, such as: Block Creation (Proof of Work: Consensus Algorithm) and block linking, Wallet Creation, Decentralized Autonomous Organization (DAO), with future plans for a functional Dashboard  to keep track of project data and analytics. This project showcases problem-solving, iterative development and practical implementation of blockchain principles.
+Blockchain From Scratch is a personal project simulating a blockchain system end-to-end. It demonstrates full-stack development skills, including backend logic in Go, frontend display with React and integration between the two.
+
+The project explores core blockchain concepts, such as: Block Creation (Proof of Work: Consensus Algorithm) and block linking, Wallet Creation, Decentralized Autonomous Organization (DAO), with future plans for a functional Dashboard  to keep track of project data and analytics.
+
+This project showcases problem-solving, iterative development and practical implementation of blockchain principles.
 
 ## Technology Stack
 This project includes frontend, backend and (eventually) deployment components. The frontend consists of the following - (HTML, CSS, JS, React). The backend is currently written in Go but Python will be getting added in soon. I am using Git to keep track of my project and if I need to revert back I can do so. The project is getting closer than ever to the Deployment stage, once I get to this point in the project I plan to use Docker and Kubernetes to get my project to real users.
 
 ## Current Features
 Current functionality includes:
-- Block Creation - Proof of Work (PoW) Consensus Algorithm
-- Backend-to-Frontend integration
-- Block Rewards
-- Fluctuating Transaction fees - depending on the state of the blockchain the transaction fees might be low or high
-- Wallet Creation
-- Decentralized Autonomous Organization (DAO) integration
-    - Place bids to possibly win reward
-    - Bid history log
-    - Bid before the time is up - highest bid amount wins
-    - Connecting your wallet & multiple other wallets
-    - Treasury management for all bids - Sum of all of the bids
+- Block Creation - Proof of Work (PoW) Consensus Algorithm.
+- Backend-to-Frontend integration.
+- Block Rewards.
+- Fluctuating Transaction fees - depending on the state of the blockchain the transaction fees might be low or high.
+- Wallet Creation.
+- Decentralized Autonomous Organization (DAO):
+    - Place bids to possibly win reward.
+    - Bid history log.
+    - Bid before the time is up - highest bid amount wins.
+    - Connecting your wallet and multiple other wallets.
+    - Treasury management for all bids.
 
 ## In Development 
 The below features are in the works:
-- Proposals & Candidates for how to use the funds in the Treasury
-- Dashboard for analytics
+- Proposals & Candidates for how to use the funds in the Treasury.
+- Dashboard for analytics.
     
 ## Potential Features
 Potential enhancements include:
-- Peer-to-peer (P2P) network implementation
-- Allow my blockchain to fork (for learning purposes)
-- Block height limits and data management (like Bitcoin)
+- Peer-to-peer (P2P) network.
+- Allow my blockchain to fork (for learning purposes).
+- Block height limits and data management (like Bitcoin).
 
 ## Project Videos
 I have created an array of YouTube videos while I've been iteratively developing my project.
@@ -62,8 +66,11 @@ Video Two:
 [Second Video of my blockchain project](https://www.youtube.com/watch?v=18l1rLu0-WU).
 
 Video Three & Four:
+
 Note: there are two vidoes here because in the third video I had a technical issue so the forth video is a continuation of the third video.
-[Third Video of my blockchain project](https://www.youtube.com/watch?v=fUaya-eBS1A).
+
+[Third Video of my blockchain project](https://www.youtube.com/watch?v=fUaya-eBS1A),
+
 [Fourth Video of my blockchain project](https://www.youtube.com/watch?v=8HPL91NaN_o).
 
 Video Five:
