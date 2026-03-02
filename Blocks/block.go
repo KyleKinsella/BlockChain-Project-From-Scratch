@@ -151,7 +151,7 @@ func CreateBlocksForFrontend(w http.ResponseWriter, r *http.Request) {
 
         Blockchain = append(Blockchain, block)
     }
-    
+
     json.NewEncoder(w).Encode(Blockchain)
     fmt.Printf("Finished constructing %d Blocks!\n", count)
 }

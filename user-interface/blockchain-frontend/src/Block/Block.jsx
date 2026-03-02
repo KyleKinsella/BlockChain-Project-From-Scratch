@@ -59,7 +59,7 @@ function Block() {
             </button>
 
           {blocks.map((block, i) => (        
-            <div key={i} className="block">
+            <div key={i} className="block" id="block">
 
               <h4>Block {i+1} | Block Reward: {block.BlockReward?.BlockRewardTotal}</h4>
               <hr />
