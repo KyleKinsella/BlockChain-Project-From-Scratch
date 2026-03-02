@@ -11,7 +11,7 @@ function Wallet() {
             <p class="intro">
                 {/*Your wallet lets you securely <strong>buy, swap & send</strong> digital assets, while maintaining full control of your funds.*/}
 
-                Welcome to the Wallet Creation Process! Here, you can either Create a new wallet <strong>or</strong> import an existing one. <br /> <br />  <strong>You control your Wallet!</strong> <br /> <br />
+                Welcome to the Wallet Creation Process! Here, you can either create a new wallet <strong>or</strong> import an existing one. <br /> <br />  <strong>You control your Wallet!</strong> <br /> <br />
                         
                 Select an option below to continue.
             </p>

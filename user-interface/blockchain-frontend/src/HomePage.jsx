@@ -12,11 +12,11 @@ function Home() {
 
     return(
         <header>
-            <h1>Blockchain from Scratch Project</h1>
+            <h1>Blockchain Simulation Project!</h1>
             <p>
-                Welcome to my Blockchain Project! I’m Kyle and I’m building a simulation of a blockchain from the ground up.
+                Welcome to my Blockchain Project! I’m Kyle and I’m building a blockchain simulation project from the ground up.
                 <br/> <br/>
-                This project includes <strong>Block Creation, Wallet Creation and a Decentralized Autonomous Organization (DAO)</strong> with these features - bidding to win rewards, treasury management & more!
+                This project includes <strong>Block Creation, Wallet Creation and a Decentralized Autonomous Organization (DAO)</strong> including the following features - bidding to win rewards, treasury management & more!
                 <br/> <br/>
                 Dive in and explore how it works using the menu below. Enjoy experimenting!
             </p>

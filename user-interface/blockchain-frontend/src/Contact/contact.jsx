@@ -5,7 +5,7 @@ function Contact() {
         <div id="contact">
             <h1 id="title">Contact</h1>
             <p id="para">
-                If you have any questions about the project, feedback, or are interested in collaborating, I’d love to connect.
+                If you have any questions about the project, feedback or are interested in collaborating, I’d love to connect.
                 I’m always open to discussing new opportunities and future projects, feel free to reach out through any of the platforms below.
             </p>
 
