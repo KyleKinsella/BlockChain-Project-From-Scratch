@@ -1,24 +1,18 @@
 {/*
    TODO:
-    - persist n wallets balance --- trying to get to work but having lots of issues with it (will come back to this later on!) 
-    - persist bid history --- done
-    - allow for more than one wallet to bid (over-writting issue)  --- done
-    - determine the winner for the reward (highest bid wins!) --- done
+    - persist n wallets balance --- going to leave (might do in the future...)
     - edge cases:
-        - invalid Alias names --- done
-        - whitespace before or after Alias name --- done
-        - if the Alias "I-WAS-HERE-FIRST" balance is zero, any of the n other wallets cannot bid --- trying to get to work but having lots of issues with it (will come back to this later on!) 
-        - when any of the n wallets bids if they try to bid more than they have this will work and there balance goes into negative value --- trying to get to work but having lots of issues with it (will come back to this later on!) 
-            for eg. wallet balance: 100
-                    bid amount: 110
-                    = -10
-    
+        - if the Alias "I-WAS-HERE-FIRST" balance is zero, any of the n other wallets cannot bid  --- done!!!
+        - when any of the n wallets bids if they try to bid more than they have this will work and there balance goes into negative value --- done!!!
+
+    Tidy up:
+    - make the readme more developer / engineer like --- mostly done
+    - polishing up everthing --- mostly done
+    - styling --- not a bid issue, will do last
+
+    Upcoming:
     - proposals & candidates
-    - make the readme more developer / engineer like --- in progress
-    - polishing up everthing --- (this is pretty much done!)
-    - styling (CSS - actual do it myself not ChatGPT, so learn lol, I know the basics...) --- (I am going to leave this until the project is completly done or very nearly done)
-    - make the user type how many blocks & wallets they want to make --- done! (01/03/2026)
-    - complete or make a dashboard to see traffic for my application/project 
+    - complete or make a dashboard to see traffic for my project 
 */}
 
 import { useState, useEffect } from "react";
@@ -86,7 +80,6 @@ function DAO() {
     const [bidHistory, setBidHistory] = useState([]);
     const noDups = [...new Set(bidHistory)];
     const [disableNWallets, setDisableNWallets] = useState(false);
-
     const [loading, setLoading] = useState(false);
 
     const [bids, setBids] = useState(() => {
@@ -261,6 +254,7 @@ function DAO() {
         e.preventDefault();
         
         var bidAmount = e.target.bidAmount.value;
+        var typedAlias = e.target.aliasName.value;
         
         if (bidAmount === 0 || bidAmount < 0) {
             alert("Please enter a bid greater than zero. Negative values are not allowed.");
@@ -269,17 +263,29 @@ function DAO() {
         }
         
         var currentBid = bidAmount + LOWEST;
-        
-        if (bidAmount > walletBalance) {
-            alert("Oops! You don’t have enough funds to place that bid. Try a smaller amount.");
-            e.target.bidAmount.value = "";
-            return;
+
+        {/* this code checks to see if you are trying to bid more than you have */}
+        for (var i = 0; i < multipleWallets.length; i++) {
+            var nWalletBal = multipleWallets[i].Balance;
+            if (bidAmount > nWalletBal) {
+                alert("Your bid is higher than your available funds. Please enter a smaller amount.");
+                e.target.bidAmount.value = "";
+                return;
+            }     
+        }
+
+        {/* this is required so when "I-WAS-HERE-FIRST" balance is zero the other n wallets can bid */}
+        if (typedAlias === walletConnected.Alias) {
+            if (bidAmount > walletBalance) {
+                alert("Oops! You don’t have enough funds to place that bid. Try a smaller amount.");
+                e.target.bidAmount.value = "";
+                return;
+            }
         }
         
         var validBalance = checkWalletForValidBalance(bidAmount, walletConnected.Balance);
         
         if (currentBid === LOWEST || validBalance > LOWEST) {
-            var typedAlias = e.target.aliasName.value;
 
             if(typedAlias === walletConnected.Alias) {
                 typedAlias = typedAlias;
@@ -410,7 +416,6 @@ function DAO() {
         .then(res => res.json())
         .then(data => {
             setMultipleWallets(data)
-            //setBlocks(data)
             setLoading(false);
         })
           .catch(err => {
