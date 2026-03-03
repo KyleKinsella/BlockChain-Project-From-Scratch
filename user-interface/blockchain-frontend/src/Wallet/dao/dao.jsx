@@ -1,10 +1,7 @@
 {/*
-   TODO:
-    - persist n wallets balance --- going to leave (might do in the future...)
-    - edge cases:
-        - if the Alias "I-WAS-HERE-FIRST" balance is zero, any of the n other wallets cannot bid  --- done!!!
-        - when any of the n wallets bids if they try to bid more than they have this will work and there balance goes into negative value --- done!!!
-
+    Might do in the future:
+    - persist n wallets balance --- going to leave!!!
+    
     Tidy up:
     - make the readme more developer / engineer like --- mostly done
     - polishing up everthing --- mostly done
@@ -236,13 +233,11 @@ function DAO() {
         }
         
         if (hour === exactTimeHour) {
-            alert("Congratulations 🎉\n\nThe winner of the reward: '" + dao + "' is: " + address + "\n\nThe winning bid was: " + winningBid);
-
-            //"\n\nCheck your Wallet to see your brand new Achievement Card!");     
+            alert("Congratulations 🎉\n\nThe winner of the reward: '" + dao + "' is: " + address + "\n\nThe winning bid was: " + winningBid + "\n\nTransaction confirmed. Your Achievement Card has been minted. Redirecting to your wallet...");
             
             setDisableBidBtn(true);
             
-            //navigate("/done", { state: { reward: dao } });
+            navigate("/done", { state: { reward: dao } });
         }
     }
 
@@ -263,19 +258,22 @@ function DAO() {
         }
         
         var currentBid = bidAmount + LOWEST;
-
+        
         {/* this code checks to see if you are trying to bid more than you have */}
         for (var i = 0; i < multipleWallets.length; i++) {
-            var nWalletBal = multipleWallets[i].Balance;
-            if (bidAmount > nWalletBal) {
-                alert("Your bid is higher than your available funds. Please enter a smaller amount.");
-                e.target.bidAmount.value = "";
-                return;
-            }     
-        }
+            if (typedAlias.trim() === multipleWallets[i].Alias) {
+                var nWalletBal = multipleWallets[i].Balance;
 
+                if (bidAmount > nWalletBal) {
+                    alert("Your bid is higher than your available funds. Please enter a smaller amount.");
+                    e.target.bidAmount.value = "";
+                    return;
+                }     
+            }
+        }
+        
         {/* this is required so when "I-WAS-HERE-FIRST" balance is zero the other n wallets can bid */}
-        if (typedAlias === walletConnected.Alias) {
+        if (typedAlias.trim() === walletConnected.Alias) {
             if (bidAmount > walletBalance) {
                 alert("Oops! You don’t have enough funds to place that bid. Try a smaller amount.");
                 e.target.bidAmount.value = "";
@@ -360,19 +358,7 @@ function DAO() {
 
         e.target.bidAmount.value = "";               
     };
-
-     const multipleWallet = (e) => {
-        e.preventDefault(); 
-        
-        fetch("http://192.168.200.89:8082/nwallets")
-            .then(res => res.json())
-            .then(data3 => {
-                setMultipleWallets(data3);
-                alert(data3.length + " Wallets have been created!");
-                setDisableNWallets(true);
-            });
-    };
-
+    
     const clearLocalStorage = (e) => {
         e.preventDefault(); 
 
@@ -417,6 +403,9 @@ function DAO() {
         .then(data => {
             setMultipleWallets(data)
             setLoading(false);
+
+            // clear the input box once the wallets have been shown on the frontend //
+            e.target.nWallets.value = "";
         })
           .catch(err => {
             setLoading(false);
@@ -459,16 +448,8 @@ function DAO() {
                   </button>
             </form>
 
-            {loading && <p>💼 Creating Wallets... please wait</p>}
-
-            {/*
-            <br/><br/><br/>
-            
-            <form onSubmit={multipleWallet}>
-               <button type="submit" disabled={disableNWallets}>View Multiple Wallets</button>
-            </form>
-            */}
-            
+            {loading && <p>Creating Wallets... please wait</p>}
+      
             {multipleWallets.map((data, i) => (       
                 <div key={i} className="">        
                     <>
@@ -521,11 +502,6 @@ function DAO() {
                 <br /><br />
                 <button type="submit" disabled={disableBidBtn}>Place Bid</button>
             </form>
-
-            {/*
-            <button onClick={() => navigate("/done", { state: { reward: dao } })}>View Your Wallet</button>
-            <br />              
-            */}
             
             <form onSubmit={clearLocalStorage}>
                 <button type="submit">Reset Page</button>

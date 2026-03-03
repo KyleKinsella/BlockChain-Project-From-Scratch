@@ -43,6 +43,7 @@ function Block() {
         .then(data => {
             setBlocks(data)
             setLoading(false);
+            e.target.nBlocks.value = "";
         })
           .catch(err => {
             setLoading(false);
@@ -97,7 +98,7 @@ function Block() {
               </button>
           </form>
 
-          {loading && <p>⛏️ Mining blocks... please wait</p>}
+          {loading && <p>Mining blocks... please wait</p>}
 
           <button onClick={(e) => navigate("/")}>Go Back</button>
         </div>
