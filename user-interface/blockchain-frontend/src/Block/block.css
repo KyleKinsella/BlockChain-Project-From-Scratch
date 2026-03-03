@@ -43,3 +43,8 @@ h1, #blockPage {
 hr {
     background-color: purple;
 }
+
+#prevHash, #sender, #reciever, #blockHash {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
