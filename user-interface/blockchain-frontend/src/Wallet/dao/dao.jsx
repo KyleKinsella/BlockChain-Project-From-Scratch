@@ -256,9 +256,9 @@ function DAO() {
             e.target.bidAmount.value = "";
             return;
         }
-        
-        var currentBid = bidAmount + LOWEST;
-        
+            
+        var cb = bidAmount + LOWEST;
+                
         {/* this code checks to see if you are trying to bid more than you have */}
         for (var i = 0; i < multipleWallets.length; i++) {
             if (typedAlias.trim() === multipleWallets[i].Alias) {
@@ -282,8 +282,18 @@ function DAO() {
         }
         
         var validBalance = checkWalletForValidBalance(bidAmount, walletConnected.Balance);
+
+        {/* this was a new edge case! what happens if the bid history contains two wallet addresses that bid the same amount? Who wins? */}
+        {/* the fix was this - just check the bid amount to the current bid, if its more update state otherwise stop */}
+        if (bidAmount > currentBid) { 
+            setCurrentBid(prev => prev + validBalance); 
+        } else {
+            alert("Try increasing your bid of '" + bidAmount + "' it needs to be higher than '" + currentBid + "'.");
+            e.target.bidAmount.value = "";
+            return;
+        }
         
-        if (currentBid === LOWEST || validBalance > LOWEST) {
+        if (cb === LOWEST || validBalance > LOWEST) {
 
             if(typedAlias === walletConnected.Alias) {
                 typedAlias = typedAlias;
@@ -297,14 +307,13 @@ function DAO() {
                 if(typedAlias === multipleWallets[i].Alias || typedAlias === walletConnected.Alias) {
 
                     setBid(prevBid => prevBid + validBalance);
-                    setCurrentBid(prev => prev + validBalance);
                     setBids(prevBids => [...prevBids, validBalance]);
 
                     found = true;
                     break;
                 }
             }
-
+            
             if(!found) {
                 alert("Sorry we could not find a valid wallet for '" + typedAlias + "'. Try again");
                 e.target.aliasName.value = "";
@@ -497,7 +506,7 @@ function DAO() {
             <form onSubmit={getBidAmount}>
                 <input type="text" pattern="/^[A-Za-z-]+$/" name="aliasName" placeholder="Enter your Alias name" required/>
                 <br /><br />
-                <input type="number" step="1" name="bidAmount" placeholder="Enter your bid"/>
+                <input type="number" step="1" name="bidAmount" placeholder={"Bid more than " + currentBid}/>
   
                 <br /><br />
                 <button type="submit" disabled={disableBidBtn}>Place Bid</button>
