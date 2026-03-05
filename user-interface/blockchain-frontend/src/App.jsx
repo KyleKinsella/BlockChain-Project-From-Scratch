@@ -4,16 +4,17 @@ import "./index.css";
 import Wallet from './Wallet/wallet.jsx'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SetupWallet from "./Wallet/walletSetup.jsx";
-import Password from './Wallet/password.jsx'
+{/*import Password from './Wallet/password.jsx' */}
 import Phrase from "./Wallet/phrase.jsx";
-import Contact from './Contact/contact.jsx'
+{/*import Contact from './Contact/contact.jsx'*/}
 import SecretSeedPhrase from "./Wallet/viewSecretSeedPhrase.jsx";
 import Words from './Wallet/words.jsx'
 import ConfirmPhrase from "./Wallet/confirm.jsx";
 import ImportWallet from "./Wallet/importWallet.jsx";
 import WalletSetupComplete from "./Wallet/complete.jsx";
 import DAO from "./Wallet/dao/dao.jsx";
-import ProjectMotivation from "./projectMotivation.jsx";
+{/*import ProjectMotivation from "./projectMotivation.jsx"; */}
+import Proposals from "./Wallet/dao/proposals.jsx"
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/block" element={<Block />} />
           <Route path="/wallet" element={<Wallet />}></Route>
-          <Route path="/contact" element={<Contact />}></Route>
+          {/*<Route path="/contact" element={<Contact />}></Route>*/}
           <Route path="/walletsetup" element={<SetupWallet />} />
           {/*<Route path="/passwordsetup" element={<Password />} /> */}
           <Route path="/phrase" element={<Phrase />} />
@@ -35,7 +36,9 @@ function App() {
           <Route path="/done" element={<WalletSetupComplete />} />
           <Route path="/dao" element={<DAO />} />
 
-          <Route path="/projectMotivation" element={<ProjectMotivation />} />
+          <Route path="/proposals" element={<Proposals />} />
+
+          {/*<Route path="/projectMotivation" element={<ProjectMotivation />} /> */}
         </Routes>
     </Router>
     </>

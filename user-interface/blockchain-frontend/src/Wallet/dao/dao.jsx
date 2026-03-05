@@ -8,7 +8,7 @@
     - styling --- not a bid issue, will do last
 
     Upcoming:
-    - proposals & candidates
+    - proposals & candidates --- In Progress!!!!
     - complete or make a dashboard to see traffic for my project 
 */}
 
