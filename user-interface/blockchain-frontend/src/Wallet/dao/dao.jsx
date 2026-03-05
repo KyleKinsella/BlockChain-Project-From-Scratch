@@ -50,10 +50,10 @@ function checkWalletForValidBalance(amount, bidAmount) {
         return;
     }
     
-    if (numAmount <= LOWEST) {
-        alert("Invalid bid: " + numAmount + ".\n\nPlease enter a bid greater than " + LOWEST + ".");
-        return;
-    }
+    //if (numAmount <= LOWEST) {
+        //alert("Invalid bid: " + numAmount + ".\n\nPlease enter a bid greater than " + LOWEST + ".");
+        //return;
+    //}
     
     numAmount = parseInt(numAmount);
     
