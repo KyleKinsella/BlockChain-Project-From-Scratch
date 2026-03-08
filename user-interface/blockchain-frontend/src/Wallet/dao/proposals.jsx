@@ -1,24 +1,14 @@
-import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Proposals() {
-    const [proposal, setProposal] = useState([]);
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        fetch("http://192.168.200.89:8083/makeAProposal")
-        .then(res => res.json())
-        .then(data => setProposal(data));
-    }, []);
-    
     return (
         <div>
-            <h3>Here is the Proposal data from the backend:</h3> 
-
-            <p>Index: {proposal?.Index}</p> 
-            <p>Name: {proposal?.Name}</p>
-            <p>Description: {proposal?.Description}</p>
-            <p>Funds To Use Out Of Treasury: {proposal?.FundsToUseOutOfTreasury}</p>
-            <p>Expiry: {JSON.stringify(proposal?.Expiry)}</p>
-            <p>Status: {proposal?.Status}</p>
+            <h1>Let's Vote!</h1>
+            <p>Here you will be able to make a proposal and depending on your proposal you could have the opportunity to use some of the treasury funds for your specific proposal. To get started click the button below.</p>
+            
+            <button onClick={(e) => navigate("/ProvideProposalInfo")}>Submit a Proposal</button>
         </div>
     ) 
 }

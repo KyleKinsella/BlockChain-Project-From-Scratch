@@ -14,7 +14,9 @@ import ImportWallet from "./Wallet/importWallet.jsx";
 import WalletSetupComplete from "./Wallet/complete.jsx";
 import DAO from "./Wallet/dao/dao.jsx";
 {/*import ProjectMotivation from "./projectMotivation.jsx"; */}
-import Proposals from "./Wallet/dao/proposals.jsx"
+import Proposals from "./Wallet/dao/proposals.jsx";
+import MakeAVote from "./Wallet/dao/makeAVote.jsx";
+import ProvideProposalInfo from "./Wallet/dao/provideProposalInfo.jsx";
 
 function App() {
   return (
@@ -37,6 +39,8 @@ function App() {
           <Route path="/dao" element={<DAO />} />
 
           <Route path="/proposals" element={<Proposals />} />
+          <Route path="/makeAVote" element={<MakeAVote />} />
+          <Route path="/ProvideProposalInfo" element={<ProvideProposalInfo />} />
 
           {/*<Route path="/projectMotivation" element={<ProjectMotivation />} /> */}
         </Routes>

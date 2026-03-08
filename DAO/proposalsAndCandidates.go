@@ -14,18 +14,35 @@ type Proposal struct {
     Status string
 }
 
+type ProposalInfo struct {
+    Name string `json:"name"`
+    Description string `json:"description"`
+    PotentialFunds int `json:"potentialFunds"`
+}
+
+var proposals []Proposal
+
 func InitProposal(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Access-Control-Allow-Origin", "*")
     w.Header().Set("Content-Type", "application/json")
-
-    prop := Proposal{
-        Index: 1,
-        Name: "Kyle",
-        Description: "In my proposal I want to make a vote for the following - change the consensus algorithm from Proof of Work (PoW) to Proof of Stake (PoS). Why? To help the environment!",
-        FundsToUseOutOfTreasury: 10,
+    w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+    w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
+    
+    var info ProposalInfo
+    err := json.NewDecoder(r.Body).Decode(&info)
+    if err != nil {
+        return
+    }
+    
+    proposal := Proposal{
+        Index: len(proposals) + 1,
+        Name: info.Name,
+        Description: info.Description,
+        FundsToUseOutOfTreasury: info.PotentialFunds,
         Expiry: nil,
         Status: "In Progress!",
     }
-    
-    json.NewEncoder(w).Encode(prop) 
+
+    proposals = append(proposals, proposal)
+    json.NewEncoder(w).Encode(proposals)
 }
