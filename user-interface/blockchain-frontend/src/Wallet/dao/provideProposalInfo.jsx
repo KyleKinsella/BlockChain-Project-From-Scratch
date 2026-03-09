@@ -1,11 +1,22 @@
 import { useEffect, useState } from "react";
-{/* import MakeAVote from "./makeAVote.jsx"; */}
-import { useNavigate } from "react-router-dom";
+import MakeAVote from "./makeAVote.jsx";
 
 function ProvideProposalInfo() {
-    const [allInfo, setAllInfo] = useState([]);
-    const navigate = useNavigate();
-
+    const [allProposals, setAllProposals] = useState([]);
+    const [showData, setShowData] = useState(false);
+    
+    useEffect(() => {
+        fetch("http://192.168.200.89:8083/getAllProposals")
+          .then(res => res.json())
+          .then(data => {
+            // is there any proposals ? //
+            if (data === null) {
+                return;
+            }
+            setAllProposals(data)
+            });
+    }, []);
+    
     const sendDataToBackend = (e) => {
         e.preventDefault();
         
@@ -28,8 +39,12 @@ function ProvideProposalInfo() {
         })
         .then(res => res.json())
         .then(data => {
-            setAllInfo([data]);
+            setAllProposals(data);
             alert("Your Proposal has been created!");
+
+            e.target.proposalName.value = "";
+            e.target.descriptionDetails.value = "";
+            e.target.potentialFunds.value = "";
         })
         .catch(err => {
             console.log(err);
@@ -37,7 +52,12 @@ function ProvideProposalInfo() {
     };
     
     return (
-        <div>
+        <div>        
+            <h1>Welcome to the Proposals & Candidates</h1>
+            <p>Here you will be able to submit a proposal (if and only you have won an <strong>Achievement Card</strong> in the DAO). View submitted proposals and cast your vote for the current set proposal.</p>
+
+            <hr/>
+        
             <h3>Fill in the below form for your proposal:</h3>
 
             <form onSubmit={sendDataToBackend}>
@@ -46,7 +66,7 @@ function ProvideProposalInfo() {
                     here i will have a file of everyone that has won a reward in the DAO.
                     what i'll have to do is, check what is typed in and if the typed in alias name is in the file, that alias can make a proposal, otherwise, they are not in the file, so you cannot make a proposal!
                 */}
-                
+
                 <label>Enter your Alias name:</label> <br/><br/>
                 <input type="text" name="aliasName" placeholder="Alias Name:" required></input> <br/><br/>  <br/><br/>
                             
@@ -62,35 +82,33 @@ function ProvideProposalInfo() {
                 <br/><br/>
 
                 <button type="submit">Make Proposal</button>
-
-                <br/><br/>
-                <button onClick={(e) => navigate("/proposals")}>Go back to view all Proposals</button>
             </form>
 
-            {/*
-            <br/><br/>
+            <hr />
+            
+            <h2>Proposals</h2>
+            <p>You can click the button below to view all of the proposals.</p>
+            <button onClick={() => setShowData(prev => !prev)}>
+              {showData ? "Hide Proposal's" : "Show Proposal's"}
+            </button>
 
-            <h3>Proposals</h3>
-            {allInfo.map((data, i) => (       
-                <div key={i} className="">        
-                    <>
-                    <ul>
-                        <p>Name: {data.Name}</p>
-                        <p>Description: {data.Description}</p>
-                        <p>Potential Funds to use: {data.FundsToUseOutOfTreasury}</p>
-                    </ul>
-                    </>
-                </div>
+            {showData && allProposals.map((proposal, i) => (
+              <div key={i}>
+                <h4>Proposal {i + 1}</h4>
+
+                <p>Name: {proposal.Name}</p>
+                <p>Description: {proposal.Description}</p>
+                <p>Potential Funds to use: {proposal.FundsToUseOutOfTreasury}</p>
+
+                <br/>
+              </div>
             ))}
-            */}
 
-            {/* here I will have buttons for the end users to submit their vote... */}
-
-            {/*
+            <hr/>
+            
             <br/><br/>
             <MakeAVote />
-            */}
-
+            
             {/*
             SOME THINGS TO THINK ABOUT
             1: can anyone make a proposal ? 

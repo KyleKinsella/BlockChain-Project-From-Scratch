@@ -18,6 +18,7 @@ function Proposals() {
 
             {/* {allInfo} */}
 
+            {/*
             <h3>Proposals</h3>
             {allInfo.map((data, i) => (       
                 <div key={i} className="">        
@@ -30,9 +31,12 @@ function Proposals() {
                     </>
                 </div>
             ))}
+            */}
 
+            {/*
             <br/><br/><br/><br/><br/><br/><br/>
             <MakeAVote />
+            */}
         </div>
     ) 
 }

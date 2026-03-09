@@ -46,3 +46,8 @@ func InitProposal(w http.ResponseWriter, r *http.Request) {
     proposals = append(proposals, proposal)
     json.NewEncoder(w).Encode(proposals)
 }
+
+func GetAllProposals(w http.ResponseWriter, r *http.Request) {
+    w.Header().Set("Access-Control-Allow-Origin", "*")
+    json.NewEncoder(w).Encode(proposals)
+}
