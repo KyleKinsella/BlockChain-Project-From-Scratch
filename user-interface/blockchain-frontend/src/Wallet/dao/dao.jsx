@@ -17,6 +17,8 @@ import Treasury from './treasury.jsx';
 import { useNavigate } from "react-router-dom";
 import WalletMainUI from './walletHomePage.jsx';
 
+import { saveAs } from 'file-saver';
+
 const LOWEST = 1;
 
 const date = new Date();    
@@ -188,10 +190,19 @@ function DAO() {
             bidAmounts.push(bidHistory[i].Amount);
             maxValue = Math.max(...bidAmounts);
             
-            if (hourIs === biddingIsOver) {
-                rewardExpired(hourIs, bidHistory[i].Address, maxValue);
-                break;
-            }
+            if (hourIs === biddingIsOver) {  
+                if (multipleWallets.length > 0) {
+                    const winner = multipleWallets[i].Alias;
+                    rewardExpired(hourIs, winner, bidHistory[i].Address, maxValue);
+
+                    // TODO: append to the file, each time there is a new winner (currently over-writes the file...) //
+                    // you have won a reward, so add you to this file (this is used in the proposals)! //
+                    const file = new Blob([winner], { type: 'text/plain;charset=utf-8' });
+                    saveAs(file, 'winner.txt');
+                
+                    break;
+                } 
+            } 
         }
     }, [bidHistory])
     
@@ -224,7 +235,7 @@ function DAO() {
             });
     };  
     
-    const rewardExpired = (exactTimeHour, address, winningBid) => {
+    const rewardExpired = (exactTimeHour, alias, address, winningBid) => {
         var hour = date.getHours();
 
         if (bids === 0) {
@@ -233,7 +244,7 @@ function DAO() {
         }
         
         if (hour === exactTimeHour) {
-            alert("Congratulations 🎉\n\nThe winner of the reward: '" + dao + "' is: " + address + "\n\nThe winning bid was: " + winningBid + "\n\nTransaction confirmed. Your Achievement Card has been minted. Redirecting to your wallet...");
+            alert("Congratulations 🎉\n\nThe winner of the reward: '" + dao + "' is: " + address + " with the following Alias '" + alias + "'." + "\n\nThe winning bid was: " + winningBid + "\n\nTransaction confirmed. Your Achievement Card has been minted. Redirecting to your wallet...");
             
             setDisableBidBtn(true);
             
