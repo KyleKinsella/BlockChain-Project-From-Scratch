@@ -29,7 +29,7 @@ const formtatDate = date.toLocaleDateString("en-US", {
 });
 
 const hourIs = date.getHours(); 
-const biddingIsOver = hourIs + 1;
+const biddingIsOver = hourIs;// + 1;
 
 function sumValuesForTreasury(values) {
     var sum = 0;

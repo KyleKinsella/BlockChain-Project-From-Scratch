@@ -16,39 +16,57 @@ function ProvideProposalInfo() {
             setAllProposals(data)
             });
     }, []);
-    
-    const sendDataToBackend = (e) => {
+
+    const getDAOWinnerAliasName = (e) => {
         e.preventDefault();
-        
+
+        const typedAlias = e.target.aliasName.value;
         const name = e.target.proposalName.value;
         const description = e.target.descriptionDetails.value;
         const potentialFunds = Number(e.target.potentialFunds.value);
-        
-        const info = {
-            name: name,
-            description: description,
-            potentialFunds: potentialFunds
-        };
-        
-        fetch("http://192.168.200.89:8083/makeAProposal", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(info)
-        })
-        .then(res => res.json())
-        .then(data => {
-            setAllProposals(data);
-            alert("Your Proposal has been created!");
 
-            e.target.proposalName.value = "";
-            e.target.descriptionDetails.value = "";
-            e.target.potentialFunds.value = "";
+        fetch("winner.txt")
+        .then(res => res.text())
+        .then((text) => {
+            if (typedAlias === text) {
+               
+                const info = {
+                    name: name,
+                    description: description,
+                    potentialFunds: potentialFunds
+                };
+        
+                fetch("http://192.168.200.89:8083/makeAProposal", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(info)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    setAllProposals(data);
+                    alert("Your Proposal has been created!");
+
+                    e.target.aliasName.value = "";
+                    e.target.proposalName.value = "";
+                    e.target.descriptionDetails.value = "";
+                    e.target.potentialFunds.value = "";
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+            } else {
+                alert("Sorry, you cannot make a proposal just yet '" + typedAlias + "'.\n\nYou must have won an Achievement Card in the DAO, to make a proposal! \n\nYour proposal information:\n\nName: " + name + ".\nDescription: " + description + ".\nPotential Funds: " + potentialFunds + ".\n\nYour proposal has not been created.");
+
+                e.target.aliasName.value = "";
+                e.target.proposalName.value = "";
+                e.target.descriptionDetails.value = "";
+                e.target.potentialFunds.value = "";
+            
+                return;
+            }
         })
-        .catch(err => {
-            console.log(err);
-        });
     };
     
     return (
@@ -60,13 +78,7 @@ function ProvideProposalInfo() {
         
             <h3>Fill in the below form for your proposal:</h3>
 
-            <form onSubmit={sendDataToBackend}>
-
-                {/*
-                    here i will have a file of everyone that has won a reward in the DAO.
-                    what i'll have to do is, check what is typed in and if the typed in alias name is in the file, that alias can make a proposal, otherwise, they are not in the file, so you cannot make a proposal!
-                */}
-
+            <form onSubmit={getDAOWinnerAliasName}> 
                 <label>Enter your Alias name:</label> <br/><br/>
                 <input type="text" name="aliasName" placeholder="Alias Name:" required></input> <br/><br/>  <br/><br/>
                             
@@ -111,7 +123,7 @@ function ProvideProposalInfo() {
             
             {/*
             SOME THINGS TO THINK ABOUT
-            1: can anyone make a proposal ? 
+            1: can anyone make a proposal ?  -- no, the only people that can make a proposal is someone that has won an Achievement card in the DAO
             2: how do i check who has voted ?
             */}
         </div>
