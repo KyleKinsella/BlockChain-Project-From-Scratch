@@ -16,7 +16,6 @@ import { useState, useEffect } from "react";
 import Treasury from './treasury.jsx';
 import { useNavigate } from "react-router-dom";
 import WalletMainUI from './walletHomePage.jsx';
-
 import { saveAs } from 'file-saver';
 
 const LOWEST = 1;
@@ -85,7 +84,7 @@ function DAO() {
         const storedBids = localStorage.getItem("bids");
         return storedBids ? JSON.parse(storedBids) : [];
     });
-
+    
     useEffect(() => {
         localStorage.setItem("bids", JSON.stringify(bids));
     }, [bids]);
@@ -248,12 +247,33 @@ function DAO() {
             
             setDisableBidBtn(true);
             
-            navigate("/done", { state: { reward: dao } });
+            //navigate("/done", { state: { reward: dao } });
         }
     }
 
     const removeDupsInBidHistory = (noDups) => {
         setBidHistory(noDups);
+    };
+
+    const processAliasesForVoting = (e) => {
+        e.preventDefault();
+
+        const connectedAliasNames = [];
+        
+        connectedAliasNames.push(walletConnected.Alias);
+            
+        for(var i = 0; i < multipleWallets.length; i++) {
+            connectedAliasNames.push("\n" + multipleWallets[i].Alias);
+        }
+
+        for (let i = 0; i < connectedAliasNames.length; i++) {
+            connectedAliasNames[i] = connectedAliasNames[i].replace(/,/g, "");
+        }
+
+        const allAliasesString = connectedAliasNames.join("");
+        
+        const allAliases = new Blob([allAliasesString], { type: 'text/plain;charset=utf-8' });
+        saveAs(allAliases, 'allAliases.txt');
     };
     
     const getBidAmount = (e) => {
@@ -374,6 +394,7 @@ function DAO() {
             );
             
             alert("Your bid has placed successfully!");
+            processAliasesForVoting(e);
         }
 
         e.target.bidAmount.value = "";               
@@ -433,7 +454,7 @@ function DAO() {
     };
     
     const total = sumValuesForTreasury(bids);
-          
+    
     return (
         <div>       
             <h1>Kyle's Decentralized Autonomous Organization (DAO)</h1>

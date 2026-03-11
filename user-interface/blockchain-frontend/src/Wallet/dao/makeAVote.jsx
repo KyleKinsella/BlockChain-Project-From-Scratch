@@ -19,6 +19,16 @@ function MakeAVote() {
     };
     */}
 
+    const processVoteInfo = (e) => {
+
+
+        fetch("allAliases.txt")
+        .then(res => res.text())
+        .then((text) => {
+            console.log(text)
+        })
+    };
+
     const thisFuncWillProcesYourVote = (e) => {
         e.preventDefault();
 
@@ -48,10 +58,16 @@ function MakeAVote() {
         <div>
             <h2>Cast your vote</h2>
 
-            <form onSubmit={thisFuncWillProcesYourVote}>
+            <form onSubmit={processVoteInfo}>
                 <label>What do you wish to vote ?</label>  <br/><br/>
 
-                <input type="text" name="nameOfProp" placeholder="Proposal name" required></input> <br/><br/> 
+                <input type="number" name="proposalIndex" placeholder="Proposal Index" required></input> 
+                <br/><br/> 
+
+                <input type="text" name="nameOfProp" placeholder="Alias name" required></input> 
+
+                <br/><br/> 
+
                 <input type="text" name="voteValue" placeholder="Your Vote" required></input> <br/><br/>
 
                 <button type="submit">Vote</button>

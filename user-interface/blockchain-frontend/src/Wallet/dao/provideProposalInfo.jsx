@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import MakeAVote from "./makeAVote.jsx";
 
 function ProvideProposalInfo() {
     const [allProposals, setAllProposals] = useState([]);
@@ -68,6 +67,39 @@ function ProvideProposalInfo() {
             }
         })
     };
+
+    const processVoteInfo = (e) => {
+        e.preventDefault();
+
+        const aliasName = e.target.aliasName.value;
+
+        fetch("allAliases.txt")
+        .then(res => res.text())
+        .then((text) => {
+            const aliases = text.split("\n");
+            
+            var found = false;
+            for (var i = 1; i <= aliases.length; i++) {
+                if(aliasName.trim() === aliases[i]) {
+                    alert(aliasName + " was found in the file called: allAliases.txt. You can vote!");
+
+                    found = true;
+                    
+                    // next up - send the vote data to the backend // 
+                }
+            }
+
+            if(!found) {
+                alert(aliasName + " was not found in the file called: allAliases.txt. Your alias must have been connected to the DAO before you can make a vote!");
+
+                e.target.proposalIndex.value = "";
+                e.target.aliasName.value = "";
+                e.target.voteValue.value = "";
+
+                return;     
+            }
+        })
+    };
     
     return (
         <div>        
@@ -119,7 +151,23 @@ function ProvideProposalInfo() {
             <hr/>
             
             <br/><br/>
-            <MakeAVote />
+
+            <h2>Cast your vote</h2>
+
+            <form onSubmit={processVoteInfo}>
+                <label>What do you wish to vote ?</label>  <br/><br/>
+
+                <input type="number" name="proposalIndex" placeholder="Proposal Index" required></input> 
+                <br/><br/> 
+
+                <input type="text" name="aliasName" placeholder="Alias name" required></input> 
+
+                <br/><br/> 
+
+                <input type="text" name="voteValue" placeholder="Your Vote" required></input> <br/><br/>
+
+                <button type="submit">Vote</button>
+            </form>
             
             {/*
             SOME THINGS TO THINK ABOUT
