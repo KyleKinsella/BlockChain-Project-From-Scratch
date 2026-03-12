@@ -23,10 +23,10 @@ function ProvideProposalInfo() {
         fetch("http://192.168.200.89:8083/getAllVotes")
           .then(res => res.json())
           .then(data => {
-            // is there any proposals ? //
-            //if (data === null) {
-                //return;
-            //}
+            // is there any votes ? //
+            if (data === null) {
+                return;
+            }
             setAllVotes(data)
             });
     }, []);
@@ -35,18 +35,30 @@ function ProvideProposalInfo() {
         e.preventDefault();
 
         const typedAlias = e.target.aliasName.value;
-        const name = e.target.proposalName.value;
-        const description = e.target.descriptionDetails.value;
+        const proposalName = e.target.proposalName.value;
+        const proposalDescription = e.target.descriptionDetails.value;
         const potentialFunds = Number(e.target.potentialFunds.value);
+
+        if (potentialFunds === 0) {
+            alert("Please enter an value greater than zero.");
+            e.target.potentialFunds.value = "";
+            return;
+        }
+
+        if (potentialFunds < 0) {
+            alert("Please enter a positive number. Negative values are not allowed.");
+            e.target.potentialFunds.value = "";
+            return;
+        }       
 
         fetch("winner.txt")
         .then(res => res.text())
         .then((text) => {
-            if (typedAlias === text) {
+            if (typedAlias.trim() === text) {
                
                 const info = {
-                    name: name,
-                    description: description,
+                    name: proposalName,
+                    description: proposalDescription,
                     potentialFunds: potentialFunds
                 };
         
@@ -71,7 +83,7 @@ function ProvideProposalInfo() {
                     console.log(err);
                 });
             } else {
-                alert("Sorry, you cannot make a proposal just yet '" + typedAlias + "'.\n\nYou must have won an Achievement Card in the DAO, to make a proposal! \n\nYour proposal information:\n\nName: " + name + ".\nDescription: " + description + ".\nPotential Funds: " + potentialFunds + ".\n\nYour proposal has not been created.");
+                alert("Sorry, you cannot make a proposal just yet '" + typedAlias + "'.\n\nYou must have won an Achievement Card in the DAO, to make a proposal! \n\nYour proposal information:\n\nName: " + proposalName + ".\nDescription: " + proposalDescription + ".\nPotential Funds: " + potentialFunds + ".\n\nYour proposal has not been created.");
 
                 e.target.aliasName.value = "";
                 e.target.proposalName.value = "";
@@ -108,6 +120,18 @@ function ProvideProposalInfo() {
             e.target.voteValue.value = "";
             return;
         }
+
+        {/* edge case: trying to vote for something that does not exist ! */}
+        const proposalLen = allProposals.length;
+        if (proposalIndex > proposalLen) {
+            alert("Sorry, you cannot vote for a proposal that currently do not exist");
+            
+            e.target.proposalIndex.value = "";
+            e.target.aliasName.value = "";
+            e.target.voteValue.value = "";
+
+            return;
+        }
         
         fetch("allAliases.txt")
         .then(res => res.text())
@@ -117,6 +141,16 @@ function ProvideProposalInfo() {
             var found = false;
             for (var i = 1; i <= aliases.length; i++) {
                 if(aliasName.trim() === aliases[i]) {
+                    {/* edge case - trying to vote if there is no proposals */}
+                    if (allProposals.length === 0) {
+                        alert("Sorry you cannot make a vote. There are currently no proposal to vote for. Once a proposal is created then you can vote.");
+
+                        e.target.proposalIndex.value = "";
+                        e.target.aliasName.value = "";
+                        e.target.voteValue.value = "";
+                        
+                        return;
+                    }
                     alert(aliasName + " was found in the file called: allAliases.txt. You can vote!");
 
                     found = true;
