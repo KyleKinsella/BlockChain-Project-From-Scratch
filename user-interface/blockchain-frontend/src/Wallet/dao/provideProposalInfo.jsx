@@ -1,3 +1,13 @@
+{/*
+    edge cases:
+    - edge case - if you have voted already you cannot vote again
+      BUT, there is another edge case for this edge case, if an alias has voted for one proposal thats fine, but if they try to vote again for that same proposal they cannot do this. But if the same alias name tries to vote for a diffrent proposal, they should be able to do that.
+
+    - the alias that made a proposal cannot vote for their own proposal
+
+     - if an alias has created a proposal and the same alias tries to make a new proposal with the same alias name, they should not be able to make this proposal
+*/}
+
 import { useEffect, useState } from "react";
 
 function ProvideProposalInfo() {
@@ -37,6 +47,18 @@ function ProvideProposalInfo() {
         const typedAlias = e.target.aliasName.value;
         const proposalName = e.target.proposalName.value;
         const proposalDescription = e.target.descriptionDetails.value;
+
+        {/*
+            TODO: an edge case that ill do soon:
+
+                say the treasury contains 120 funds, but a proposal wants to take/use 121 funds, this cannot happen because the treasury only contains 120 funds. So:
+
+                const treasuryFunds = TODO - ?
+                if (potentialFunds > treasuryFunds) {
+                    alert("you cannot make this proposal due to the potential funds to use, is higher than the current funds in the treasury")
+                    return
+                }
+        */}
         const potentialFunds = Number(e.target.potentialFunds.value);
 
         if (potentialFunds === 0) {
@@ -55,8 +77,9 @@ function ProvideProposalInfo() {
         .then(res => res.text())
         .then((text) => {
             if (typedAlias.trim() === text) {
-               
+                
                 const info = {
+                    alias: typedAlias,
                     name: proposalName,
                     description: proposalDescription,
                     potentialFunds: potentialFunds
@@ -140,7 +163,9 @@ function ProvideProposalInfo() {
             
             var found = false;
             for (var i = 1; i <= aliases.length; i++) {
+
                 if(aliasName.trim() === aliases[i]) {
+
                     {/* edge case - trying to vote if there is no proposals */}
                     if (allProposals.length === 0) {
                         alert("Sorry you cannot make a vote. There are currently no proposal to vote for. Once a proposal is created then you can vote.");
@@ -151,12 +176,9 @@ function ProvideProposalInfo() {
                         
                         return;
                     }
-                    alert(aliasName + " was found in the file called: allAliases.txt. You can vote!");
-
+                    
                     found = true;
                     
-                    // next up - send the vote data to the backend //
-
                     const voteInfo = {
                         index: proposalIndex,
                         alias: aliasName,
@@ -234,7 +256,7 @@ function ProvideProposalInfo() {
 
             {showData && allProposals.map((proposal, i) => (
               <div key={i}>
-                <h4>Proposal {i + 1}</h4>
+                <h4>Proposal {i + 1} was proposed by: {proposal.Alias}.</h4>
 
                 <p>Name: {proposal.Name}</p>
                 <p>Description: {proposal.Description}</p>
@@ -277,15 +299,8 @@ function ProvideProposalInfo() {
             {showData2 && allVotes.map((vote, i) => (
               <div key={i}>
                 <h4>Vote: {i + 1} - {vote.AliasName}</h4>
-
                 <p>{vote.AliasName} voted for proposal: {vote.Index}. They voted: <strong>{vote.VoteValue}</strong>.</p>
-
-                {/*
-                <p>Index: {vote.Index}</p>
-                <p>Alias: {vote.AliasName}</p>
-                <p>Vote Value: {vote.VoteValue}</p>
-                */}
-
+                
                 <br/>
               </div>
             ))}

@@ -7,6 +7,7 @@ import (
 
 type Proposal struct {
     Index int
+    Alias string
     Name string
     Description string
     FundsToUseOutOfTreasury int
@@ -15,6 +16,7 @@ type Proposal struct {
 }
 
 type ProposalInfo struct {
+    Alias string `json:"alias"`
     Name string `json:"name"`
     Description string `json:"description"`
     PotentialFunds int `json:"potentialFunds"`
@@ -51,6 +53,7 @@ func InitProposal(w http.ResponseWriter, r *http.Request) {
     
     proposal := Proposal{
         Index: len(proposals) + 1,
+        Alias: info.Alias,
         Name: info.Name,
         Description: info.Description,
         FundsToUseOutOfTreasury: info.PotentialFunds,
