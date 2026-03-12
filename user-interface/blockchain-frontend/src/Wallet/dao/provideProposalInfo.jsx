@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 function ProvideProposalInfo() {
     const [allProposals, setAllProposals] = useState([]);
     const [showData, setShowData] = useState(false);
+
+    const [allVotes, setAllVotes] = useState([]);
+    const [showData2, setShowData2] = useState(false);
     
     useEffect(() => {
         fetch("http://192.168.200.89:8083/getAllProposals")
@@ -13,6 +16,18 @@ function ProvideProposalInfo() {
                 return;
             }
             setAllProposals(data)
+            });
+    }, []);
+
+    useEffect(() => {
+        fetch("http://192.168.200.89:8083/getAllVotes")
+          .then(res => res.json())
+          .then(data => {
+            // is there any proposals ? //
+            //if (data === null) {
+                //return;
+            //}
+            setAllVotes(data)
             });
     }, []);
 
@@ -106,7 +121,33 @@ function ProvideProposalInfo() {
 
                     found = true;
                     
-                    // next up - send the vote data to the backend // 
+                    // next up - send the vote data to the backend //
+
+                    const voteInfo = {
+                        index: proposalIndex,
+                        alias: aliasName,
+                        vote: voteValue
+                    };
+        
+                    fetch("http://192.168.200.89:8083/createAVote", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(voteInfo)
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        setAllVotes(data);
+                        alert("Your vote has been submitted!");
+
+                        e.target.proposalIndex.value = "";
+                        e.target.aliasName.value = "";
+                        e.target.voteValue.value = "";
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
                 }
             }
 
@@ -189,6 +230,31 @@ function ProvideProposalInfo() {
 
                 <button type="submit">Vote</button>
             </form>
+
+            <hr/>
+            <br/><br/>
+
+            <h2>View Votes</h2>
+            <p>You can click the button below to view all of the votes for each proposal.</p>
+            <button onClick={() => setShowData2(prev => !prev)}>
+              {showData2 ? "Hide Vote's" : "Show Vote's"}
+            </button>
+
+            {showData2 && allVotes.map((vote, i) => (
+              <div key={i}>
+                <h4>Vote: {i + 1} - {vote.AliasName}</h4>
+
+                <p>{vote.AliasName} voted for proposal: {vote.Index}. They voted: <strong>{vote.VoteValue}</strong>.</p>
+
+                {/*
+                <p>Index: {vote.Index}</p>
+                <p>Alias: {vote.AliasName}</p>
+                <p>Vote Value: {vote.VoteValue}</p>
+                */}
+
+                <br/>
+              </div>
+            ))}
             
             {/*
             SOME THINGS TO THINK ABOUT
