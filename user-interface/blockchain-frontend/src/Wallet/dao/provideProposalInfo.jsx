@@ -72,7 +72,28 @@ function ProvideProposalInfo() {
         e.preventDefault();
 
         const aliasName = e.target.aliasName.value;
+        const proposalIndex = Number(e.target.proposalIndex.value);
+        const voteValue = e.target.voteValue.value;
+        const voting = ["for", "For", "against", "Against", "abstain", "Abstain"];
+        
+        if (proposalIndex === 0) {
+            alert("Please enter an value greater than zero.");
+            e.target.proposalIndex.value = "";
+            return;
+        }
 
+        if (proposalIndex < 0) {
+            alert("Please enter a positive number. Negative values are not allowed.");
+            e.target.proposalIndex.value = "";
+            return;
+        }
+                
+        if (!voting.includes(voteValue)) {
+            alert("Sorry, you cannot vote '" + voteValue + "'. It must be one of these values: \n\n" + voting + ".");        
+            e.target.voteValue.value = "";
+            return;
+        }
+        
         fetch("allAliases.txt")
         .then(res => res.text())
         .then((text) => {
@@ -172,7 +193,7 @@ function ProvideProposalInfo() {
             {/*
             SOME THINGS TO THINK ABOUT
             1: can anyone make a proposal ?  -- no, the only people that can make a proposal is someone that has won an Achievement card in the DAO
-            2: how do i check who has voted ?
+            2: how do i check who has voted ?  -- work in progress!!!!
             */}
         </div>
     )
