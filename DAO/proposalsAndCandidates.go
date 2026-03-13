@@ -3,6 +3,7 @@ package dao
 import (
     "net/http"
     "encoding/json"
+    "fmt"
 )
 
 type Proposal struct {
@@ -26,6 +27,7 @@ type Vote struct {
     Index int
     AliasName string
     VoteValue string
+    VoteMap map[int]string
 }
 
 type VoteInfo struct {
@@ -83,16 +85,68 @@ func CreateVote(w http.ResponseWriter, r *http.Request) {
     }
     
     vote := Vote{
-        Index: len(votes) + 1, // this could be a potential issue...
+        Index: v.Index,
         AliasName: v.AliasName,
         VoteValue: v.VoteValue,
+        VoteMap: make(map[int]string),
     }
 
+    vote.VoteMap[vote.Index] = vote.VoteValue
+
     votes = append(votes, vote)
+
+    data, err := getVoteMap(votes)
+    if err != nil {
+        fmt.Errorf("Could not find any vote mappings, error: %v", err)
+    }
+
+    yes, no, dontCare := processMaps(data)
+    fmt.Println("For/for:", yes, "Against/against:", no, "Abstain/abstain:", dontCare)
+    
     json.NewEncoder(w).Encode(votes)
 }
 
 func GetAllVotes(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Access-Control-Allow-Origin", "*")
     json.NewEncoder(w).Encode(votes)
+}
+
+func getVoteMap(votes []Vote) ([]map[int]string, error) {
+    var voteMapping []map[int]string // i did not know you could use append with a map...
+
+    if len(votes) == 0 {
+        return voteMapping, nil
+    }
+
+    for _, vote := range votes {
+        mapping := vote.VoteMap
+        voteMapping = append(voteMapping, mapping)
+    }
+
+    return voteMapping, nil
+}
+
+// TODO: This function only computes the total for 1 proposal, i need to make it such that each proposal has different values   for each proposal//
+func processMaps(data []map[int]string) (int, int, int) {
+    var counterFor int
+    var counterAgainst int
+    var counterAbstain int
+
+    for _, n := range data {
+        for _, value := range n {
+            if value == "for" || value == "For" {
+                counterFor += 1
+            }
+
+            if value == "against" || value == "Against" {
+                counterAgainst += 1
+            }
+
+            if value == "abstain" || value == "Abstain" {
+                counterAbstain += 1
+            }
+        }
+    }
+
+    return counterFor, counterAgainst, counterAbstain
 }
