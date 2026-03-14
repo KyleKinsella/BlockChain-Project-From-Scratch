@@ -1,6 +1,6 @@
 {/*
     edge cases:
-    - edge case - if you have voted already you cannot vote again
+    - edge case - if you have voted already you cannot vote again -- done!
       BUT, there is another edge case for this edge case, if an alias has voted for one proposal thats fine, but if they try to vote again for that same proposal they cannot do this. But if the same alias name tries to vote for a diffrent proposal, they should be able to do that.
 
     - the alias that made a proposal cannot vote for their own proposal -- done!
@@ -16,7 +16,7 @@ function ProvideProposalInfo() {
 
     const [allVotes, setAllVotes] = useState([]);
     const [showData2, setShowData2] = useState(false);
-    
+
     useEffect(() => {
         fetch("http://192.168.200.89:8083/getAllProposals")
           .then(res => res.json())
@@ -28,7 +28,7 @@ function ProvideProposalInfo() {
             setAllProposals(data)
             });
     }, []);
-
+    
     useEffect(() => {
         fetch("http://192.168.200.89:8083/getAllVotes")
           .then(res => res.json())
@@ -44,10 +44,10 @@ function ProvideProposalInfo() {
     const getDAOWinnerAliasName = (e) => {
         e.preventDefault();
 
-        const typedAlias = e.target.aliasName.value.trim();
+        const typedAlias = e.target.aliasName.value.trim().toLowerCase();
         const proposalName = e.target.proposalName.value;
         const proposalDescription = e.target.descriptionDetails.value;
-
+        
         {/*
             TODO: an edge case that ill do soon:
 
@@ -121,7 +121,7 @@ function ProvideProposalInfo() {
     const processVoteInfo = (e) => {
         e.preventDefault();
 
-        const aliasName = e.target.aliasName.value.trim();
+        const aliasName = e.target.aliasName.value.trim().toLowerCase();
         const proposalIndex = Number(e.target.proposalIndex.value);
         const voteValue = e.target.voteValue.value.trim();
         const voting = ["for", "For", "against", "Against", "abstain", "Abstain"];
@@ -167,6 +167,21 @@ function ProvideProposalInfo() {
                 e.target.aliasName.value = "";
                 e.target.voteValue.value = "";
             
+                return;
+            }
+        }
+
+        {/* this code might be refactored for the child edge case for this edge case (see top of this file for more details) */}
+        {/* edge case - you cannot vote if you have already voted */}
+        for (var i = 0; i < allVotes.length; i++) {
+            var votedAliases = allVotes[i].AliasName;
+            if (aliasName === votedAliases) {
+                alert("Sorry, '" + aliasName + "' you have already voted, you cannot vote again. Nice try!");
+
+                e.target.proposalIndex.value = "";
+                e.target.aliasName.value = "";
+                e.target.voteValue.value = "";
+                
                 return;
             }
         }
@@ -233,6 +248,10 @@ function ProvideProposalInfo() {
             }
         })
     };
+
+    function upperCase(alias) {
+        return alias.charAt(0).toUpperCase() + alias.slice(1); 
+    }
     
     return (
         <div>        
@@ -271,8 +290,8 @@ function ProvideProposalInfo() {
 
             {showData && allProposals.map((proposal, i) => (
               <div key={i}>
-                <h4>Proposal {i + 1} was proposed by: {proposal.Alias}.</h4>
-
+                <h4>Proposal {i + 1} was proposed by: {upperCase(proposal.Alias)}.</h4>
+                                                                            
                 <p>Name: {proposal.Name}</p>
                 <p>Description: {proposal.Description}</p>
                 <p>Potential Funds to use: {proposal.FundsToUseOutOfTreasury}</p>
@@ -313,8 +332,8 @@ function ProvideProposalInfo() {
 
             {showData2 && allVotes.map((vote, i) => (
               <div key={i}>
-                <h4>Vote: {i + 1} - {vote.AliasName}.</h4>
-                <p>{vote.AliasName} voted for proposal: {vote.Index}. They voted: <strong>{vote.VoteValue}</strong>.</p>
+                <h4>Vote: {i + 1} - {upperCase(vote.AliasName)}.</h4>
+                <p>{upperCase(vote.AliasName)} voted for proposal: {vote.Index}. They voted: <strong>{vote.VoteValue}</strong>.</p>
                 
                 <br/>
               </div>
