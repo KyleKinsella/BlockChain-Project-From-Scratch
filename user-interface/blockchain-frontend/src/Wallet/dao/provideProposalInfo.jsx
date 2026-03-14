@@ -5,7 +5,7 @@
 
     - the alias that made a proposal cannot vote for their own proposal -- done!
 
-     - if an alias has created a proposal and the same alias tries to make a new proposal with the same alias name, they should not be able to make this proposal
+     - if an alias has created a proposal and the same alias tries to make a new proposal with the same alias name, they should not be able to make this proposal -- this is a valid edge case... but its quite hard to append to a Blob file in js, so i am not going to do this! Reason: because if there is only one winner (in the DAO) and they have made their proposal there will only every be one proposal...
 */}
 
 import { useEffect, useState } from "react";
@@ -44,7 +44,7 @@ function ProvideProposalInfo() {
     const getDAOWinnerAliasName = (e) => {
         e.preventDefault();
 
-        const typedAlias = e.target.aliasName.value;
+        const typedAlias = e.target.aliasName.value.trim();
         const proposalName = e.target.proposalName.value;
         const proposalDescription = e.target.descriptionDetails.value;
 
@@ -71,12 +71,12 @@ function ProvideProposalInfo() {
             alert("Please enter a positive number. Negative values are not allowed.");
             e.target.potentialFunds.value = "";
             return;
-        }       
-
+        }
+        
         fetch("winner.txt")
         .then(res => res.text())
         .then((text) => {
-            if (typedAlias.trim() === text) {
+            if (typedAlias === text) {
                 
                 const info = {
                     alias: typedAlias,
