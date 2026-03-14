@@ -3,7 +3,6 @@ package dao
 import (
     "net/http"
     "encoding/json"
-    "fmt"
 )
 
 type Proposal struct {

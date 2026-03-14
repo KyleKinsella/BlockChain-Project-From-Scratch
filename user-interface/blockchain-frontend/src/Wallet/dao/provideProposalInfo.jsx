@@ -3,7 +3,7 @@
     - edge case - if you have voted already you cannot vote again
       BUT, there is another edge case for this edge case, if an alias has voted for one proposal thats fine, but if they try to vote again for that same proposal they cannot do this. But if the same alias name tries to vote for a diffrent proposal, they should be able to do that.
 
-    - the alias that made a proposal cannot vote for their own proposal
+    - the alias that made a proposal cannot vote for their own proposal -- done!
 
      - if an alias has created a proposal and the same alias tries to make a new proposal with the same alias name, they should not be able to make this proposal
 */}
@@ -121,9 +121,9 @@ function ProvideProposalInfo() {
     const processVoteInfo = (e) => {
         e.preventDefault();
 
-        const aliasName = e.target.aliasName.value;
+        const aliasName = e.target.aliasName.value.trim();
         const proposalIndex = Number(e.target.proposalIndex.value);
-        const voteValue = e.target.voteValue.value;
+        const voteValue = e.target.voteValue.value.trim();
         const voting = ["for", "For", "against", "Against", "abstain", "Abstain"];
         
         if (proposalIndex === 0) {
@@ -147,13 +147,28 @@ function ProvideProposalInfo() {
         {/* edge case: trying to vote for something that does not exist ! */}
         const proposalLen = allProposals.length;
         if (proposalIndex > proposalLen) {
-            alert("Sorry, you cannot vote for a proposal that currently do not exist");
+            alert("Sorry, you cannot vote for a proposal that currently does not exist");
             
             e.target.proposalIndex.value = "";
             e.target.aliasName.value = "";
             e.target.voteValue.value = "";
 
             return;
+        }
+
+        {/* edge case - if you have made a proposal you cannot vote for your own proposal! */}
+        for (var i = 0; i < allProposals.length; i++) {
+            var aliasVoted = allProposals[i].Alias.trim();
+
+            if (aliasName === aliasVoted) {
+                alert("Sorry, '" + aliasName + "', you have created this proposal, therefore you cannot vote for your own proposal! Nice try!");
+                
+                e.target.proposalIndex.value = "";
+                e.target.aliasName.value = "";
+                e.target.voteValue.value = "";
+            
+                return;
+            }
         }
         
         fetch("allAliases.txt")
@@ -164,8 +179,8 @@ function ProvideProposalInfo() {
             var found = false;
             for (var i = 1; i <= aliases.length; i++) {
 
-                if(aliasName.trim() === aliases[i]) {
-
+                if(aliasName === aliases[i]) {
+                    
                     {/* edge case - trying to vote if there is no proposals */}
                     if (allProposals.length === 0) {
                         alert("Sorry you cannot make a vote. There are currently no proposal to vote for. Once a proposal is created then you can vote.");
@@ -176,7 +191,7 @@ function ProvideProposalInfo() {
                         
                         return;
                     }
-                    
+ 
                     found = true;
                     
                     const voteInfo = {
@@ -222,7 +237,7 @@ function ProvideProposalInfo() {
     return (
         <div>        
             <h1>Welcome to the Proposals & Candidates</h1>
-            <p>Here you will be able to submit a proposal (if and only you have won an <strong>Achievement Card</strong> in the DAO). View submitted proposals and cast your vote for the current set proposal.</p>
+            <p>Here you will be able to submit a proposal (if and only if you have won an <strong>Achievement Card</strong> in the DAO). View submitted proposals, cast your vote for any of the created proposals and view all of the votes for each proposal.</p>
 
             <hr/>
         
@@ -298,7 +313,7 @@ function ProvideProposalInfo() {
 
             {showData2 && allVotes.map((vote, i) => (
               <div key={i}>
-                <h4>Vote: {i + 1} - {vote.AliasName}</h4>
+                <h4>Vote: {i + 1} - {vote.AliasName}.</h4>
                 <p>{vote.AliasName} voted for proposal: {vote.Index}. They voted: <strong>{vote.VoteValue}</strong>.</p>
                 
                 <br/>
@@ -308,7 +323,7 @@ function ProvideProposalInfo() {
             {/*
             SOME THINGS TO THINK ABOUT
             1: can anyone make a proposal ?  -- no, the only people that can make a proposal is someone that has won an Achievement card in the DAO
-            2: how do i check who has voted ?  -- work in progress!!!!
+            2: how do i check who has voted ?  -- i have a file of each alias name (from each wallet) that was connected to the DAO, these alias names are wrote to a file. Then i simply check is what the user typed in the file, if so they can vote, otherwise they cannot vote.
             */}
         </div>
     )
