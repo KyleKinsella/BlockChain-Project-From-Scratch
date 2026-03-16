@@ -281,6 +281,12 @@ function DAO() {
         
         var bidAmount = e.target.bidAmount.value;
         var typedAlias = e.target.aliasName.value;
+
+        if (typedAlias === walletConnected.Alias) {
+            typedAlias = typedAlias.trim();
+        } else {
+            typedAlias = typedAlias.trim().toLowerCase();
+        }
         
         if (bidAmount === 0 || bidAmount < 0) {
             alert("Please enter a bid greater than zero. Negative values are not allowed.");
@@ -292,7 +298,7 @@ function DAO() {
                 
         {/* this code checks to see if you are trying to bid more than you have */}
         for (var i = 0; i < multipleWallets.length; i++) {
-            if (typedAlias.trim() === multipleWallets[i].Alias) {
+            if (typedAlias === multipleWallets[i].Alias) {
                 var nWalletBal = multipleWallets[i].Balance;
 
                 if (bidAmount > nWalletBal) {
@@ -304,7 +310,7 @@ function DAO() {
         }
         
         {/* this is required so when "I-WAS-HERE-FIRST" balance is zero the other n wallets can bid */}
-        if (typedAlias.trim() === walletConnected.Alias) {
+        if (typedAlias === walletConnected.Alias) {
             if (bidAmount > walletBalance) {
                 alert("Oops! You don’t have enough funds to place that bid. Try a smaller amount.");
                 e.target.bidAmount.value = "";
@@ -326,12 +332,6 @@ function DAO() {
         
         if (cb === LOWEST || validBalance > LOWEST) {
 
-            if(typedAlias === walletConnected.Alias) {
-                typedAlias = typedAlias;
-            } else {
-                typedAlias = typedAlias.trim();
-            }
-            
             // valid alias name ? //
             var found = false;                               
             for(var i = 0; i < multipleWallets.length; i++) {

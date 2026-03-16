@@ -121,7 +121,15 @@ function ProvideProposalInfo() {
     const processVoteInfo = (e) => {
         e.preventDefault();
 
-        const aliasName = e.target.aliasName.value.trim().toLowerCase();
+        var aliasName = e.target.aliasName.value;
+
+        {/* not a good idea to hard-code value */}
+        if (aliasName === "I-WAS-HERE-FIRST") {
+            aliasName = aliasName.trim();
+        } else {
+            aliasName = aliasName.trim().toLowerCase();
+        }
+        
         const proposalIndex = Number(e.target.proposalIndex.value);
         const voteValue = e.target.voteValue.value.trim();
         const voting = ["for", "For", "against", "Against", "abstain", "Abstain"];
@@ -198,7 +206,7 @@ function ProvideProposalInfo() {
             const aliases = text.split("\n");
             
             var found = false;
-            for (var i = 1; i <= aliases.length; i++) {
+            for (var i = 0; i < aliases.length; i++) {
 
                 if(aliasName === aliases[i]) {
                     
