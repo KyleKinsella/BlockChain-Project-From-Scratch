@@ -36,9 +36,17 @@ type VoteInfo struct {
     VoteValue string `json:"vote"`
 }
 
+type Counted struct {
+    ProposalIndex int
+    For int
+    Against int
+    Abstain int
+}
+
 var (
     proposals []Proposal
     votes []Vote
+    counted []Counted
 )
 
 func InitProposal(w http.ResponseWriter, r *http.Request) {
@@ -145,4 +153,29 @@ func processMaps(data []map[int]string, index int) (int, int, int) {
     }
 
     return counterFor, counterAgainst, counterAbstain
+}
+
+// TODO: this function works (to send the counted votes for each proposal) to an endpoint that will be used by my react frontend, it has a BUG at the moment, this is to be fixed! // 
+func CountedVotes(w http.ResponseWriter, r *http.Request) {
+    w.Header().Set("Access-Control-Allow-Origin", "*")
+
+    data, err := getVoteMap(votes)
+    if err != nil {
+        fmt.Errorf("Could not find any vote mappings, error: %v", err)
+    }
+
+    for _, n := range votes {
+        yes, no, dontCare := processMaps(data, n.Index)
+
+        count := Counted{
+            ProposalIndex: n.Index,
+            For: yes,
+            Against: no,
+            Abstain: dontCare,
+        }
+
+        counted = append(counted, count)
+    }
+
+    json.NewEncoder(w).Encode(counted)
 }
