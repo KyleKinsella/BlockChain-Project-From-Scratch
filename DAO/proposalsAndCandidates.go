@@ -3,6 +3,7 @@ package dao
 import (
     "net/http"
     "encoding/json"
+    "fmt"
 )
 
 type Proposal struct {
@@ -26,6 +27,7 @@ type Vote struct {
     Index int
     AliasName string
     VoteValue string
+    VoteMap map[int]string
 }
 
 type VoteInfo struct {
@@ -86,14 +88,61 @@ func CreateVote(w http.ResponseWriter, r *http.Request) {
         Index: v.Index,
         AliasName: v.AliasName,
         VoteValue: v.VoteValue,
+        VoteMap: make(map[int]string),
     }
 
+    vote.VoteMap[vote.Index] = vote.VoteValue
+
     votes = append(votes, vote)
-        
+         
     json.NewEncoder(w).Encode(votes)
 }
 
 func GetAllVotes(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Access-Control-Allow-Origin", "*")
     json.NewEncoder(w).Encode(votes)
+}
+
+func getVoteMap(votes []Vote) ([]map[int]string, error) {
+    var voteMapping []map[int]string
+
+    if len(votes) == 0 {
+        return voteMapping, nil
+    }
+
+    for _, vote := range votes {
+        mapping := vote.VoteMap
+        voteMapping = append(voteMapping, mapping)
+    }
+
+    return voteMapping, nil
+}
+
+func processMaps(data []map[int]string, index int) (int, int, int) {
+    var counterFor int
+    var counterAgainst int
+    var counterAbstain int
+
+    for _, n := range data {
+        for key, value := range n {
+            if key != index {
+                fmt.Println("\n\n")
+                continue
+            }
+            
+            if value == "for" || value == "For" {
+                counterFor += 1
+            }
+
+            if value == "against" || value == "Against" {
+                counterAgainst += 1
+            }
+
+            if value == "abstain" || value == "Abstain" {
+                counterAbstain += 1
+            }
+        }
+    }
+
+    return counterFor, counterAgainst, counterAbstain
 }
