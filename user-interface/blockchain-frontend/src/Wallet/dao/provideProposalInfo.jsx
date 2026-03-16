@@ -1,7 +1,7 @@
 {/*
     edge cases:
     - edge case - if you have voted already you cannot vote again -- done!
-      BUT, there is another edge case for this edge case, if an alias has voted for one proposal thats fine, but if they try to vote again for that same proposal they cannot do this. But if the same alias name tries to vote for a diffrent proposal, they should be able to do that.
+      BUT, there is another edge case for this edge case, if an alias has voted for one proposal thats fine, but if they try to vote again for that same proposal they cannot do this. But if the same alias name tries to vote for a diffrent proposal, they should be able to do that. -- done!
 
     - the alias that made a proposal cannot vote for their own proposal -- done!
 
@@ -170,19 +170,25 @@ function ProvideProposalInfo() {
                 return;
             }
         }
-
-        {/* this code might be refactored for the child edge case for this edge case (see top of this file for more details) */}
+        
         {/* edge case - you cannot vote if you have already voted */}
+        {/* another edge case (child edge case) - if you have voted for one proposal thats good, but if you try to vote for the same exact proposal again, you cannot do this! But if any other proposals are created you can vote for them, but if you have already voted for another proposal you cannot vote again. */}
         for (var i = 0; i < allVotes.length; i++) {
             var votedAliases = allVotes[i].AliasName;
-            if (aliasName === votedAliases) {
-                alert("Sorry, '" + aliasName + "' you have already voted, you cannot vote again. Nice try!");
+            var votedIdx = allVotes[i].Index;
+            
+            if (proposalIndex != votedIdx) {
+                continue;
+            } else {
+                if (aliasName === votedAliases) {
+                    alert("Sorry, '" + aliasName + "' you have already voted, you cannot vote again. Nice try!");
 
-                e.target.proposalIndex.value = "";
-                e.target.aliasName.value = "";
-                e.target.voteValue.value = "";
-                
-                return;
+                    e.target.proposalIndex.value = "";
+                    e.target.aliasName.value = "";
+                    e.target.voteValue.value = "";
+                    
+                    return;
+                }
             }
         }
         
