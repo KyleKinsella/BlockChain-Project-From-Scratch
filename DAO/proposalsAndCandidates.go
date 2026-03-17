@@ -67,7 +67,7 @@ func InitProposal(w http.ResponseWriter, r *http.Request) {
         Name: info.Name,
         Description: info.Description,
         FundsToUseOutOfTreasury: info.PotentialFunds,
-        Expiry: nil,
+        Expiry: "22",
         Status: "In Progress!",
     }
 

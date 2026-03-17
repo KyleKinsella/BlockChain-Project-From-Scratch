@@ -1,6 +1,28 @@
 import { useEffect, useState } from "react";
+import Treasury from './treasury.jsx';
+
+function sumValuesForTreasury(values) {
+    if (values === null) {
+        return;
+    }
+    
+    var sum = 0;
+    for (let i = 0; i < values.length; i++) {
+        sum += values[i]
+    }
+    return sum;
+}
 
 function ProvideProposalInfo() {
+    const date = new Date();    
+    const formtatDate = date.toLocaleDateString("en-US", {      
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+    });
+
+    const hourIs = date.getHours(); 
+
     const [allProposals, setAllProposals] = useState([]);
     const [showData, setShowData] = useState(false);
 
@@ -9,6 +31,15 @@ function ProvideProposalInfo() {
 
     const [countedVotes, setCountedVotes] = useState([]);
     const [countedVotesBtn, setCountedVotesBtn] = useState(false);
+    
+    const [bids, setBids] = useState(() => {
+        const storedBids = localStorage.getItem("bids");
+        return storedBids ? JSON.parse(storedBids) : [];
+    });
+
+    useEffect(() => {
+        localStorage.setItem("bids", JSON.stringify(bids));
+    }, [bids]);  
 
     useEffect(() => {
         fetch("http://192.168.200.89:8083/getAllProposals")
@@ -46,24 +77,26 @@ function ProvideProposalInfo() {
             });
     }, [countedVotes]);
 
+    useEffect(() => {
+        const treasuryFunds = localStorage.getItem("bids");
+        
+        if(treasuryFunds) { 
+            try {
+                const tf = JSON.parse(treasuryFunds);       
+                setBids(tf);
+            } catch (err) {
+                console.error("Invalid bids in storage");
+                localStorage.removeItem("bids");
+            }
+        }
+    }, [])
+
     const getDAOWinnerAliasName = (e) => {
         e.preventDefault();
 
         const typedAlias = e.target.aliasName.value.trim().toLowerCase();
         const proposalName = e.target.proposalName.value;
         const proposalDescription = e.target.descriptionDetails.value;
-        
-        {/*
-            TODO: an edge case that ill do soon:
-
-                say the treasury contains 120 funds, but a proposal wants to take/use 121 funds, this cannot happen because the treasury only contains 120 funds. So:
-
-                const treasuryFunds = TODO - ?
-                if (potentialFunds > treasuryFunds) {
-                    alert("you cannot make this proposal due to the potential funds to use, is higher than the current funds in the treasury")
-                    return
-                }
-        */}
         const potentialFunds = Number(e.target.potentialFunds.value);
 
         if (potentialFunds === 0) {
@@ -266,11 +299,69 @@ function ProvideProposalInfo() {
                 return;     
             }
         })
+
+        isVotingOver(e);
     };
 
     function upperCase(alias) {
         return alias.charAt(0).toUpperCase() + alias.slice(1); 
     }
+
+    function isVotingOver(e) {
+        e.preventDefault();
+        
+        for (var i = 0; i < allProposals.length; i++) {
+            var expiry = allProposals[i].Expiry;
+            
+            if (hourIs != expiry) {
+                continue;
+            } else {
+                doesProposalHaveValidProposedFunds();
+                return;
+            }
+        }
+    }
+
+    function doesProposalHaveValidProposedFunds() {
+
+        const treasuryFunds = Number(sumValuesForTreasury(bids));
+
+        for (var i = 0; i < allProposals.length; i++) {
+            
+            const proposedFunds = Number(allProposals[i].FundsToUseOutOfTreasury);
+            
+            for (var j = 0; j < countedVotes.length; j++) {
+                if (countedVotes[j].For > countedVotes[j].Against) {
+
+                    {/* edge case - if your proposal exceeds the Treasury amount, stop... */}
+                    if (proposedFunds <= treasuryFunds) {
+                        alert("🎉 Hooray! The following Proposal has been approved:\n\n" + "Name: " + allProposals[i].Name + "\n" + "Description: " + allProposals[i].Description + "\n" + "Potential Funds to use: "  + allProposals[i].FundsToUseOutOfTreasury);
+                        
+                        setBids(prev => {   
+                            let remaining = proposedFunds;
+
+                            {/* here i decrement the Treasury by x funds */}
+                            return prev.map(bid => {
+                                if (remaining <= 0) return bid;
+
+                                const deduction = Math.min(bid, remaining);
+                                remaining -= deduction;
+
+                                return bid - deduction;
+                            });
+                        });
+
+                        return;
+                    } else {
+                        alert("Oops! The following Proposal cannot be processed:\n\n" + "Name: " + allProposals[i].Name + "\n" + "Description: " + allProposals[i].Description + "\n" + "Potential Funds to use: "  + allProposals[i].FundsToUseOutOfTreasury + "\n\nYou proposed: " + proposedFunds + "\nTreasury only has: " + treasuryFunds + "\n\nPlease wait until the treasury has enough funds for this proposal to be processed.");
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    
+    const total = sumValuesForTreasury(bids);
     
     return (
         <div>        
@@ -278,6 +369,10 @@ function ProvideProposalInfo() {
             <p>Here you will be able to submit a proposal (if and only if you have won an <strong>Achievement Card</strong> in the DAO). View submitted proposals, cast your vote for any of the created proposals and view all of the votes for each proposal.</p>
 
             <hr/>
+              <Treasury amount={total}/>
+            <hr/>
+
+            <br/>
         
             <h3>Fill in the below form for your proposal:</h3>
 
@@ -314,6 +409,7 @@ function ProvideProposalInfo() {
                 <p>Name: {proposal.Name}</p>
                 <p>Description: {proposal.Description}</p>
                 <p>Potential Funds to use: {proposal.FundsToUseOutOfTreasury}</p>
+                <p>Expiry: {proposal.Expiry} hrs (Irish Time)</p>
 
                 <br/>
               </div>
@@ -321,7 +417,7 @@ function ProvideProposalInfo() {
 
             <hr/>
             
-            <br/><br/>
+            <br/>
 
             <h2>Cast your vote</h2>
 
@@ -336,10 +432,10 @@ function ProvideProposalInfo() {
                 <br/><br/> 
 
                 <input type="text" name="voteValue" placeholder="Your Vote" required></input> <br/><br/>
-
+                                
                 <button type="submit">Vote</button>
             </form>
-
+            
             <hr/>
             <br/><br/>
 

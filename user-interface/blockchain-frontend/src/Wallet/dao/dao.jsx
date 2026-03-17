@@ -31,6 +31,10 @@ const hourIs = date.getHours();
 const biddingIsOver = hourIs;// + 1;
 
 function sumValuesForTreasury(values) {
+    if (values === null) {
+        return;
+    }
+    
     var sum = 0;
     for (let i = 0; i < values.length; i++) {
         sum += values[i]
