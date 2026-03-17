@@ -36,7 +36,7 @@ type VoteInfo struct {
     VoteValue string `json:"vote"`
 }
 
-type Counted struct {
+type CountedVotes struct {
     ProposalIndex int
     For int
     Against int
@@ -46,7 +46,7 @@ type Counted struct {
 var (
     proposals []Proposal
     votes []Vote
-    counted []Counted
+    counted []CountedVotes
 )
 
 func InitProposal(w http.ResponseWriter, r *http.Request) {
@@ -134,7 +134,6 @@ func processMaps(data []map[int]string, index int) (int, int, int) {
     for _, n := range data {
         for key, value := range n {
             if key != index {
-                fmt.Println("\n\n")
                 continue
             }
             
@@ -155,8 +154,7 @@ func processMaps(data []map[int]string, index int) (int, int, int) {
     return counterFor, counterAgainst, counterAbstain
 }
 
-// TODO: this function works (to send the counted votes for each proposal) to an endpoint that will be used by my react frontend, it has a BUG at the moment, this is to be fixed! // 
-func CountedVotes(w http.ResponseWriter, r *http.Request) {
+func VotesCounted(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Access-Control-Allow-Origin", "*")
 
     data, err := getVoteMap(votes)
@@ -164,11 +162,28 @@ func CountedVotes(w http.ResponseWriter, r *http.Request) {
         fmt.Errorf("Could not find any vote mappings, error: %v", err)
     }
 
-    for _, n := range votes {
-        yes, no, dontCare := processMaps(data, n.Index)
+    counted = []CountedVotes{}
 
-        count := Counted{
-            ProposalIndex: n.Index,
+    for _, n := range votes {
+        idx := n.Index
+        
+        found := false
+
+        for _, c := range counted {
+            if c.ProposalIndex == idx {
+                found = true
+                break
+            }
+        }
+
+        if found {
+            continue
+        }
+
+        yes, no, dontCare := processMaps(data, idx)
+
+        count := CountedVotes{
+            ProposalIndex: idx,
             For: yes,
             Against: no,
             Abstain: dontCare,
