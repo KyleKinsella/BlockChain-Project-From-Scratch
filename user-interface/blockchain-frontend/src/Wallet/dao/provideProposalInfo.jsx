@@ -1,13 +1,3 @@
-{/*
-    edge cases:
-    - edge case - if you have voted already you cannot vote again -- done!
-      BUT, there is another edge case for this edge case, if an alias has voted for one proposal thats fine, but if they try to vote again for that same proposal they cannot do this. But if the same alias name tries to vote for a diffrent proposal, they should be able to do that. -- done!
-
-    - the alias that made a proposal cannot vote for their own proposal -- done!
-
-     - if an alias has created a proposal and the same alias tries to make a new proposal with the same alias name, they should not be able to make this proposal -- this is a valid edge case... but its quite hard to append to a Blob file in js, so i am not going to do this! Reason: because if there is only one winner (in the DAO) and they have made their proposal there will only every be one proposal...
-*/}
-
 import { useEffect, useState } from "react";
 
 function ProvideProposalInfo() {
@@ -16,6 +6,9 @@ function ProvideProposalInfo() {
 
     const [allVotes, setAllVotes] = useState([]);
     const [showData2, setShowData2] = useState(false);
+
+    const [countedVotes, setCountedVotes] = useState([]);
+    const [countedVotesBtn, setCountedVotesBtn] = useState(false);
 
     useEffect(() => {
         fetch("http://192.168.200.89:8083/getAllProposals")
@@ -40,6 +33,18 @@ function ProvideProposalInfo() {
             setAllVotes(data)
             });
     }, []);
+
+    useEffect(() => {
+        fetch("http://192.168.200.89:8083/counted")
+          .then(res => res.json())
+          .then(data => {
+            // is there any counted votes for a proposal ? //
+            if (data === null) {
+                return;
+            }
+            setCountedVotes(data)
+            });
+    }, [countedVotes]);
 
     const getDAOWinnerAliasName = (e) => {
         e.preventDefault();
@@ -352,12 +357,32 @@ function ProvideProposalInfo() {
                 <br/>
               </div>
             ))}
-            
-            {/*
-            SOME THINGS TO THINK ABOUT
-            1: can anyone make a proposal ?  -- no, the only people that can make a proposal is someone that has won an Achievement card in the DAO
-            2: how do i check who has voted ?  -- i have a file of each alias name (from each wallet) that was connected to the DAO, these alias names are wrote to a file. Then i simply check is what the user typed in the file, if so they can vote, otherwise they cannot vote.
-            */}
+
+            <br/><br/>
+
+            <hr />
+
+            <h2>Votes for each Proposal</h2>
+            <p>
+                Below you can view all of the votes for each proposal. Note: each proposal has three values: For, Against & Abstain. If someone has voted For, the for will be incremented by one and this is the exact same for the others.
+            </p>
+
+            <br/><br/>
+
+            <button onClick={() => setCountedVotesBtn(prev => !prev)}>
+              {countedVotesBtn ? "Hide Vote's for each Proposal" : "Show Vote's for each Proposal"}
+            </button>
+
+            {countedVotesBtn && countedVotes.map((vp, i) => (
+              <div key={i}>
+                <p>Proposal {vp.ProposalIndex} has recieved the following votes:</p>
+                <ul>
+                    <li><strong>For: </strong>{vp.For}</li>
+                    <li><strong>Against: </strong>{vp.Against}</li>
+                    <li><strong>Abstain: </strong>{vp.Abstain}</li>
+                </ul>
+              </div>
+            ))}
         </div>
     )
 }
