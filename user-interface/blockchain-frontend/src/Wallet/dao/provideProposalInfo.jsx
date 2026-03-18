@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Treasury from './treasury.jsx';
 import { useNavigate } from "react-router-dom";
+//import "./styles.css";
 
 function sumValuesForTreasury(values) {
     if (values === null) {
@@ -366,36 +367,42 @@ function ProvideProposalInfo() {
     
     return (
         <div>        
-            <h1>Welcome to the Proposals & Candidates</h1>
-            <p>
-                This is your hub for shaping the DAO! If you’ve earned an <strong>Achievement Card</strong>, you can submit a proposal and share your ideas with the community. <br/><br/> You can also explore proposals submitted by others, cast your vote for the ones you support and see how the community is voting in real time. Get involved and help guide our next steps!
-            </p>
+            <div className="welcome">
+                <h1>Welcome to the Proposals & Candidates</h1>
+                <p>
+                    This is your hub for shaping the DAO! If you’ve earned an <strong>Achievement Card</strong>, you can submit a proposal and share your ideas with the community. <br/><br/> You can also explore proposals submitted by others, cast your vote for the ones you support and see how the community is voting in real time. Get involved and help guide our next steps!
+                </p>
+            </div>
 
-            <hr/>
-              <Treasury amount={total}/>
-            <hr/>
+            <div className="treasury">
+                <hr/>
+                  <Treasury amount={total}/>
+                <hr/>
+            </div>
 
             <br/>
         
-            <h3>Bring your proposal to life. Fill in the form below!</h3>
+            <div className="createAProposal">
+                <h3 id="title">Bring your proposal to life. Fill in the form below!</h3>
 
-            <form onSubmit={getDAOWinnerAliasName}> 
-                <label>Alias:</label> <br/><br/>
-                <input type="text" name="aliasName" placeholder="e.g., CryptoNinja" required></input> <br/><br/>  <br/><br/>
-                            
-                <label>Proposal Name:</label> <br/><br/>
-                <input type="text" name="proposalName" placeholder="e.g., Lower Gas Fee's" required></input> <br/><br/>
+                <form onSubmit={getDAOWinnerAliasName}> 
+                    <label>Alias Name:</label> <br/><br/>
+                    <input type="text" name="aliasName" placeholder="e.g., CryptoNinja" required></input> <br/><br/>  <br/><br/>
+                                
+                    <label>Proposal Name:</label> <br/><br/>
+                    <input type="text" name="proposalName" placeholder="e.g., Lower Gas Fee's" required></input> <br/><br/>
 
-                <label>Proposal Description:</label> <br/><br/>
-                <input type="text" name="descriptionDetails" placeholder="Describe your proposal in a few sentences..." required></input>     <br/><br/>
+                    <label>Proposal Description:</label> <br/><br/>
+                    <input type="text" name="descriptionDetails" placeholder="Describe your proposal in a few sentences..." required></input>     <br/><br/>
 
-                <label>Requested Funds:</label> <br/><br/>
-                <input type="number" name="potentialFunds" placeholder="e.g., 120" required></input>
+                    <label>Requested Funds:</label> <br/><br/>
+                    <input type="number" name="potentialFunds" placeholder="e.g., 120" required></input>
 
-                <br/><br/>
+                    <br/><br/>
 
-                <button type="submit">Submit Proposal</button>
-            </form>
+                    <button type="submit">Submit Proposal</button>
+                </form>
+            </div>
 
             <hr />
             
@@ -406,12 +413,12 @@ function ProvideProposalInfo() {
             </button>
 
             {showData && allProposals.map((proposal, i) => (
-              <div key={i}>
+              <div key={i} className="propCard">
                 <h4>Proposal {i + 1} was proposed by: {upperCase(proposal.Alias)}.</h4>
                                                                             
                 <p>Name: {proposal.Name}</p>
                 <p>Description: {proposal.Description}</p>
-                <p>Potential Funds to use: {proposal.FundsToUseOutOfTreasury}</p>
+                <p>Requested Funds: {proposal.FundsToUseOutOfTreasury}</p>
 
                 <br/>
               </div>
@@ -433,7 +440,7 @@ function ProvideProposalInfo() {
 
                 <br/><br/> 
 
-                <input type="text" name="voteValue" placeholder="Your Vote (For, Against, Abstain || for, against, abstain)" required></input> <br/><br/>
+                <input type="text" name="voteValue" placeholder="Your Vote" required></input> <br/><br/>
                                 
                 <button type="submit">Submit Vote</button>
             </form>
@@ -448,7 +455,7 @@ function ProvideProposalInfo() {
             </button>
 
             {showData2 && allVotes.map((vote, i) => (
-              <div key={i}>
+              <div key={i} className="propCard">
                 <h4>Vote: {i + 1} - {upperCase(vote.AliasName)}.</h4>
                 <p>{upperCase(vote.AliasName)} voted for proposal: {vote.Index}. They voted: <strong>{vote.VoteValue}</strong>.</p>
                 
@@ -472,7 +479,7 @@ function ProvideProposalInfo() {
             </button>
 
             {countedVotesBtn && countedVotes.map((vp, i) => (
-              <div key={i}>
+              <div key={i} className="propCard">
                 <p>Proposal {vp.ProposalIndex} has recieved the following votes:</p>
                 <ul>
                     <li><strong>For: </strong>{vp.For}</li>

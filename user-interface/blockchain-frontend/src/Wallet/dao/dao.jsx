@@ -17,7 +17,7 @@
 import { useState, useEffect } from "react";
 import Treasury from './treasury.jsx';
 import { useNavigate } from "react-router-dom";
-import WalletMainUI from './walletHomePage.jsx';
+{/*import WalletMainUI from './walletHomePage.jsx';*/}
 import { saveAs } from 'file-saver';
 
 const LOWEST = 1;

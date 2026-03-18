@@ -1,0 +1,101 @@
+.welcome {
+    font-weight: 20px;
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    /*max-width: 800px;*/
+}
+
+.treasury {
+    font-weight: 20px;
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    /*max-width: 800px;*/
+}
+
+.createAProposal, .title {
+    font-size: 20px;
+}
+
+.createAProposal {
+    font-weight: 20px;
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+}
+
+/*
+.box {
+  border: 2px solid #333;  
+  padding: 15px;        
+  border-radius: 5px;      
+}
+*/
+
+.createAProposal {
+  font-size: 20px;            /* size of text */
+  font-weight: 600;           /* semi-bold text */
+  text-align: center;
+  margin: 10px;
+
+  padding: 15px;              /* space inside the box */
+  border: 2px solid #ffffff;  /* border thickness and color */
+  border-radius: 8px;         /* rounded corners */
+
+  background-color: #4f46e5;  /* optional: add contrast so white border shows */
+  color: black;               /* text color */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* optional subtle shadow */
+}
+
+/*
+input {
+    height: 50px;
+    width: 200px;
+    border-radius: 70%;
+    text-align: center;
+}
+*/
+
+input {
+  height: 50px;
+  width: 200px;
+  max-width: 100%;           /* responsive */
+  border-radius: 25px;       /* smooth rounded corners */
+  text-align: center;
+  border: 2px solid #ccc;    /* subtle border */
+  padding: 0 15px;           /* horizontal padding */
+  font-size: 16px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* subtle shadow */
+  transition: border-color 0.3s, box-shadow 0.3s; /* smooth hover effect */
+}
+
+input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 10px rgba(79,70,229,0.3);
+  outline: none; /* remove default outline */
+}
+
+.propCard {
+  background-color: #f9fafb;           /* light card background */
+  border: 2px solid #e5e7eb;          /* subtle border */
+  border-radius: 10px;                 /* rounded corners */
+  padding: 20px;                       /* space inside the card */
+  margin: 15px 0;                      /* space between cards */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* subtle shadow */
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.proposal-card:hover {
+  transform: translateY(-3px);          /* slight lift on hover */
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1); /* stronger shadow */
+}
+
+.proposal-card h4 {
+  color: #1f2937;                      /* dark heading color */
+  margin-bottom: 10px;
+}
+
+.proposal-card p {
+  margin: 5px 0;
+}
