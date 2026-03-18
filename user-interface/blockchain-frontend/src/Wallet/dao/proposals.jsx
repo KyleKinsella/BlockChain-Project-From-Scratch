@@ -1,7 +1,5 @@
 import { useNavigate } from "react-router-dom";
-{/* import Treasury from './treasury.jsx'; */}
-import MakeAVote from "./makeAVote.jsx";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function Proposals() {
     const navigate = useNavigate();
@@ -9,34 +7,16 @@ function Proposals() {
 
     return (
         <div>
-            {/* <Treasury /> */}
-        
             <h1>Let's Vote!</h1>
-            <p>Here you will be able to make a proposal and depending on your proposal you could have the opportunity to use some of the treasury funds for your specific proposal. To get started click the button below.</p>
+            <p>
+                Share your ideas and help shape our community! Submit a proposal and if it’s approved, you might be able to access treasury funds to bring it to life. <br/><br/>
+
+                Ready to get started? Click the button below to submit your proposal.
+            </p>
             
             <button onClick={(e) => navigate("/ProvideProposalInfo")}>Submit a Proposal</button>
-
-            {/* {allInfo} */}
-
-            {/*
-            <h3>Proposals</h3>
-            {allInfo.map((data, i) => (       
-                <div key={i} className="">        
-                    <>
-                    <ul>
-                        <p>Name: {data.Name}</p>
-                        <p>Description: {data.Description}</p>
-                        <p>Potential Funds to use: {data.FundsToUseOutOfTreasury}</p>
-                    </ul>
-                    </>
-                </div>
-            ))}
-            */}
-
-            {/*
-            <br/><br/><br/><br/><br/><br/><br/>
-            <MakeAVote />
-            */}
+            <br/><br/>
+            <button onClick={(e) => navigate("/")}>Go Home</button>
         </div>
     ) 
 }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Treasury from './treasury.jsx';
+import { useNavigate } from "react-router-dom";
 
 function sumValuesForTreasury(values) {
     if (values === null) {
@@ -36,6 +37,8 @@ function ProvideProposalInfo() {
         const storedBids = localStorage.getItem("bids");
         return storedBids ? JSON.parse(storedBids) : [];
     });
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         localStorage.setItem("bids", JSON.stringify(bids));
@@ -312,7 +315,7 @@ function ProvideProposalInfo() {
         
         for (var i = 0; i < allProposals.length; i++) {
             var expiry = allProposals[i].Expiry;
-            
+                        
             if (hourIs != expiry) {
                 continue;
             } else {
@@ -350,8 +353,6 @@ function ProvideProposalInfo() {
                                 return bid - deduction;
                             });
                         });
-
-                        return;
                     } else {
                         alert("Oops! The following Proposal cannot be processed:\n\n" + "Name: " + allProposals[i].Name + "\n" + "Description: " + allProposals[i].Description + "\n" + "Potential Funds to use: "  + allProposals[i].FundsToUseOutOfTreasury + "\n\nYou proposed: " + proposedFunds + "\nTreasury only has: " + treasuryFunds + "\n\nPlease wait until the treasury has enough funds for this proposal to be processed.");
                         break;
@@ -366,7 +367,9 @@ function ProvideProposalInfo() {
     return (
         <div>        
             <h1>Welcome to the Proposals & Candidates</h1>
-            <p>Here you will be able to submit a proposal (if and only if you have won an <strong>Achievement Card</strong> in the DAO). View submitted proposals, cast your vote for any of the created proposals and view all of the votes for each proposal.</p>
+            <p>
+                This is your hub for shaping the DAO! If you’ve earned an <strong>Achievement Card</strong>, you can submit a proposal and share your ideas with the community. <br/><br/> You can also explore proposals submitted by others, cast your vote for the ones you support and see how the community is voting in real time. Get involved and help guide our next steps!
+            </p>
 
             <hr/>
               <Treasury amount={total}/>
@@ -374,30 +377,30 @@ function ProvideProposalInfo() {
 
             <br/>
         
-            <h3>Fill in the below form for your proposal:</h3>
+            <h3>Bring your proposal to life. Fill in the form below!</h3>
 
             <form onSubmit={getDAOWinnerAliasName}> 
-                <label>Enter your Alias name:</label> <br/><br/>
-                <input type="text" name="aliasName" placeholder="Alias Name:" required></input> <br/><br/>  <br/><br/>
+                <label>Alias:</label> <br/><br/>
+                <input type="text" name="aliasName" placeholder="e.g., CryptoNinja" required></input> <br/><br/>  <br/><br/>
                             
-                <label>Enter the name of your Proposal:</label> <br/><br/>
-                <input type="text" name="proposalName" placeholder="Proposal Name:" required></input> <br/><br/>
+                <label>Proposal Name:</label> <br/><br/>
+                <input type="text" name="proposalName" placeholder="e.g., Lower Gas Fee's" required></input> <br/><br/>
 
-                <label>Enter the Description of your Proposal:</label> <br/><br/>
-                <input type="text" name="descriptionDetails" placeholder="Description details:" required></input>     <br/><br/>
+                <label>Proposal Description:</label> <br/><br/>
+                <input type="text" name="descriptionDetails" placeholder="Describe your proposal in a few sentences..." required></input>     <br/><br/>
 
-                <label>Enter the potential funds to use for your Proposal:</label> <br/><br/>
-                <input type="number" name="potentialFunds" placeholder="Potential funds to use:" required></input>
+                <label>Requested Funds:</label> <br/><br/>
+                <input type="number" name="potentialFunds" placeholder="e.g., 120" required></input>
 
                 <br/><br/>
 
-                <button type="submit">Make Proposal</button>
+                <button type="submit">Submit Proposal</button>
             </form>
 
             <hr />
             
-            <h2>Proposals</h2>
-            <p>You can click the button below to view all of the proposals.</p>
+            <h2>View Proposals</h2>
+            <p>Click the button below to view all proposals.</p>
             <button onClick={() => setShowData(prev => !prev)}>
               {showData ? "Hide Proposal's" : "Show Proposal's"}
             </button>
@@ -409,7 +412,6 @@ function ProvideProposalInfo() {
                 <p>Name: {proposal.Name}</p>
                 <p>Description: {proposal.Description}</p>
                 <p>Potential Funds to use: {proposal.FundsToUseOutOfTreasury}</p>
-                <p>Expiry: {proposal.Expiry} hrs (Irish Time)</p>
 
                 <br/>
               </div>
@@ -422,25 +424,25 @@ function ProvideProposalInfo() {
             <h2>Cast your vote</h2>
 
             <form onSubmit={processVoteInfo}>
-                <label>What do you wish to vote ?</label>  <br/><br/>
+                <label>Which proposal would you like to vote on?</label> <br/><br/>
 
-                <input type="number" name="proposalIndex" placeholder="Proposal Index" required></input> 
+                <input type="number" name="proposalIndex" placeholder="Enter proposal number" required></input> 
                 <br/><br/> 
 
                 <input type="text" name="aliasName" placeholder="Alias name" required></input> 
 
                 <br/><br/> 
 
-                <input type="text" name="voteValue" placeholder="Your Vote" required></input> <br/><br/>
+                <input type="text" name="voteValue" placeholder="Your Vote (For, Against, Abstain)" required></input> <br/><br/>
                                 
-                <button type="submit">Vote</button>
+                <button type="submit">Submit Vote</button>
             </form>
             
             <hr/>
             <br/><br/>
 
             <h2>View Votes</h2>
-            <p>You can click the button below to view all of the votes for each proposal.</p>
+            <p>Curious how the community voted? Click below to see all proposal votes!</p>
             <button onClick={() => setShowData2(prev => !prev)}>
               {showData2 ? "Hide Vote's" : "Show Vote's"}
             </button>
@@ -460,13 +462,13 @@ function ProvideProposalInfo() {
 
             <h2>Votes for each Proposal</h2>
             <p>
-                Below you can view all of the votes for each proposal. Note: each proposal has three values: For, Against & Abstain. If someone has voted For, the for will be incremented by one and this is the exact same for the others.
+                Below, you can see the votes for every proposal. Each proposal tracks three types of votes: For, Against and Abstain. When someone votes, the corresponding count is increased by one.
             </p>
 
             <br/><br/>
 
             <button onClick={() => setCountedVotesBtn(prev => !prev)}>
-              {countedVotesBtn ? "Hide Vote's for each Proposal" : "Show Vote's for each Proposal"}
+              {countedVotesBtn ? "Hide Vote Standings" : "View Vote Standings"}
             </button>
 
             {countedVotesBtn && countedVotes.map((vp, i) => (
@@ -479,6 +481,9 @@ function ProvideProposalInfo() {
                 </ul>
               </div>
             ))}
+    
+            <br/><br/>
+            <button onClick={(e) => navigate("/proposals")}>Go Back</button>
         </div>
     )
 }
