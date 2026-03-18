@@ -433,7 +433,7 @@ function ProvideProposalInfo() {
 
                 <br/><br/> 
 
-                <input type="text" name="voteValue" placeholder="Your Vote (For, Against, Abstain)" required></input> <br/><br/>
+                <input type="text" name="voteValue" placeholder="Your Vote (For, Against, Abstain || for, against, abstain)" required></input> <br/><br/>
                                 
                 <button type="submit">Submit Vote</button>
             </form>

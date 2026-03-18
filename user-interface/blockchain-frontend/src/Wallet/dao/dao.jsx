@@ -1,14 +1,16 @@
 {/*
     Might do in the future:
-    - persist n wallets balance --- going to leave!!!
+    - persist n wallets --- going to leave!!!
     
     Tidy up:
     - make the readme more developer / engineer like --- mostly done
     - polishing up everthing --- mostly done
-    - styling --- not a bid issue, will do last
+    - styling --- not a big issue, will do last
 
     Upcoming:
-    - proposals & candidates --- In Progress!!!!
+    - proposals & candidates --- done!
+
+    Potential:
     - complete or make a dashboard to see traffic for my project 
 */}
 

@@ -22,12 +22,12 @@
 ## Project Summary
 Blockchain From Scratch is a personal project simulating a blockchain system end-to-end. It demonstrates full-stack development skills, including backend logic in Go, frontend display with React and integration between the two.
 
-The project explores core blockchain concepts, such as: Block Creation (Proof of Work: Consensus Algorithm) and block linking, Wallet Creation, Decentralized Autonomous Organization (DAO), with future plans for a functional Dashboard  to keep track of project data and analytics.
+The project explores core blockchain concepts, such as: Block Creation (Proof of Work: Consensus Algorithm) and block linking, Wallet Creation, Decentralized Autonomous Organization (DAO) which allows connected wallets to submit proposals via the Proposals & Candidates section.
 
 This project showcases problem-solving, iterative development and practical implementation of blockchain principles.
 
 ## Technology Stack
-This project includes frontend, backend and (eventually) deployment components. The frontend consists of the following - (HTML, CSS, JS, React). The backend is currently written in Go but Python will be getting added in soon. I am using Git to keep track of my project and if I need to revert back I can do so. The project is getting closer than ever to the Deployment stage, once I get to this point in the project I plan to use Docker and Kubernetes to get my project to real users.
+This project includes frontend, backend and (eventually) deployment components. The frontend is built with: HTML, CSS, Js and React. The backend is currently written completely in Go with a small portion implemented in Python. I am using Git to keep track of my project and if I need to revert back I can do so. The project is getting closer than ever to the Deployment stage, once I get to this point in the project I plan to use Docker and Kubernetes to get my project to real users.
 
 ## Current Features
 Current functionality includes:
@@ -42,17 +42,24 @@ Current functionality includes:
     - Bid before the time is up - highest bid amount wins.
     - Connecting your wallet and multiple other wallets.
     - Treasury management for all bids.
+- Proposals & Candidates:
+    - Only members who have won an Achievement Card in the DAO can create proposals.
+    - Anyone can view all submitted proposals.
+    - Connected wallets can cast votes for the proposals they wish to support.
+    - Everyone can see which Aliases have voted for which proposals.
+    - The total votes for each proposal are visible to all. For example, Proposal 1 might have 5 votes For, 1 Against and 2 Abstain. This information is available for every proposal. 
 
 ## In Development 
 The below features are in the works:
-- Proposals & Candidates for how to use the funds in the Treasury.
-- Dashboard for analytics.
+- Improved Styling – making the project look cleaner, more polished and visually appealing!
     
 ## Potential Features
 Potential enhancements include:
 - Peer-to-peer (P2P) network.
 - Allow my blockchain to fork (for learning purposes).
 - Block height limits and data management (like Bitcoin).
+- Dashboard for analytics.
+- Mini EVM Support – a compiler or interpreter for a small subset of Solidity (.sol), enabling basic smart contract functionality within the project.
 
 ## Project Videos
 I have created an array of YouTube videos while I've been iteratively developing my project.
@@ -79,9 +86,12 @@ Video Five:
 ## Roadmap
 | Feature          | Status   | Notes |
 |-----------------|---------|-------|
-| Block Rewards     | Done | Will simulate miner incentives |
-| Fluctuating Transaction Fees  | Done | Integrate fees per transaction |
-| DAO               | In Progress | Inspired by <a href="https://nouns.wtf/">nouns.wtf</a> |
+| Blocks            | Complete | Simulating Mining |
+| Block Rewards     | Complete | Will simulate miner incentives |
+| Fluctuating Transaction Fees | Complete | Integrate fees per transaction |
+| Wallet Creation   | Complete | Inspired by MetaMask & Phantom |
+| DAO               | Complete | Inspired by <a href="https://nouns.wtf/">nouns.wtf</a> |
+| Proposals & Candidates | Complete | Also Inspired by <a href="https://nouns.wtf/">nouns.wtf</a> |
 | Deployment        | Planned | Docker, Kubernetes |
 
 ## Contact
