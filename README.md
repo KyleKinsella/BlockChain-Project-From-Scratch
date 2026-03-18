@@ -27,12 +27,12 @@ The project explores core blockchain concepts, such as: Block Creation (Proof of
 This project showcases problem-solving, iterative development and practical implementation of blockchain principles.
 
 ## Technology Stack
-This project includes frontend, backend and (eventually) deployment components. The frontend is built with: HTML, CSS, Js and React. The backend is currently written completely in Go with a small portion implemented in Python. I am using Git to keep track of my project and if I need to revert back I can do so. The project is getting closer than ever to the Deployment stage, once I get to this point in the project I plan to use Docker and Kubernetes to get my project to real users.
+This project includes frontend, backend and (eventually) deployment components. The frontend is built with: HTML, CSS, JavaScript and React. The backend is currently written completely in Go with a small portion implemented in Python. I am using Git to keep track of my project and if I need to revert back I can do so. The project is getting closer than ever to the Deployment stage, once I get to this point in the project I plan to use Docker and Kubernetes to get my project to real users.
 
 ## Current Features
 Current functionality includes:
 - Block Creation - Proof of Work (PoW) Consensus Algorithm.
-- Backend-to-Frontend integration.
+- Backend-to-Frontend integration && Frontend-to-Backend integration.
 - Block Rewards.
 - Fluctuating Transaction fees - depending on the state of the blockchain the transaction fees might be low or high.
 - Wallet Creation.
@@ -50,8 +50,8 @@ Current functionality includes:
     - The total votes for each proposal are visible to all. For example, Proposal 1 might have 5 votes For, 1 Against and 2 Abstain. This information is available for every proposal. 
 
 ## In Development 
-The below features are in the works:
-- Improved Styling – making the project look cleaner, more polished and visually appealing!
+The below feature is in the works:
+- Improve Styling – making the project look cleaner, more polished and visually appealing!
     
 ## Potential Features
 Potential enhancements include:
@@ -81,20 +81,23 @@ Video Four:
 [Fourth Video of my blockchain project](https://www.youtube.com/watch?v=8HPL91NaN_o).
 
 Video Five:
-[Most up-to-date video of my blockchain project](https://www.youtube.com/watch?v=Vn-BBurEVf4).
+[Fifth Video of my blockchain project](https://www.youtube.com/watch?v=Vn-BBurEVf4).
+
+Video Six:
+[Upcoming]("").
 
 ## Roadmap
 | Feature          | Status   | Notes |
 |-----------------|---------|-------|
-| Blocks            | Complete | Simulating Mining |
+| Block Creation            | Complete | Simulating Mining |
 | Block Rewards     | Complete | Will simulate miner incentives |
 | Fluctuating Transaction Fees | Complete | Integrate fees per transaction |
 | Wallet Creation   | Complete | Inspired by MetaMask & Phantom |
 | DAO               | Complete | Inspired by <a href="https://nouns.wtf/">nouns.wtf</a> |
-| Proposals & Candidates | Complete | Also Inspired by <a href="https://nouns.wtf/">nouns.wtf</a> |
+| Proposals & Candidates | Complete | Also Inspired by <a href="https://nouns.wtf/vote">nouns.wtf</a> |
 | Deployment        | Planned | Docker, Kubernetes |
 
 ## Contact
 If you have read this README or reviewed parts of the codebase, I would greatly appreciate any feedback. If you notice potential issues or areas for improvement, whether in the backend or frontend, your insights would be extremely valuable.
 
-Additionally, if you believe I may be a good fit for your team or are interested in discussing potential opportunities, please feel free to reach out to me on [Kyle Kinsella - Linkedin](https://www.linkedin.com/in/kyle-kinsella-52614b291/). I am passionate about building meaningful software, whether for personal development or contributing to a company’s success.
+Additionally, if you believe I may be a good fit for your team or are interested in discussing potential opportunities, please feel free to reach out to me on [Linkedin - Kyle Kinsella](https://www.linkedin.com/in/kyle-kinsella-52614b291/). I am passionate about building meaningful software, whether for personal development or contributing to a company’s success.
