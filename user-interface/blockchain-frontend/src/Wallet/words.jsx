@@ -14,22 +14,27 @@ function GeneratedWords() {
     return (
         <div>
             <h1>Write Down Your Recovery Phrase</h1>
-            <h3>Step 4</h3>
-            <p>Write these words down in order and store them safely offline.</p>
+            <h3 id="step4">Step 4</h3>
+            <p id="alert">Write these words down in order and store them safely offline.</p>
 
-            {seed.map((data, i) => (        
-                <div key={i} className="seed">        
-                    <>
-                    <ul>
-                        <p>{i+1}: {data}</p>
-                    </ul>
-                    </>
+            <div className="button-container">
+                <div className="words">
+                    {seed.map((data, i) => (        
+                        <div key={i} className="seed">        
+                            <>
+                            <input name="" type="text" placeholder={i+1 + ": " + data}/>
+                            </>
+                        </div>
+                    ))}
+
+                <br/>
+                <button onClick={() => navigate("/confirm")}>Next Step (Confirm)</button>
                 </div>
-            ))}
+            </div>
 
-            <button onClick={() => navigate("/confirm")}>Confirm Secret Recovery Phrase</button>
-            <br />
-            <button onClick={(e) => navigate("/ssp")}>Go back to Step 3</button>
+            <div className="button-container">
+                <button onClick={(e) => navigate("/ssp")}>Go back to Step 3</button>
+            </div>
         </div>
     )
 }

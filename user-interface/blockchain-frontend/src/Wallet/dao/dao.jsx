@@ -19,6 +19,7 @@ import Treasury from './treasury.jsx';
 import { useNavigate } from "react-router-dom";
 {/*import WalletMainUI from './walletHomePage.jsx';*/}
 import { saveAs } from 'file-saver';
+//import "../main.css";
 
 const LOWEST = 1;
 
@@ -463,30 +464,21 @@ function DAO() {
     
     return (
         <div>       
-            <h1>Kyle's Decentralized Autonomous Organization (DAO)</h1>
-            <p>
+            <h1 id="dao">Kyle's Decentralized Autonomous Organization (DAO)</h1>
+            <p id="daoWelcome">
                 Welcome to my DAO! Connect your wallet, check today’s reward and place bids for a chance to win exclusive achievement cards!
             </p>
 
-            <form onSubmit={createWallet}>
+           <form onSubmit={createWallet}>
               <button type="submit" disabled={buttonClicked}>
                 {buttonClicked ? "Wallet Connected" : "Connect Wallet"}
               </button>
             </form>
-            
-            {walletConnected && (                                                 
-                <div className="wallet">
-                    <p>
-                        Alias: {walletConnected.Alias} <br />
-                        Balance: {walletBalance}
-                    </p>
-                </div>
-            )}
 
             <br/>
-
+            
             <form onSubmit={makeNWallets}>
-                <label>How many Wallets do you want to make ?</label>
+                <label id="nWallets">How many Wallets do you want to make ?</label>
                   <br/><br/>
                   <input type="number" name="nWallets" placeholder="Wallets to Make" required/>
                   <br/><br/>
@@ -496,36 +488,45 @@ function DAO() {
             </form>
 
             {loading && <p>Creating Wallets... please wait</p>}
-      
-            {multipleWallets.map((data, i) => (       
-                <div key={i} className="">        
-                    <>
-                    <ul>
-                        <p>Alias({i+1}): {data.Alias} <br />
-                        Balance: {data.Balance}</p>
-                    </ul>
-                    </>
-                </div>
-            ))}
-            
-            <hr />
-            <Treasury amount={total}/>
-            <br />
 
-            <h3>Bid History</h3>
-            <ul>
-                {bidHistory.map((bid) => (
-                    <li>{bid.Address} bidded: {bid.Amount}</li>
-                ))}
-            </ul>
-            
-            <br />
-            
-            <h3>Today's Reward</h3>
-            <pre>{formtatDate}</pre>
-            
-            <p>Place your bids to compete for this amazing achievement!</p>
-            
+            <br/><br/>
+
+            <table className="dao-table">
+                
+                <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Alias</th>
+                      <th>Balance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {/* First wallet if connected */}
+                    {walletConnected && (
+                      <tr>
+                        <td>1</td>
+                        <td>{walletConnected.Alias}</td>
+                        <td>{walletBalance}</td>
+                      </tr>
+                    )}
+
+                    {/* Additional wallets */}
+                    {multipleWallets.map((data, i) => (
+                      <tr key={i + 1}>
+                        <td>{walletConnected ? i + 2 : i + 1}</td> {/* adjust numbering */}
+                        <td>{data.Alias}</td>
+                        <td>{data.Balance}</td>
+                      </tr>
+                    ))}
+                </tbody>
+            </table>
+            <br/>
+
+            <hr />
+
+            <Treasury name="treasury" amount={total}/>
+            <br/>
+
             <form onSubmit={daoReward}>
                 <button type="submit" disabled={btn}>Reveal Today’s Reward</button>
             </form>
@@ -533,32 +534,37 @@ function DAO() {
             <br />
             
             {dao && (
-                <div className="dao">
+                <div className="achievementCard">
                     <pre><strong>Achievement Card: </strong>{dao}</pre>
             </div>
             )}
 
-            <p>Time left to bid: {biddingIsOver} hrs (Irish Time)</p>
-            <p>Current Bid is: {currentBid}</p> 
-                        
-            <form onSubmit={getBidAmount}>
+            <p id="today">Today's Date: <strong>{formtatDate}</strong></p>
+
+            <p id="currentBid">Current Bid is: {currentBid}</p>
+            <p id="timeLeft">Time left to bid: {biddingIsOver} hrs (Irish Time)</p>
+
+             <form onSubmit={getBidAmount}>
                 <input type="text" pattern="/^[A-Za-z-]+$/" name="aliasName" placeholder="Enter your Alias name" required/>
                 <br /><br />
                 <input type="number" step="1" name="bidAmount" placeholder={"Bid more than " + currentBid}/>
   
                 <br /><br />
                 <button type="submit" disabled={disableBidBtn}>Place Bid</button>
-            </form>
-            
-            <form onSubmit={clearLocalStorage}>
-                <button type="submit">Reset Page</button>
+                <button type="submit" onClick={clearLocalStorage}>Reset Page</button>
+                <button onClick={(e) => navigate("/")}>Go Back</button>
             </form>
 
-            <br />
+            <br/>
 
-           <button onClick={(e) => navigate("/")}>Go Back</button>
-        </div>
-    );
+            <h3 id="bh">Bid History</h3>
+            <ul>
+                {bidHistory.map((bid) => (
+                    <li id="bidHistory">{bid.Address} bidded: {bid.Amount}</li>
+                ))}
+            </ul>
+          </div>
+        );
 }
-
+            
 export default DAO;

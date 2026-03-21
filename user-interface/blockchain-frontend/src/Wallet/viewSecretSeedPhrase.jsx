@@ -21,11 +21,10 @@ function SecretSeedPhrase() {
             <div>
                 <h3>Reveal Recovery Phrase</h3>
                 <p>Select the button below to reveal your secret recovery phrase.</p>
+
+                <p><strong>*Make sure no one is watching your screen*</strong></p>
                 
                 <button onClick={() => navigate("/words")}>View</button>
-                
-                <p><strong>*Make sure no one is watching your screen*</strong></p>
-                <br />
                 <button onClick={(e) => {navigate("/phrase")}}>Go back to Step 2</button>
             </div>
         </div>

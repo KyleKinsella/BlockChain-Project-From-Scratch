@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import "./block.css";
+//import "./block.css";
 import { useNavigate } from "react-router-dom";
+import "../main.css";
 
 function Block() {
   const [blocks, setBlocks] = useState([]);
@@ -52,55 +53,64 @@ function Block() {
 
     return (
         <div className="block-container">
-            <h1>Blocks</h1>
+            
+            <h1 id="top">Blocks</h1>
             <p id="blockPage">
                 Welcome to the Blocks page. Here you can view the current state of the blockchain, starting with the Genesis block - the first block that links to all subsequent blocks.
             </p>
 
-            <button className="toggle-btn" onClick={() => setShowData(prev => !prev)}>
-                {showData ? "Hide Data" : "Show Data"}
-            </button>
+            <div className="button-container">
+                <button className="toggle-btn" onClick={() => setShowData(prev => !prev)}>
+                    {showData ? "Hide Block Data" : "Show Block Data"}
+                </button>
+            </div>
 
           {blocks.map((block, i) => (        
             <div key={i} className="block" id="block">
-
               <h4>Block {i+1} | Block Reward: {block.BlockReward?.BlockRewardTotal}</h4>
-              <hr />
+              <hr id="line"/>
                 {/* Only visible when button clicked */}
                 {showData && (
                     <>
-                    <p>Index: {block.Index}</p>
-                    <p>Timestamp: {block.Timestamp}</p>
-                    <p id="prevHash">PrevHash: {JSON.stringify(block.PrevHash)}</p>
-                    <h3>Transactions Info:</h3>
-                    <p id="sender">Sender: {block.Transactions?.Sender}</p>
-                    <p id="reciever">Receiver: {block.Transactions?.Receiver}</p>
-                    <p>Amount: {block.Transactions?.Amount}</p>
-                    <p>ProofOfWork: {JSON.stringify(block.ProofOfWork)}</p>
-                    <p id="blockHash">BlockHash: {block.BlockHash}</p>
-                    {/* Ideally I would have the arrow outside of the div, but due to the design of react I cannot have this arrow outside of the div - if I did react would break and complain
-                    (this might change later on in the project...) */}
-                    {i < blocks.length - 1 && <div className="chain-arrow"></div>}
+                    <div className="blockData">
+                        <p>Index: {block.Index}</p>
+                        <p>Timestamp: {block.Timestamp}</p>
+                        <p id="prevHash">PrevHash: {JSON.stringify(block.PrevHash)}</p>
+                        <h3>Transactions Info:</h3>
+                        <p id="sender">Sender: {block.Transactions?.Sender}</p>
+                        <p id="reciever">Receiver: {block.Transactions?.Receiver}</p>
+                        <p>Amount: {block.Transactions?.Amount}</p>
+                        <p>ProofOfWork: {JSON.stringify(block.ProofOfWork)}</p>
+                        <p id="blockHash">BlockHash: {block.BlockHash}</p>
+                        {/* Ideally I would have the arrow outside of the div, but due to the design of react I cannot have this arrow outside of the div - if I did react would break and complain
+                        (this might change later on in the project...) */}
+                        {i < blocks.length - 1 && <div className="chain-arrow"></div>}
+                    </div>
                     </>
                 )}
             </div>
           ))}
       
           <br/><br/>
+          <div className="button-container">
+              <form onSubmit={makeNBlocks}>
+                  <label id="question">How many blocks do you want to Mine ?</label>
+                  
+                  <br/><br/>
 
-          <form onSubmit={makeNBlocks}>
-              <label>How many blocks do you want to make ?</label>
-              <br/><br/>
-              <input type="number" name="nBlocks" placeholder="Blocks to Make" required/>
-              <br/><br/>
-              <button type="submit" disabled={loading}>
-                {loading ? "Mining Blocks..." : "Make Blocks"}
-              </button>
-          </form>
+                  <input type="number" name="nBlocks" id="blocksToMake" placeholder="Mine Blocks" required/>
 
-          {loading && <p>Mining blocks... please wait</p>}
+                  <br/><br/>
 
-          <button onClick={(e) => navigate("/")}>Go Back</button>
+                  <button type="submit" disabled={loading}>
+                    {loading ? "Mining Blocks..." : "Mine Blocks"}
+                  </button>
+
+                  <button onClick={(e) => navigate("/")}>Go Back</button>
+              </form>
+            </div>
+
+          {loading && <p id="msg">Mining blocks... please wait</p>}   
         </div>
     );
 }

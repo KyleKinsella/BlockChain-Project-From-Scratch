@@ -12,8 +12,8 @@ function Home() {
 
     return(
         <header>
-            <h1>Blockchain Simulation Project!</h1>
-            <p>
+            <h1 id="title">Blockchain Simulation Project!</h1>
+            <p id="para">
                 Welcome to my Blockchain Project! I’m Kyle and I’m building a blockchain simulation project from the ground up.
                 <br/> <br/>
                 This project includes <strong>Block Creation, Wallet Creation and a Decentralized Autonomous Organization (DAO)</strong> including the following features - bidding to win a reward, treasury management & more!
@@ -21,7 +21,7 @@ function Home() {
                 Dive in and explore how it works using the menu below. Enjoy experimenting!
             </p>
 
-            <GiHamburgerMenu className="icon" size={28} color="white" onClick={toggleMenu}/>
+            <GiHamburgerMenu className="icon" size={40} color="white" onClick={toggleMenu}/>
             {showMenu && <Navigate />}
         </header>
     );

@@ -10,7 +10,7 @@ function Password() {
     return (
         <div>
             <h1>Create a Password</h1>
-            <h3>Step 2</h3>
+            <h3 id="step2">Step 2</h3>
             <p>Create a password to unlock your wallet.</p>
 
             <form>

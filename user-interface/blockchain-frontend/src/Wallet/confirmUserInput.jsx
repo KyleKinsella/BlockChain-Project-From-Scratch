@@ -64,68 +64,39 @@ function ConfirmUserInput({ buttonText, message }) {
     
     return (
     <div>
-      <form onSubmit={handleSubmit}>
-            <label htmlFor="">1: </label>
-            <input name="one" type="text" />  
-
-            <br /><br />       
+        
+        <form onSubmit={handleSubmit}>
             
-            <label htmlFor="">2: </label>
-            <input name="two" type="text" />
+            <div className="button-container">
+                <div className="inputSeed">
+                    <input name="one" type="text" placeholder="Enter 1st seed value…" required/>  
+                    <br /><br />       
+                    <input name="two" type="text" placeholder="Enter 2nd seed value…" required/>
+                    <br /><br />
+                    <input name="three" type="text" placeholder="Enter 3rd seed value…" required/>
+                    <br /><br />
+                    <input name="four" type="text" placeholder="Enter 4th seed value…" required/>
+                    <br /><br />
+                    <input name= "five" type="text" placeholder="Enter 5th seed value…" required/>
+                    <br /><br />
+                    <input name="six" type="text" placeholder="Enter 6th seed value…" required/>
+                    <br /><br />
+                    <input name="seven" type="text" placeholder="Enter 7th seed value…" required/>
+                    <br /><br />
+                    <input name="eight" type="text" placeholder="Enter 8th seed value…" required/>
+                    <br /><br />
+                    <input name="nine" type="text" placeholder="Enter 9th seed value…" required/>
+                    <br /><br />
+                    <input name="ten" type="text" placeholder="Enter 10th seed value…" required/>
+                    <br /><br />
+                    <input name="eleven" type="text" placeholder="Enter 11th seed value…" required/>
+                    <br /><br />                                                     
+                    <input name="twelve" type="text" placeholder="Enter 12th seed value…" required/>
+                    <br /><br />
 
-            <br /><br />
-
-            <label htmlFor="">3: </label>
-            <input name="three" type="text" />
-
-            <br /><br />
-
-            <label htmlFor="">4: </label>
-            <input name="four" type="text" />
-
-            <br /><br />
-
-            <label htmlFor="">5: </label>
-            <input name= "five" type="text" />
-
-            <br /><br />
-
-            <label htmlFor="">6: </label>
-            <input name="six" type="text" />
-
-            <br /><br />
-
-            <label htmlFor="">7: </label>
-            <input name="seven" type="text" />
-
-            <br /><br />
-
-            <label htmlFor="">8: </label>
-            <input name="eight" type="text" />
-
-            <br /><br />
-
-            <label htmlFor="">9: </label>
-            <input name="nine" type="text" />
-
-            <br /><br />
-
-            <label htmlFor="">10: </label>
-            <input name="ten" type="text" />
-
-            <br /><br />
-
-            <label htmlFor="">11: </label>
-            <input name="eleven" type="text" />
-
-            <br /><br />
-
-            <label htmlFor="">12: </label>
-            <input name="twelve" type="text" />
-
-            <br /><br />
-
-            <button type="submit">{buttonText}</button>
+                    <button type="submit">{buttonText}</button>
+                </div>
+            </div>
           </form>
     </div>
     )

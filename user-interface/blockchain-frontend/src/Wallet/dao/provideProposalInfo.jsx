@@ -366,131 +366,147 @@ function ProvideProposalInfo() {
     const total = sumValuesForTreasury(bids);
     
     return (
-        <div>        
-            <div className="welcome">
-                <h1>Welcome to the Proposals & Candidates</h1>
-                <p>
-                    This is your hub for shaping the DAO! If you’ve earned an <strong>Achievement Card</strong>, you can submit a proposal and share your ideas with the community. <br/><br/> You can also explore proposals submitted by others, cast your vote for the ones you support and see how the community is voting in real time. Get involved and help guide our next steps!
-                </p>
-            </div>
+        <div>
+            <div className="button-container">
+                <div className="welcome">
+                    <h1>Welcome to the Proposals & Candidates</h1>
+                    <p>
+                        This is your hub for shaping the DAO! If you’ve earned an <strong>Achievement Card</strong>, you can submit a proposal and share your ideas with the community. <br/><br/> You can also explore proposals submitted by others, cast your vote for the ones you support and see how the community is voting in real time. Get involved and help guide our next steps!
+                    </p>
+                </div>
 
-            <div className="treasury">
-                <hr/>
-                  <Treasury amount={total}/>
-                <hr/>
-            </div>
+                <div className="treasury">
+                    <hr/>
+                      <Treasury amount={total}/>
+                    <hr/>
+                </div>
 
-            <br/>
-        
-            <div className="createAProposal">
-                <h3 id="title">Bring your proposal to life. Fill in the form below!</h3>
+                <br/>
+            
+                <div className="createAProposal">
+                    <h3 id="title">Bring your proposal to life. Fill in the form below!</h3>
 
-                <form onSubmit={getDAOWinnerAliasName}> 
-                    <label>Alias Name:</label> <br/><br/>
-                    <input type="text" name="aliasName" placeholder="e.g., CryptoNinja" required></input> <br/><br/>  <br/><br/>
-                                
-                    <label>Proposal Name:</label> <br/><br/>
-                    <input type="text" name="proposalName" placeholder="e.g., Lower Gas Fee's" required></input> <br/><br/>
+                    <form onSubmit={getDAOWinnerAliasName}> 
+                        <label>Alias Name:</label> <br/><br/>
+                        <input type="text" name="aliasName" placeholder="e.g., CryptoNinja" required></input> <br/><br/>  <br/><br/>
+                                    
+                        <label>Proposal Name:</label> <br/><br/>
+                        <input type="text" name="proposalName" placeholder="e.g., Lower Gas Fee's" required></input> <br/><br/>
 
-                    <label>Proposal Description:</label> <br/><br/>
-                    <input type="text" name="descriptionDetails" placeholder="Describe your proposal in a few sentences..." required></input>     <br/><br/>
+                        <label>Proposal Description:</label> <br/><br/>
+                        <input type="text" name="descriptionDetails" placeholder="Describe your proposal in a few sentences..." required></input>     <br/><br/>
 
-                    <label>Requested Funds:</label> <br/><br/>
-                    <input type="number" name="potentialFunds" placeholder="e.g., 120" required></input>
+                        <label>Requested Funds:</label> <br/><br/>
+                        <input type="number" name="potentialFunds" placeholder="e.g., 120" required></input>
+
+                        <br/><br/>
+
+                        <button type="submit">Submit Proposal</button>
+                    </form>
+                </div>
+
+                <br/><br/><br/><br/>
+
+                {/*<hr />*/}
+                
+                <div className="viewProposals">
+                    <h2>View Proposals</h2>
+                    <p>Click the button below to view all proposals.</p>
+                    <button onClick={() => setShowData(prev => !prev)}>
+                      {showData ? "Hide Proposal's" : "Show Proposal's"}
+                    </button>
+
+                    {showData && allProposals.map((proposal, i) => (
+                      <div key={i} className="propCard">
+                        <h4>Proposal {i + 1} was proposed by: {upperCase(proposal.Alias)}.</h4>
+                                                                                    
+                        <p>Name: {proposal.Name}</p>
+                        <p>Description: {proposal.Description}</p>
+                        <p>Requested Funds: {proposal.FundsToUseOutOfTreasury}</p>
+
+                        <br/>
+                      </div>
+                    ))}
+                </div>
+
+                {/*<hr/>*/}
+                
+                <br/>  <br/><br/> <br/>
+
+                <div className="castYourVote">
+                    <h2>Cast your vote</h2>
+
+                    <form onSubmit={processVoteInfo}>
+                        <label>Which proposal would you like to vote on?</label> <br/><br/>
+
+                        <input type="number" name="proposalIndex" placeholder="Enter proposal number" required></input> 
+                        <br/><br/> 
+
+                        <input type="text" name="aliasName" placeholder="Alias name" required></input> 
+
+                        <br/><br/> 
+
+                        <input type="text" name="voteValue" placeholder="Your Vote" required></input> <br/><br/>
+                                        
+                        <button type="submit">Submit Vote</button>
+                    </form>
+                </div>
+                
+                {/*<hr/>*/}
+                
+                <br/><br/>                <br/><br/>
+
+
+                <div className="viewVotes">
+                    <h2>View Votes</h2>
+                    <p>Curious how the community voted? Click below to see all proposal votes!</p>
+                    <button onClick={() => setShowData2(prev => !prev)}>
+                      {showData2 ? "Hide Vote's" : "Show Vote's"}
+                    </button>
+
+                    {showData2 && allVotes.map((vote, i) => (
+                      <div key={i} className="propCard">
+                        <h4>Vote: {i + 1} - {upperCase(vote.AliasName)}.</h4>
+                        <p>{upperCase(vote.AliasName)} voted for proposal: {vote.Index}. They voted: {" "}
+
+                        <strong className={vote.VoteValue.trim().toLowerCase()}>{vote.VoteValue}</strong>.</p>
+                        
+                        <br/>
+                      </div>
+                    ))}
+                </div>
+
+                <br/><br/>  <br/><br/>
+
+                {/*<hr />*/}
+
+                <div className="votesForEachProposal">
+                    <h2>Votes for each Proposal</h2>
+                    <p>
+                        Below, you can see the votes for every proposal. Each proposal tracks three types of votes: For, Against and Abstain. When someone votes, the corresponding count is increased by one.
+                    </p>
 
                     <br/><br/>
 
-                    <button type="submit">Submit Proposal</button>
-                </form>
+                    <button onClick={() => setCountedVotesBtn(prev => !prev)}>
+                      {countedVotesBtn ? "Hide Vote Standings" : "View Vote Standings"}
+                    </button>
+
+                    {countedVotesBtn && countedVotes.map((vp, i) => (
+                      <div key={i} className="propCard">
+                        <p>Proposal {vp.ProposalIndex} has recieved the following votes:</p>
+                        <ul>
+                            <li id="for"><strong>For: </strong>{vp.For}</li>
+                            <li id="against"><strong>Against: </strong>{vp.Against}</li>
+                            <li id="abstain"><strong>Abstain: </strong>{vp.Abstain}</li>
+                        </ul>
+                      </div>
+                    ))}
+                </div>
+        
+                <br/><br/>
+                <button onClick={(e) => navigate("/proposals")}>Go Back</button>
             </div>
-
-            <hr />
-            
-            <h2>View Proposals</h2>
-            <p>Click the button below to view all proposals.</p>
-            <button onClick={() => setShowData(prev => !prev)}>
-              {showData ? "Hide Proposal's" : "Show Proposal's"}
-            </button>
-
-            {showData && allProposals.map((proposal, i) => (
-              <div key={i} className="propCard">
-                <h4>Proposal {i + 1} was proposed by: {upperCase(proposal.Alias)}.</h4>
-                                                                            
-                <p>Name: {proposal.Name}</p>
-                <p>Description: {proposal.Description}</p>
-                <p>Requested Funds: {proposal.FundsToUseOutOfTreasury}</p>
-
-                <br/>
-              </div>
-            ))}
-
-            <hr/>
-            
-            <br/>
-
-            <h2>Cast your vote</h2>
-
-            <form onSubmit={processVoteInfo}>
-                <label>Which proposal would you like to vote on?</label> <br/><br/>
-
-                <input type="number" name="proposalIndex" placeholder="Enter proposal number" required></input> 
-                <br/><br/> 
-
-                <input type="text" name="aliasName" placeholder="Alias name" required></input> 
-
-                <br/><br/> 
-
-                <input type="text" name="voteValue" placeholder="Your Vote" required></input> <br/><br/>
-                                
-                <button type="submit">Submit Vote</button>
-            </form>
-            
-            <hr/>
-            <br/><br/>
-
-            <h2>View Votes</h2>
-            <p>Curious how the community voted? Click below to see all proposal votes!</p>
-            <button onClick={() => setShowData2(prev => !prev)}>
-              {showData2 ? "Hide Vote's" : "Show Vote's"}
-            </button>
-
-            {showData2 && allVotes.map((vote, i) => (
-              <div key={i} className="propCard">
-                <h4>Vote: {i + 1} - {upperCase(vote.AliasName)}.</h4>
-                <p>{upperCase(vote.AliasName)} voted for proposal: {vote.Index}. They voted: <strong>{vote.VoteValue}</strong>.</p>
-                
-                <br/>
-              </div>
-            ))}
-
-            <br/><br/>
-
-            <hr />
-
-            <h2>Votes for each Proposal</h2>
-            <p>
-                Below, you can see the votes for every proposal. Each proposal tracks three types of votes: For, Against and Abstain. When someone votes, the corresponding count is increased by one.
-            </p>
-
-            <br/><br/>
-
-            <button onClick={() => setCountedVotesBtn(prev => !prev)}>
-              {countedVotesBtn ? "Hide Vote Standings" : "View Vote Standings"}
-            </button>
-
-            {countedVotesBtn && countedVotes.map((vp, i) => (
-              <div key={i} className="propCard">
-                <p>Proposal {vp.ProposalIndex} has recieved the following votes:</p>
-                <ul>
-                    <li><strong>For: </strong>{vp.For}</li>
-                    <li><strong>Against: </strong>{vp.Against}</li>
-                    <li><strong>Abstain: </strong>{vp.Abstain}</li>
-                </ul>
-              </div>
-            ))}
-    
-            <br/><br/>
-            <button onClick={(e) => navigate("/proposals")}>Go Back</button>
         </div>
     )
 }

@@ -5,15 +5,16 @@ function SetupWallet() {
 
     return (
         <div>
-            <h1>Wallet Creation</h1>
-            <h3>Step 1</h3>
-            <p>
-                Create a new wallet to manage your digital assets safely. You can store and track your items in your wallet.
-            </p>
-            
-            <button class="button" onClick={() => navigate("/phrase")}>Create Wallet</button>
-            <br/> 
-            <button onClick={(e) => navigate("/wallet")}>Go back to Step 0</button>
+            <div className="step1">
+                <h1>Wallet Creation</h1>
+                <h3 id="stepOne">Step 1</h3>
+                <p id="intro">
+                    Create a new wallet to manage your digital assets safely. You can store and track your items in your wallet.
+                </p>
+                
+                <button class="button" onClick={() => navigate("/phrase")}>Create Wallet</button>
+                <button onClick={(e) => navigate("/wallet")}>Go back to Step 0</button>
+            </div>
         </div>
     )
 }

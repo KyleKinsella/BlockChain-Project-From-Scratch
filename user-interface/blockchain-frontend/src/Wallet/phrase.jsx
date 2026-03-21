@@ -5,7 +5,7 @@ function Phrase() {
 
     return (
         <div>
-            <h1>Secure Your Wallet</h1>
+            <h1 id="secureYourWallet">Secure Your Wallet</h1>
             <h3>Step 2</h3>
             <p>Your secret recovery phrase is the only way to restore access to your wallet. Please read this carefully.</p>
             
@@ -13,7 +13,7 @@ function Phrase() {
             <p>
                 Your recovery phrase consists of 12 or more random words.
                 Anyone with access to this phrase can control your wallet.
-
+                             
                 If you lose it, your assets cannot be recovered.
             </p>
             
@@ -41,7 +41,6 @@ function Phrase() {
             
             <button onClick={() => navigate("/ssp")}>Next Step</button>
                 {/* View your secret seed phrase */}
-            <br/>
             <button onClick={(e) => navigate("/walletsetup")}>Go back to Step 1</button>
         </div>
     )

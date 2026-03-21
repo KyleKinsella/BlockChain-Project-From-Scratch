@@ -59,9 +59,13 @@ button {
   border: 2px solid black; 
   margin: 5px;
   padding: 10px;
-  background: #7b2ff7;  
+
+    
+  background: #7b2ff7; 
+  
   background: -webkit-linear-gradient(to right, #7b2ff7, #f107a3);  
   background: linear-gradient(to right, #7b2ff7, #f107a3);
+  */
 }
 
 img {
