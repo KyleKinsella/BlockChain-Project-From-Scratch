@@ -505,7 +505,7 @@ function ProvideProposalInfo() {
                 </div>
         
                 <br/><br/>
-                <button onClick={(e) => navigate("/proposals")}>Go Back</button>
+                <button onClick={(e) => navigate("/daoStuff")}>Go Back</button>
             </div>
         </div>
     )

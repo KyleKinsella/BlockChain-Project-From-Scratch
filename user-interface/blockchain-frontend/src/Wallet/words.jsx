@@ -33,7 +33,7 @@ function GeneratedWords() {
             </div>
 
             <div className="button-container">
-                <button onClick={(e) => navigate("/ssp")}>Go back to Step 3</button>
+                <button onClick={(e) => navigate("/ssp")}>Go Back to Step 3</button>
             </div>
         </div>
     )

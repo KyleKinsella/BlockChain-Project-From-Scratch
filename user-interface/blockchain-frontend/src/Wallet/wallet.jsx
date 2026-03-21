@@ -17,13 +17,13 @@ function Wallet() {
             </p>
 
             {/* This needs to be designed for the frontend */}
-            <button class="" onClick={() => navigate("/importWallet")}>Import a wallet</button>
+            <button class="" onClick={() => navigate("/importWallet")}>Import a Wallet</button>
             
-            <button class="button" onClick={() => navigate("/walletsetup")}>Create a new wallet</button>
+            <button class="button" onClick={() => navigate("/walletsetup")}>Create a New Wallet</button>
 
             <br /><br/>
 
-            <button onClick={(e) => navigate("/")}>Go Back</button>
+            <button onClick={(e) => navigate("/")}>Return Home</button>
         </div>
   );
 }

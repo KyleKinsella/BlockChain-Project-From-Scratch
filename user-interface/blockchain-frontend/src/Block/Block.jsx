@@ -19,6 +19,10 @@ function Block() {
         e.preventDefault(); 
         const blocksToMake = Number(e.target.nBlocks.value);
 
+        if (blocksToMake > 100) {
+            alert("You're about to mine '" + blocksToMake + "' blocks. This may take a while... ⛏️");
+        }
+
         if (blocksToMake === 0) {
             alert("Please enter an value greater than zero.");
             e.target.nBlocks.value = "";
@@ -73,14 +77,14 @@ function Block() {
                 {showData && (
                     <>
                     <div className="blockData">
-                        <p>Index: {block.Index}</p>
-                        <p>Timestamp: {block.Timestamp}</p>
+                        <p>Block Index: {block.Index}</p>
+                        <p>Block was mined on {block.Timestamp}</p>
                         <p id="prevHash">PrevHash: {JSON.stringify(block.PrevHash)}</p>
                         <h3>Transactions Info:</h3>
-                        <p id="sender">Sender: {block.Transactions?.Sender}</p>
-                        <p id="reciever">Receiver: {block.Transactions?.Receiver}</p>
+                        <p id="sender">Sender: {JSON.stringify(block.Transactions?.Sender).replace(/\\n/g, '')}</p>
+                        <p id="reciever">Receiver: {JSON.stringify(block.Transactions?.Receiver).replace(/\\n/g, '')}</p>
                         <p>Amount: {block.Transactions?.Amount}</p>
-                        <p>ProofOfWork: {JSON.stringify(block.ProofOfWork)}</p>
+                        {/*<p>ProofOfWork: {JSON.stringify(block.ProofOfWork)}</p>*/}
                         <p id="blockHash">BlockHash: {block.BlockHash}</p>
                         {/* Ideally I would have the arrow outside of the div, but due to the design of react I cannot have this arrow outside of the div - if I did react would break and complain
                         (this might change later on in the project...) */}
@@ -106,7 +110,7 @@ function Block() {
                     {loading ? "Mining Blocks..." : "Mine Blocks"}
                   </button>
 
-                  <button onClick={(e) => navigate("/")}>Go Back</button>
+                  <button onClick={(e) => navigate("/")}>Return Home</button>
               </form>
             </div>
 

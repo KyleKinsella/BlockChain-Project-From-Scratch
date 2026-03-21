@@ -11,10 +11,10 @@ function ConfirmPhrase() {
                 <p>Enter the words from your recovery phrase in the <strong>correct order</strong> to verify your wallet.</p>
             </div>
 
-            <ConfirmUserInput buttonText="Submit" message="Congratulations! You have completed the Wallet Creation Process."/>
+            <ConfirmUserInput buttonText="Create Wallet" message="Congratulations! You have completed the Wallet Creation Process."/>
 
             <div className="button-container">
-                <button onClick={(e) => navigate("/words")}>Go back to Step 4</button>
+                <button onClick={(e) => navigate("/words")}>Go Back to Step 4</button>
             </div>
         </div>
     )

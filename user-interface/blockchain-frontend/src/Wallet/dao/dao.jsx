@@ -520,6 +520,16 @@ function DAO() {
                     ))}
                 </tbody>
             </table>
+            
+                        <br/>
+
+            <h3 id="bh">Bid History</h3>
+            <ul>
+                {bidHistory.map((bid) => (
+                    <li id="bidHistory">{bid.Address} bidded: {bid.Amount}</li>
+                ))}
+            </ul>
+            
             <br/>
 
             <hr />
@@ -552,17 +562,12 @@ function DAO() {
                 <br /><br />
                 <button type="submit" disabled={disableBidBtn}>Place Bid</button>
                 <button type="submit" onClick={clearLocalStorage}>Reset Page</button>
-                <button onClick={(e) => navigate("/")}>Go Back</button>
+                <button onClick={(e) => navigate("/daoStuff")}>Go Back</button>
             </form>
 
             <br/>
 
-            <h3 id="bh">Bid History</h3>
-            <ul>
-                {bidHistory.map((bid) => (
-                    <li id="bidHistory">{bid.Address} bidded: {bid.Amount}</li>
-                ))}
-            </ul>
+           
           </div>
         );
 }

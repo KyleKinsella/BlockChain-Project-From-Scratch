@@ -41,7 +41,7 @@ function Phrase() {
             
             <button onClick={() => navigate("/ssp")}>Next Step</button>
                 {/* View your secret seed phrase */}
-            <button onClick={(e) => navigate("/walletsetup")}>Go back to Step 1</button>
+            <button onClick={(e) => navigate("/walletsetup")}>Go Back to Step 1</button>
         </div>
     )
 }

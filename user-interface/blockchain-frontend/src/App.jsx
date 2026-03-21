@@ -18,6 +18,8 @@ import Proposals from "./Wallet/dao/proposals.jsx";
 {/*import MakeAVote from "./Wallet/dao/makeAVote.jsx"; */}
 import ProvideProposalInfo from "./Wallet/dao/provideProposalInfo.jsx";
 
+import DaoStuff from "./Wallet/dao/DaoStuff.jsx";
+
 function App() {
   return (
     <>
@@ -43,6 +45,8 @@ function App() {
           <Route path="/ProvideProposalInfo" element={<ProvideProposalInfo />} />
 
           {/*<Route path="/projectMotivation" element={<ProjectMotivation />} /> */}
+
+          <Route path="/daoStuff" element={<DaoStuff />} />
         </Routes>
     </Router>
     </>
