@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Treasury from './treasury.jsx';
 import { useNavigate } from "react-router-dom";
-//import "./styles.css";
 
 function sumValuesForTreasury(values) {
     if (values === null) {
@@ -406,8 +405,6 @@ function ProvideProposalInfo() {
                 </div>
 
                 <br/><br/><br/><br/>
-
-                {/*<hr />*/}
                 
                 <div className="viewProposals">
                     <h2>View Proposals</h2>
@@ -428,14 +425,11 @@ function ProvideProposalInfo() {
                       </div>
                     ))}
                 </div>
-
-                {/*<hr/>*/}
                 
-                <br/>  <br/><br/> <br/>
+                <br/><br/><br/><br/>
 
                 <div className="castYourVote">
                     <h2>Cast your vote</h2>
-
                     <form onSubmit={processVoteInfo}>
                         <label>Which proposal would you like to vote on?</label> <br/><br/>
 
@@ -451,12 +445,9 @@ function ProvideProposalInfo() {
                         <button type="submit">Submit Vote</button>
                     </form>
                 </div>
+                                
+                <br/><br/><br/><br/>
                 
-                {/*<hr/>*/}
-                
-                <br/><br/>                <br/><br/>
-
-
                 <div className="viewVotes">
                     <h2>View Votes</h2>
                     <p>Curious how the community voted? Click below to see all proposal votes!</p>
@@ -476,9 +467,7 @@ function ProvideProposalInfo() {
                     ))}
                 </div>
 
-                <br/><br/>  <br/><br/>
-
-                {/*<hr />*/}
+                <br/><br/><br/><br/>
 
                 <div className="votesForEachProposal">
                     <h2>Votes for each Proposal</h2>
@@ -505,7 +494,7 @@ function ProvideProposalInfo() {
                 </div>
         
                 <br/><br/>
-                <button onClick={(e) => navigate("/daoStuff")}>Go Back</button>
+                <button onClick={(e) => navigate("/proposals")}>Go Back</button>
             </div>
         </div>
     )

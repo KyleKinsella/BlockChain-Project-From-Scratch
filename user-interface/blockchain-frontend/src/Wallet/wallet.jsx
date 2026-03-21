@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-//import "../main.css";
 
 function Wallet() {
     const navigate = useNavigate();
@@ -16,7 +15,6 @@ function Wallet() {
                 Select an option below to continue.
             </p>
 
-            {/* This needs to be designed for the frontend */}
             <button class="" onClick={() => navigate("/importWallet")}>Import a Wallet</button>
             
             <button class="button" onClick={() => navigate("/walletsetup")}>Create a New Wallet</button>

@@ -53,10 +53,9 @@ h1, #blockPage {
   padding: 10px;
   font-family: Verdana, sans-serif;
   text-align: center;
-  max-width: 700px;          /* stops text stretching on big screens */
+  max-width: 700px;         
 }
 
-/* Paragraph */
 #blockPage {
  /* font-size: clamp(14px, 2.5vw, 18px); */
   line-height: 1.6;
@@ -75,32 +74,31 @@ h1, #blockPage {
 */
 
 .button-container, #toggle-btn, #goBack {
-  text-align: center; /* centers inline or inline-block children */
-  margin: 20px 0;     /* optional spacing above/below */
+  text-align: center; 
+  margin: 20px 0;    
 }
 
 .blocksToMake {
   display: inline-block;
-  padding: 18px 36px;                /* chunky, blocky feel */
-  width: 180px;                       /* solid width */
+  padding: 18px 36px;               
+  width: 180px;                       
   text-align: center;
-  font-family: "Courier New", monospace; /* techy */
+  font-family: "Courier New", monospace;
   font-size: 18px;
   font-weight: 700;
-  color: #e5e7eb;                     /* light text */
-  background-color: #1f2937;          /* dark “block” base */
-  border: 4px solid #4f46e5;          /* indigo edge for blockchain vibe */
-  border-radius: 6px;                  /* slightly rounded corners */
+  color: #e5e7eb;                   
+  background-color: #1f2937;          
+  border: 4px solid #4f46e5;          
+  border-radius: 6px;                  
   box-shadow: 
-      inset 0 -4px 6px rgba(0,0,0,0.5),  /* inner depth */
-      0 6px 12px rgba(79,70,229,0.4);    /* outer block shadow */
+      inset 0 -4px 6px rgba(0,0,0,0.5),  
+      0 6px 12px rgba(79,70,229,0.4);    
   cursor: pointer;
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: transform 0.1s, box-shadow 0.1s;
 }
 
-/* Hover = lift like touching a real block */
 #blocksToMake:hover {
   transform: translateY(-3px);
   box-shadow: 
@@ -108,7 +106,6 @@ h1, #blockPage {
       0 10px 18px rgba(79,70,229,0.5);
 }
 
-/* Active = press effect */
 #blocksToMake:active {
   transform: translateY(1px);
   box-shadow: 
@@ -116,14 +113,12 @@ h1, #blockPage {
       0 6px 12px rgba(79,70,229,0.4);
 }
 
-/* Chrome, Safari, Edge, Opera */
 input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-/* Firefox */
 input[type=number] {
     -moz-appearance: textfield;
 }
@@ -137,49 +132,23 @@ input[type=number] {
 }
 
 .button-container {
-  text-align: center; /* centers inline or inline-block children */
-  margin: 20px 0;     /* optional spacing above/below */
+  text-align: center; 
+  margin: 20px 0;    
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-#title, #para {
-    margin: 10px;
-    padding: 10px;
-    font-family: Verdana;
-    text-align: center;
-}
-*/
 #title, #para {
   margin: 10px auto;
   padding: 10px;
   font-family: Verdana, sans-serif;
   text-align: center;
-  max-width: 700px;          /* stops text stretching on big screens */
+  max-width: 700px;          
 }
 
-/* Title */
 #title {
-  font-size: 20px;  /* responsive size */
+  font-size: 20px;  
   font-weight: 600;
 }
 
-/* Paragraph */
 #para {
   /*font-size: clamp(14px, 2.5vw, 18px);*/
   font-size: 18px;
@@ -187,93 +156,44 @@ input[type=number] {
 }
 
 .icon {
-  cursor: pointer;                  /* shows it's clickable */
-  padding: 8px;                      /* clickable area (important!) */
-  border-radius: 8px;                /* smooth edges */
+  cursor: pointer;                
+  padding: 8px;                     
+  border-radius: 8px;               
   transition: all 0.2s ease;
   display: block;
   margin: 0 auto;
 }
 
-/* Hover */
 .icon:hover {
-  background-color: rgba(255, 255, 255, 0.1); /* subtle highlight */
-  transform: scale(1.1);                      /* slight grow */
+  background-color: rgba(255, 255, 255, 0.1); 
+  transform: scale(1.1);                     
 }
 
-/* Click */
 .icon:active {
-  transform: scale(0.95);                     /* press effect */
+  transform: scale(0.95);                     
 }
 
 * {
   font-family: Tahoma, Verdana, sans-serif;
 }
 
-/*
-.title {
-    font-size: 35px;
-}
-
-.intro {
-    font-size: 20px;
-    text-align: center;
-}
-*/
-
 .wallet-container, .intro, .step1 {
-    text-align: center; /* centers inline or inline-block children */
-    margin: 20px 0;     /* optional spacing above/below */
+    text-align: center; 
+    margin: 20px 0;     
 }
 
 form {
     border: 5px black;
 }
 
-/*
 .button-container {
-  margin: 10px auto;
-  padding: 10px;
-  font-family: Verdana, sans-serif;
-  text-align: center;
-  max-width: 700px;          /* stops text stretching on big screens */
-}
-*/
-
-.button-container {
-  font-size: clamp(14px, 2.5vw, 18px); /* scales nicely */
+  font-size: clamp(14px, 2.5vw, 18px); 
   line-height: 1.6;
 }
 
-/*
-input {
-  width: 40%;
-  max-width: 300px;
-  padding: 10px;
-  border: 1px solid grey;    
-  border-radius: 25px;
-  background-color: #DDC680;   
-  color: white;
-  font-size: 16px;
-  outline: none;
-  transition: border-color 0.2s ease;
-  text-align: center;
-}
-
-input:focus {
-  border-color: #6366f1;        
-}
-*/
-
-/*
-h3 {
-    text-align: center;
-}
-*/
-
 .block-container {
-  /*text-align: center;*/ /* centers inline or inline-block children */
-  margin: 20px 0;     /* optional spacing above/below */
+  /*text-align: center;*/ 
+  margin: 20px 0;     
 }
 
 #title, #intro {
@@ -281,15 +201,14 @@ h3 {
   padding: 10px;
   font-family: Verdana, sans-serif;
   text-align: center;
-  max-width: 700px;          /* stops text stretching on big screens */
+  max-width: 700px;         
 }
 
 .title {
-  font-size: clamp(24px, 5vw, 36px);  /* responsive size */
+  font-size: clamp(24px, 5vw, 36px);  
   font-weight: 600;
 }
 
-/* Paragraph */
 .intro {
   /*font-size: clamp(14px, 2.5vw, 18px);*/
   font-size: 18px;
@@ -315,7 +234,6 @@ h3, #stepZero {
     text-align: center;
 }
 
-
 * {
   font-family: Tahoma, Verdana, sans-serif;
 }
@@ -328,9 +246,6 @@ h3, #stepZero {
     font-size: 20px;
     text-align: center;
 }
-
-
-
 
 /* i am writing the css on my own from now on! (the below css is mine and help from this website) */
 /* https://www.programiz.com/css/form-styling */
@@ -377,18 +292,6 @@ input:hover, input:focus {
     display: inline-block;
 }
 
-/*
-body {
-    text-align: center;
-}
-*/
-
-/*
-* {
-    text-align: center;
-}
-*/
-
 #restoreAccess, .step2, #step4, #fp, #alert {
     text-align: center;
 }
@@ -413,11 +316,7 @@ body {
     display: inline-block;
 }
 
-#treasury {
-    color: red;
-}
-
-
+/* ==================================================================== */
 .dao-table {
   width: 100%;
   max-width: 700px;
@@ -428,7 +327,6 @@ body {
   color: #e5e7eb;
 }
 
-/* Header */
 .dao-table th {
   text-align: left;
   padding: 10px;
@@ -437,13 +335,11 @@ body {
   border-bottom: 1px solid #374151;
 }
 
-/* Cells */
 .dao-table td {
   padding: 10px;
   border-bottom: 1px solid #1f2937;
 }
 
-/* Rows */
 .dao-table tr {
   transition: background 0.2s ease;
 }
@@ -451,7 +347,6 @@ body {
 .dao-table tr:hover {
   background-color: rgba(255,255,255,0.03);
 }
-
 
 .dao-table {
   width: 100%;
@@ -465,7 +360,7 @@ body {
 .dao-table th {
   text-align: left;
   padding: 10px;
-  background: rgba(79,70,229,0.15); /* subtle section highlight */
+  background: rgba(79,70,229,0.15); 
   color: #c7d2fe;
   font-weight: 600;
 }
@@ -479,31 +374,10 @@ body {
   background: rgba(255,255,255,0.03);
 }
 
-
-
 * {
     font-family: "JetBrains Mono", monospace;
     word-spacing: normal;
 }
-
-/*
-#nWallets {
-    font-size: 16px;
-}
-
-#achievementCard {
-    font-size: 18px;
-}
-
-#bidHistory {
-    
-}
-*/
-
-/*
-.welcome {
-}
-*/
 
 /*  ================================================================ */
 
@@ -530,69 +404,40 @@ body {
 }
 
 #for, #against, #abstain {
-      list-style-type: none;
-
+    list-style-type: none;
 }
 
 #for {
-    /*color: green;*/
-    /*color: #3cb371;*/
-
-    /*
-    color:  #22c55e;
-    font-weight: 600;
-    */
-
     background: rgba(34, 197, 94, 0.15);
-  color: #22c55e;
-  padding: 4px 10px;
-  border-radius: 6px;
+    color: #22c55e;
+    padding: 4px 10px;
+    border-radius: 6px;
 }
 
 #against {
-    /*color: red;*/
-
-    /*
+    background: rgba(239, 68, 68, 0.15);
     color: #ef4444;
-    font-weight: 600;
-    */
-
-     background: rgba(239, 68, 68, 0.15);
-  color: #ef4444;
-  padding: 4px 10px;
-  border-radius: 6px;
+    padding: 4px 10px;
+    border-radius: 6px;
 }
 
 #abstain {
-    /*color: grey;*/
-     background: rgba(156, 163, 175, 0.15);
-  color: #9ca3af;
-  padding: 4px 10px;
-  border-radius: 6px;
+    background: rgba(156, 163, 175, 0.15);
+    color: #9ca3af;
+    padding: 4px 10px;
+    border-radius: 6px;
 }
 
 .for {
-  /*
-  color: #22c55e;
-  font-weight: 600;
-    */
-
-  /*background: rgba(34, 197, 94, 0.15);*/
-  color: #22c55e;
-
-  /*
-  padding: 4px 10px;
-  border-radius: 6px;
-  */
+    color: #22c55e;
 }
 
 .against {
-  color: #ef4444;
-  font-weight: 600;
+    color: #ef4444;
 }
 
 .abstain {
-  color: #9ca3af;
+    color: #9ca3af;
 }
 
 #bidHistory {

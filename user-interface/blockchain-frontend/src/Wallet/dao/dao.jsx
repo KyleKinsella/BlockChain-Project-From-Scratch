@@ -5,9 +5,9 @@
     Tidy up:
     - make the readme more developer / engineer like --- mostly done
     - polishing up everthing --- mostly done
-    - styling --- not a big issue, will do last
+    - styling --- not a big issue, will do last --- in the works...
 
-    Upcoming:
+    Done:
     - proposals & candidates --- done!
 
     Potential:
@@ -17,9 +17,7 @@
 import { useState, useEffect } from "react";
 import Treasury from './treasury.jsx';
 import { useNavigate } from "react-router-dom";
-{/*import WalletMainUI from './walletHomePage.jsx';*/}
 import { saveAs } from 'file-saver';
-//import "../main.css";
 
 const LOWEST = 1;
 
@@ -426,6 +424,10 @@ function DAO() {
         e.preventDefault(); 
         const walletsToMake = Number(e.target.nWallets.value);
 
+        if (walletsToMake > 100) {
+            alert("You're about to create '" + walletsToMake + "' wallets. This may take a while...");
+        }
+
         if (walletsToMake === 0) {
             alert("Please enter an value greater than zero.");
             e.target.nWallets.value = "";
@@ -492,7 +494,6 @@ function DAO() {
             <br/><br/>
 
             <table className="dao-table">
-                
                 <thead>
                     <tr>
                       <th>#</th>
@@ -501,27 +502,25 @@ function DAO() {
                     </tr>
                 </thead>
                 <tbody>
-                    {/* First wallet if connected */}
                     {walletConnected && (
                       <tr>
-                        <td>1</td>
+                        <td>{walletConnected.Index + 1}</td>
                         <td>{walletConnected.Alias}</td>
                         <td>{walletBalance}</td>
                       </tr>
                     )}
 
-                    {/* Additional wallets */}
-                    {multipleWallets.map((data, i) => (
-                      <tr key={i + 1}>
-                        <td>{walletConnected ? i + 2 : i + 1}</td> {/* adjust numbering */}
-                        <td>{data.Alias}</td>
-                        <td>{data.Balance}</td>
+                    {multipleWallets.map((multipleWallets, i) => (
+                      <tr>
+                        <td>{multipleWallets.Index+1}</td>
+                        <td>{multipleWallets.Alias}</td>
+                        <td>{multipleWallets.Balance}</td>
                       </tr>
                     ))}
                 </tbody>
             </table>
             
-                        <br/>
+            <br/>
 
             <h3 id="bh">Bid History</h3>
             <ul>
@@ -554,7 +553,7 @@ function DAO() {
             <p id="currentBid">Current Bid is: {currentBid}</p>
             <p id="timeLeft">Time left to bid: {biddingIsOver} hrs (Irish Time)</p>
 
-             <form onSubmit={getBidAmount}>
+            <form onSubmit={getBidAmount}>
                 <input type="text" pattern="/^[A-Za-z-]+$/" name="aliasName" placeholder="Enter your Alias name" required/>
                 <br /><br />
                 <input type="number" step="1" name="bidAmount" placeholder={"Bid more than " + currentBid}/>
@@ -566,8 +565,6 @@ function DAO() {
             </form>
 
             <br/>
-
-           
           </div>
         );
 }

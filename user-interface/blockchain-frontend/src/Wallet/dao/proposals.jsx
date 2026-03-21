@@ -1,10 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 function Proposals() {
     const navigate = useNavigate();
-    const [allInfo, setAllInfo] = useState([]);
-
+    
     return (
         <div>
             <div className="button-container">
@@ -16,7 +14,7 @@ function Proposals() {
                 </p>
                 
                 <button onClick={(e) => navigate("/ProvideProposalInfo")}>Submit a Proposal</button>
-                <button onClick={(e) => navigate("/")}>Go Home</button>
+                <button onClick={(e) => navigate("/")}>Return Home</button>
             </div>
         </div>
     ) 

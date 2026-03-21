@@ -20,7 +20,7 @@ function Block() {
         const blocksToMake = Number(e.target.nBlocks.value);
 
         if (blocksToMake > 100) {
-            alert("You're about to mine '" + blocksToMake + "' blocks. This may take a while... ⛏️");
+            alert("You're about to mine '" + blocksToMake + "' blocks. This may take a while...");
         }
 
         if (blocksToMake === 0) {
@@ -57,7 +57,6 @@ function Block() {
 
     return (
         <div className="block-container">
-            
             <h1 id="top">Blocks</h1>
             <p id="blockPage">
                 Welcome to the Blocks page. Here you can view the current state of the blockchain, starting with the Genesis block - the first block that links to all subsequent blocks.
@@ -69,26 +68,26 @@ function Block() {
                 </button>
             </div>
 
-          {blocks.map((block, i) => (        
-            <div key={i} className="block" id="block">
-              <h4>Block {i+1} | Block Reward: {block.BlockReward?.BlockRewardTotal}</h4>
-              <hr id="line"/>
-                {/* Only visible when button clicked */}
-                {showData && (
-                    <>
-                    <div className="blockData">
-                        <p>Block Index: {block.Index}</p>
-                        <p>Block was mined on {block.Timestamp}</p>
-                        <p id="prevHash">PrevHash: {JSON.stringify(block.PrevHash)}</p>
-                        <h3>Transactions Info:</h3>
-                        <p id="sender">Sender: {JSON.stringify(block.Transactions?.Sender).replace(/\\n/g, '')}</p>
-                        <p id="reciever">Receiver: {JSON.stringify(block.Transactions?.Receiver).replace(/\\n/g, '')}</p>
-                        <p>Amount: {block.Transactions?.Amount}</p>
-                        {/*<p>ProofOfWork: {JSON.stringify(block.ProofOfWork)}</p>*/}
-                        <p id="blockHash">BlockHash: {block.BlockHash}</p>
-                        {/* Ideally I would have the arrow outside of the div, but due to the design of react I cannot have this arrow outside of the div - if I did react would break and complain
-                        (this might change later on in the project...) */}
-                        {i < blocks.length - 1 && <div className="chain-arrow"></div>}
+            {blocks.map((block, i) => (       
+                <div key={i} className="block" id="block">
+                  <h4>Block {i+1} | Block Reward: {block.BlockReward?.BlockRewardTotal}</h4>
+                  <hr id="line"/>
+                    {/* Only visible when button clicked */}
+                    {showData && (
+                        <>
+                        <div className="blockData">
+                            <p>Block Index: {block.Index}</p>
+                            <p>Block was mined on {block.Timestamp}</p>
+                            <p id="prevHash">PrevHash: {JSON.stringify(block.PrevHash)}</p>
+                            <h3>Transactions Info:</h3>
+                            <p id="sender">Sender: {JSON.stringify(block.Transactions?.Sender).replace(/\\n/g, '')}</p>
+                            <p id="reciever">Receiver: {JSON.stringify(block.Transactions?.Receiver).replace(/\\n/g, '')}</p>
+                            <p>Amount: {block.Transactions?.Amount}</p>
+                            {/*<p>ProofOfWork: {JSON.stringify(block.ProofOfWork)}</p>*/}
+                            <p id="blockHash">BlockHash: {block.BlockHash}</p>
+                            {/* Ideally I would have the arrow outside of the div, but due to the design of react I cannot have this arrow outside of the div - if I did react would break and complain
+                            (this might change later on in the project...) */}
+                            {i < blocks.length - 1 && <div className="chain-arrow"></div>}
                     </div>
                     </>
                 )}
