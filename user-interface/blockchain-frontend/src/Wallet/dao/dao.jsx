@@ -6,12 +6,6 @@
     - make the readme more developer / engineer like --- mostly done
     - polishing up everthing --- mostly done
     - styling --- not a big issue, will do last --- in the works...
-
-    Done:
-    - proposals & candidates --- done!
-
-    Potential:
-    - complete or make a dashboard to see traffic for my project 
 */}
 
 import { useState, useEffect } from "react";
@@ -29,7 +23,7 @@ const formtatDate = date.toLocaleDateString("en-US", {
 });
 
 const hourIs = date.getHours(); 
-const biddingIsOver = hourIs;// + 1;
+const biddingIsOver = hourIs + 1;
 
 function sumValuesForTreasury(values) {
     if (values === null) {
@@ -107,7 +101,7 @@ function DAO() {
         const bds = localStorage.getItem("bids");
         const updatedWall = localStorage.getItem("updatedBalance");
         const bh = localStorage.getItem("bidHistory");
-        
+                
         if(walletData) { 
             try {
                 const data = JSON.parse(walletData);
@@ -188,26 +182,28 @@ function DAO() {
     
     useEffect(() => {
         var bidAmounts = [];
-        var maxValue = 0;
-         
+        var winningBid = 0;
+        var winnerWalletAddress = "";
+        var winnerAlias = "";
+        
         for(var i = 0; i < bidHistory.length; i++) {
             bidAmounts.push(bidHistory[i].Amount);
-            maxValue = Math.max(...bidAmounts);
-            
-            if (hourIs === biddingIsOver) {  
-                if (multipleWallets.length > 0) {
-                    const winner = multipleWallets[i].Alias;
-                    rewardExpired(hourIs, winner, bidHistory[i].Address, maxValue);
+            winningBid = Math.max(...bidAmounts);
 
-                    // TODO: append to the file, each time there is a new winner (currently over-writes the file...) //
-                    // you have won a reward, so add you to this file (this is used in the proposals)! //
-                    const file = new Blob([winner], { type: 'text/plain;charset=utf-8' });
-                    saveAs(file, 'winner.txt');
-                
-                    break;
-                } 
-            } 
+            winnerWalletAddress = bidHistory[bidHistory.length - 1].Address;
+            winnerAlias = bidHistory[bidHistory.length - 1].Alias;
         }
+
+        if (hourIs === biddingIsOver) {  
+            if (multipleWallets.length > 0) {
+                rewardExpired(hourIs, winnerAlias, winnerWalletAddress, winningBid);
+
+                // MIGHT DO: append to the file, each time there is a new winner (currently over-writes the file...) //
+                // you have won a reward, so add you to this file (this is used in the proposals)! //
+                const file = new Blob([winnerAlias], { type: 'text/plain;charset=utf-8' });
+                saveAs(file, 'winner.txt');
+            } 
+        } 
     }, [bidHistory])
     
     const createWallet = (e) => {
@@ -239,7 +235,7 @@ function DAO() {
             });
     };  
     
-    const rewardExpired = (exactTimeHour, alias, address, winningBid) => {
+    const rewardExpired = (timesUp, alias, winningAddress, winningBid) => {
         var hour = date.getHours();
 
         if (bids === 0) {
@@ -247,8 +243,8 @@ function DAO() {
             return;
         }
         
-        if (hour === exactTimeHour) {
-            alert("Congratulations 🎉\n\nThe winner of the reward: '" + dao + "' is: " + address + " with the following Alias '" + alias + "'." + "\n\nThe winning bid was: " + winningBid + "\n\nTransaction confirmed. Your Achievement Card has been minted. Redirecting to your wallet...");
+        if (hour === timesUp) {
+            alert("Congratulations 🎉\n\nThe winner of the reward: '" + dao + "' is: " + winningAddress + " with the following Alias '" + alias + "'." + "\n\nThe winning bid was: " + winningBid + "\n\nTransaction confirmed. Your Achievement Card has been minted. Redirecting to your wallet...");
             
             setDisableBidBtn(true);
             
@@ -340,7 +336,7 @@ function DAO() {
             // valid alias name ? //
             var found = false;                               
             for(var i = 0; i < multipleWallets.length; i++) {
-                if(typedAlias === multipleWallets[i].Alias || typedAlias === walletConnected.Alias) {
+                if(typedAlias === multipleWallets[i].Alias.trim().toLowerCase() || typedAlias === walletConnected.Alias.trim()) {
 
                     setBid(prevBid => prevBid + validBalance);
                     setBids(prevBids => [...prevBids, validBalance]);
@@ -369,7 +365,7 @@ function DAO() {
                     };
                     
                     removeDupsInBidHistory(noDups);
-                    handleBid(updatedWallet.Address, bidAmount);
+                    handleBid(updatedWallet.Alias, updatedWallet.Address, bidAmount);
                     
                     setWalletConnected(updatedWallet);
                     localStorage.setItem("updatedBalance", JSON.stringify(updatedWallet));
@@ -388,7 +384,7 @@ function DAO() {
                     };
                     
                     removeDupsInBidHistory(noDups);
-                    handleBid(wallet.Address, bidAmount);
+                    handleBid(wallet.Alias, wallet.Address, bidAmount);
                     
                     return updated;
                 }
@@ -412,9 +408,9 @@ function DAO() {
         localStorage.clear();
     };
 
-    function handleBid(Address, Amount) {
+    function handleBid(Alias, Address, Amount) {
         setBidHistory(prev => {
-            const bidInfo = [...prev, { Address, Amount }];
+            const bidInfo = [...prev, { Alias, Address, Amount }];
             localStorage.setItem("bidHistory", JSON.stringify(bidInfo));
             return bidInfo;
         });
@@ -504,7 +500,7 @@ function DAO() {
                 <tbody>
                     {walletConnected && (
                       <tr>
-                        <td>{walletConnected.Index + 1}</td>
+                        <td>1</td>
                         <td>{walletConnected.Alias}</td>
                         <td>{walletBalance}</td>
                       </tr>
@@ -556,15 +552,13 @@ function DAO() {
             <form onSubmit={getBidAmount}>
                 <input type="text" pattern="/^[A-Za-z-]+$/" name="aliasName" placeholder="Enter your Alias name" required/>
                 <br /><br />
-                <input type="number" step="1" name="bidAmount" placeholder={"Bid more than " + currentBid}/>
+                <input type="number" step="1" name="bidAmount" placeholder={"Bid more than " + currentBid} required/>
   
                 <br /><br />
                 <button type="submit" disabled={disableBidBtn}>Place Bid</button>
                 <button type="submit" onClick={clearLocalStorage}>Reset Page</button>
                 <button onClick={(e) => navigate("/daoStuff")}>Go Back</button>
             </form>
-
-            <br/>
           </div>
         );
 }
