@@ -100,17 +100,17 @@ function ProvideProposalInfo() {
         const typedAlias = e.target.aliasName.value.trim().toLowerCase();
         const proposalName = e.target.proposalName.value;
         const proposalDescription = e.target.descriptionDetails.value;
-        const potentialFunds = Number(e.target.potentialFunds.value);
+        const requestedFunds = Number(e.target.requestedFunds.value);
 
-        if (potentialFunds === 0) {
+        if (requestedFunds === 0) {
             alert("Please enter an value greater than zero.");
-            e.target.potentialFunds.value = "";
+            e.target.requestedFunds.value = "";
             return;
         }
 
-        if (potentialFunds < 0) {
+        if (requestedFunds < 0) {
             alert("Please enter a positive number. Negative values are not allowed.");
-            e.target.potentialFunds.value = "";
+            e.target.requestedFunds.value = "";
             return;
         }
         
@@ -123,7 +123,7 @@ function ProvideProposalInfo() {
                     alias: typedAlias,
                     name: proposalName,
                     description: proposalDescription,
-                    potentialFunds: potentialFunds
+                    potentialFunds: requestedFunds
                 };
         
                 fetch("http://192.168.200.89:8083/makeAProposal", {
@@ -141,18 +141,18 @@ function ProvideProposalInfo() {
                     e.target.aliasName.value = "";
                     e.target.proposalName.value = "";
                     e.target.descriptionDetails.value = "";
-                    e.target.potentialFunds.value = "";
+                    e.target.requestedFunds.value = "";
                 })
                 .catch(err => {
                     console.log(err);
                 });
             } else {
-                alert("Sorry, you cannot make a proposal just yet '" + typedAlias + "'.\n\nYou must have won an Achievement Card in the DAO, to make a proposal! \n\nYour proposal information:\n\nName: " + proposalName + ".\nDescription: " + proposalDescription + ".\nPotential Funds: " + potentialFunds + ".\n\nYour proposal has not been created.");
+                alert("Sorry, you cannot make a proposal just yet '" + typedAlias + "'.\n\nYou must have won an Achievement Card in the DAO, to make a proposal! \n\nYour proposal information:\n\nName: " + proposalName + "\nDescription: " + proposalDescription + "\nRequested Funds: " + requestedFunds + "\n\nYour proposal has not been created.");
 
                 e.target.aliasName.value = "";
                 e.target.proposalName.value = "";
                 e.target.descriptionDetails.value = "";
-                e.target.potentialFunds.value = "";
+                e.target.requestedFunds.value = "";
             
                 return;
             }
@@ -338,7 +338,7 @@ function ProvideProposalInfo() {
 
                     {/* edge case - if your proposal exceeds the Treasury amount, stop... */}
                     if (proposedFunds <= treasuryFunds) {
-                        alert("🎉 Hooray! The following Proposal has been approved:\n\n" + "Name: " + allProposals[i].Name + "\n" + "Description: " + allProposals[i].Description + "\n" + "Potential Funds to use: "  + allProposals[i].FundsToUseOutOfTreasury);
+                        alert("🎉 Hooray! The following Proposal has been approved:\n\n" + "Name: " + allProposals[i].Name + "\n" + "Description: " + allProposals[i].Description + "\n" + "Requested Funds: "  + allProposals[i].FundsToUseOutOfTreasury);
                         
                         setBids(prev => {   
                             let remaining = proposedFunds;
@@ -354,7 +354,7 @@ function ProvideProposalInfo() {
                             });
                         });
                     } else {
-                        alert("Oops! The following Proposal cannot be processed:\n\n" + "Name: " + allProposals[i].Name + "\n" + "Description: " + allProposals[i].Description + "\n" + "Potential Funds to use: "  + allProposals[i].FundsToUseOutOfTreasury + "\n\nYou proposed: " + proposedFunds + "\nTreasury only has: " + treasuryFunds + "\n\nPlease wait until the treasury has enough funds for this proposal to be processed.");
+                        alert("Oops! The following Proposal cannot be processed:\n\n" + "Name: " + allProposals[i].Name + "\n" + "Description: " + allProposals[i].Description + "\n" + "Requested Funds: "  + allProposals[i].FundsToUseOutOfTreasury + "\n\nYou proposed: " + proposedFunds + "\nTreasury only has: " + treasuryFunds + "\n\nPlease wait until the treasury has enough funds for this proposal to be processed.");
                         break;
                     }
                 }
@@ -393,10 +393,10 @@ function ProvideProposalInfo() {
                         <input type="text" name="proposalName" placeholder="e.g., Lower Gas Fee's" required></input> <br/><br/>
 
                         <label>Proposal Description:</label> <br/><br/>
-                        <input type="text" name="descriptionDetails" placeholder="Describe your proposal in a few sentences..." required></input>     <br/><br/>
+                        <input type="text" name="descriptionDetails" placeholder="Describe your proposal..." required></input>     <br/><br/>
 
                         <label>Requested Funds:</label> <br/><br/>
-                        <input type="number" name="potentialFunds" placeholder="e.g., 120" required></input>
+                        <input type="number" name="requestedFunds" placeholder="e.g., 120" required></input>
 
                         <br/><br/>
 

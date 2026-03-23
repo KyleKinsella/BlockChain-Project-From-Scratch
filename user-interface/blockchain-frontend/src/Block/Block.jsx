@@ -78,15 +78,14 @@ function Block() {
                         <div className="blockData">
                             <p>Block Index: {block.Index}</p>
                             <p>Block was mined on {block.Timestamp}</p>
-                            <p id="prevHash">PrevHash: {JSON.stringify(block.PrevHash)}</p>
-                            <h3>Transactions Info:</h3>
-                            <p id="sender">Sender: {JSON.stringify(block.Transactions?.Sender).replace(/\\n/g, '')}</p>
-                            <p id="reciever">Receiver: {JSON.stringify(block.Transactions?.Receiver).replace(/\\n/g, '')}</p>
-                            <p>Amount: {block.Transactions?.Amount}</p>
-                            {/*<p>ProofOfWork: {JSON.stringify(block.ProofOfWork)}</p>*/}
-                            <p id="blockHash">BlockHash: {block.BlockHash}</p>
-                            {/* Ideally I would have the arrow outside of the div, but due to the design of react I cannot have this arrow outside of the div - if I did react would break and complain
-                            (this might change later on in the project...) */}
+                            <p id="prevHash">Previous Block Hash: {JSON.stringify(block.PrevHash)}</p>
+                            <h3>Transaction Info:</h3>
+
+                            <p>
+                                {JSON.stringify(block.Transactions?.Sender).replace(/\\n/g, '')} sent {block.Transactions?.Amount} tokens to {JSON.stringify(block.Transactions?.Receiver).replace(/\\n/g, '')}
+                            </p>
+
+                            <p id="blockHash">Block Hash: {block.BlockHash}</p>
                             {i < blocks.length - 1 && <div className="chain-arrow"></div>}
                     </div>
                     </>

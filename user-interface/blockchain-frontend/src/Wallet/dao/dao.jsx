@@ -248,7 +248,7 @@ function DAO() {
             
             setDisableBidBtn(true);
             
-            //navigate("/done", { state: { reward: dao } });
+            navigate("/done", { state: { reward: dao } });
         }
     }
 
@@ -395,7 +395,7 @@ function DAO() {
             );
             
             alert("Your bid has placed successfully!");
-            processAliasesForVoting(e);
+            //processAliasesForVoting(e);
         }
 
         e.target.bidAmount.value = "";               
