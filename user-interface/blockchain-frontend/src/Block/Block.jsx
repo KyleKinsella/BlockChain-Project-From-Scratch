@@ -81,7 +81,7 @@ function Block() {
                             <p id="prevHash">Previous Block Hash: {JSON.stringify(block.PrevHash)}</p>
                             <h3>Transaction Info:</h3>
 
-                            <p>
+                            <p id="txInfo">
                                 {JSON.stringify(block.Transactions?.Sender).replace(/\\n/g, '')} sent {block.Transactions?.Amount} tokens to {JSON.stringify(block.Transactions?.Receiver).replace(/\\n/g, '')}
                             </p>
 

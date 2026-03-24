@@ -353,25 +353,33 @@ input:hover, input:focus {
   max-width: 750px;
   margin: 20px auto;
   border-collapse: collapse;
-  color: #e5e7eb;
-  font-size: 14px;
+
+
+  color: black; 
+/*
+* Created with https://www.css-gradient.com
+* Gradient link: https://www.css-gradient.com/?c1=3e73d3&c2=ba4ca2&gt=l&gd=dtl
+*/
+background: #3E73D3;
+background: linear-gradient(315deg, #3E73D3, #BA4CA2);
+  font-size: 16px;
 }
 
 .dao-table th {
   text-align: left;
   padding: 10px;
   background: rgba(79,70,229,0.15); 
-  color: #c7d2fe;
+  color: black;
   font-weight: 600;
 }
 
 .dao-table td {
-  padding: 10px;
-  border-bottom: 1px solid #1f2937;
+    padding: 10px;
+    border-bottom: 1px solid #1f2937;
 }
 
 .dao-table tr:hover td {
-  background: rgba(255,255,255,0.03);
+    background: rgba(255,255,255,0.03);
 }
 
 * {
@@ -381,7 +389,7 @@ input:hover, input:focus {
 
 /*  ================================================================ */
 
-.createAProposal, .viewProposals, .castYourVote, .viewVotes, .votesForEachProposal {
+.createAProposal, .viewProposals, .castYourVote, .viewVotes, .votesForEachProposal, .importantInfo, .bidHistory {
     border: 2px solid #333333;
     padding: 20px;
     border-radius: 25px;
@@ -442,10 +450,113 @@ input:hover, input:focus {
 
 #bidHistory {
     word-wrap: break-word;
-    overflow-wrap: break-word; 
+    overflow-wrap: break-word;
+    list-style-type: none;
+    text-align: center;
+
+
+    /*background-color: white;*/
+    /*color: white;*/
+    
+    /* very nice! */
+
+    
+    background: #4809BF;
+    background: linear-gradient(315deg, #4809BF, #4919C6);
+    
+
+    /*
+* Created with https://www.css-gradient.com
+* Gradient link: https://www.css-gradient.com/?c1=793dd3&c2=ccbdbd&gt=l&gd=dtl
+*/
+
+/*
+background: #793DD3;
+background: linear-gradient(315deg, #793DD3, #CCBDBD);
+*/
+
+        /* background: #7c73e6; */
+
+
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    font-size: 20px;
+    min-width: 250px; 
 }
 
-#prevHash, #sender, #reciever, #blockHash {
+#prevHash, #sender, #reciever, #blockHash, #txInfo {
     word-wrap: break-word;
     overflow-wrap: break-word;
+}
+
+.importantInfo {
+    /* background-color: white; */
+
+    /*
+    background: #CE123D;
+    background: linear-gradient(315deg, #CE123D, #D2AA37);
+    */
+
+    /* might do this one, really like! */
+    /*
+    background: #343D83;
+    background: linear-gradient(315deg, #343D83, #AD0270);
+    */
+
+    /* quite nice! */
+    /*
+    background: #ABAACB;
+    background: linear-gradient(315deg, #ABAACB, #DC4FA6);
+    */
+
+    /* nice enough but doesnt fit the theme... */
+    /*
+    background: #EC3E21;
+    background: linear-gradient(315deg, #EC3E21, #251AB0);
+    */
+
+    /* nice enough but again doesnt fit the theme! */
+
+    /*
+    background: #5D07EE;
+    background: linear-gradient(315deg, #5D07EE, #D7C9F8);
+    */
+
+    /*
+* Created with https://www.css-gradient.com
+* Gradient link: https://www.css-gradient.com/?c1=ea89dd&c2=0e47b8&gt=l&gd=dtl
+*/
+background: #EA89DD;
+background: linear-gradient(315deg, #EA89DD, #0E47B8);
+}
+
+#today {
+    margin: 5px;
+    padding: 5px;
+    max-width: 500px;
+    min-width: 250px;
+}
+
+/* #currentBid, #timeLeft */
+
+#sep {
+   /* color: red; */
+
+  border: none;
+  height: 2px;
+  background: white;
+  margin: 2rem 0;
+}
+
+.achievementCard {
+    font-size: 16px;
+}
+
+#todo, #notDo {
+    list-style-type: none;
+}
+
+#mustRead {
+    text-align: center;
 }

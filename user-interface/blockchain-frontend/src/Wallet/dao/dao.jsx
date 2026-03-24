@@ -467,34 +467,40 @@ function DAO() {
                 Welcome to my DAO! Connect your wallet, check today’s reward and place bids for a chance to win exclusive achievement cards!
             </p>
 
-           <form onSubmit={createWallet}>
-              <button type="submit" disabled={buttonClicked}>
-                {buttonClicked ? "Wallet Connected" : "Connect Wallet"}
-              </button>
-            </form>
+               <div className="button-container">
+                <hr/>
+                <Treasury name="treasury" amount={total}/>
+                <hr/>
 
-            <br/>
-            
-            <form onSubmit={makeNWallets}>
-                <label id="nWallets">How many Wallets do you want to make ?</label>
-                  <br/><br/>
-                  <input type="number" name="nWallets" placeholder="Wallets to Make" required/>
-                  <br/><br/>
-                  <button type="submit" disabled={loading}>
-                    {loading ? "Creating Wallets..." : "Create Wallets"}
+                <form onSubmit={createWallet}>
+                  <button type="submit" disabled={buttonClicked}>
+                    {buttonClicked ? "Wallet Connected" : "Connect Wallet"}
                   </button>
-            </form>
+                </form>
 
-            {loading && <p>Creating Wallets... please wait</p>}
+                <br/>
+                
+                <form onSubmit={makeNWallets}>
+                    <label id="nWallets">How many Wallets do you want to make ?</label>
+                      <br/><br/>
+                      <input type="number" name="nWallets" placeholder="Wallets to Make" required/>
+                      <br/><br/>
+                      <button type="submit" disabled={loading}>
+                        {loading ? "Creating Wallets..." : "Create Wallets"}
+                      </button>
+                </form>
+
+                {loading && <p>Creating Wallets... please wait</p>}
+            </div>
 
             <br/><br/>
 
             <table className="dao-table">
                 <thead>
                     <tr>
-                      <th>#</th>
-                      <th>Alias</th>
-                      <th>Balance</th>
+                      <th><strong>#</strong></th>
+                      <th><strong>Alias</strong></th>
+                      <th><strong>Balance</strong></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -518,47 +524,71 @@ function DAO() {
             
             <br/>
 
-            <h3 id="bh">Bid History</h3>
-            <ul>
-                {bidHistory.map((bid) => (
-                    <li id="bidHistory">{bid.Address} bidded: {bid.Amount}</li>
-                ))}
-            </ul>
-            
-            <br/>
-
-            <hr />
-
-            <Treasury name="treasury" amount={total}/>
-            <br/>
-
-            <form onSubmit={daoReward}>
-                <button type="submit" disabled={btn}>Reveal Today’s Reward</button>
-            </form>
-            
-            <br />
-            
-            {dao && (
-                <div className="achievementCard">
-                    <pre><strong>Achievement Card: </strong>{dao}</pre>
+            <div className="button-container">
+                <h3 id="bh">Bid History</h3>
+                <ul>
+                    {bidHistory.map((bid) => (
+                        <li id="bidHistory">{bid.Address} bidded: {bid.Amount}</li>
+                    ))}
+                </ul>
             </div>
-            )}
+            
+            <br/><br/>
+            
+            <div className="button-container">
+                {/*
+                <form onSubmit={daoReward}>
+                    <button type="submit" disabled={btn}>Reveal Today’s Reward</button>
+                </form>
+                */}
 
-            <p id="today">Today's Date: <strong>{formtatDate}</strong></p>
+                {/*
+                <br />
+                
+                {dao && (
+                    <div className="achievementCard">
+                        <pre><strong>Achievement Card: </strong>{dao}</pre>
+                </div>
+                )}
+                */}
+            </div>
 
-            <p id="currentBid">Current Bid is: {currentBid}</p>
-            <p id="timeLeft">Time left to bid: {biddingIsOver} hrs (Irish Time)</p>
+            <div className="button-container">
+                <div className="importantInfo">
+                     <form onSubmit={daoReward}>
+                        <button type="submit" disabled={btn}>Reveal Today’s Reward</button>
+                    </form>
 
-            <form onSubmit={getBidAmount}>
-                <input type="text" pattern="/^[A-Za-z-]+$/" name="aliasName" placeholder="Enter your Alias name" required/>
-                <br /><br />
-                <input type="number" step="1" name="bidAmount" placeholder={"Bid more than " + currentBid} required/>
-  
-                <br /><br />
-                <button type="submit" disabled={disableBidBtn}>Place Bid</button>
-                <button type="submit" onClick={clearLocalStorage}>Reset Page</button>
-                <button onClick={(e) => navigate("/daoStuff")}>Go Back</button>
-            </form>
+                    {dao && (
+                        <div className="achievementCard">
+                            <pre><strong>Achievement Card: </strong><i>{dao}</i></pre>
+                        </div>
+                    )}
+
+                    <hr id="sep"/>
+                    
+                    <p id="today">Today's Date: <strong>{formtatDate}.</strong></p>
+                    <p id="currentBid">Current Bid is: <strong>{currentBid}.</strong></p>
+                    <p id="timeLeft">Time left to bid: <strong>{biddingIsOver} hrs (GMT)</strong></p>
+                </div>
+            </div>
+
+            <br/>
+
+            <div className="button-container">
+                <form onSubmit={getBidAmount}>
+                    <input type="text" pattern="/^[A-Za-z-]+$/" name="aliasName" placeholder="Enter your Alias name" required/>
+                    <br /><br />
+                    <input type="number" step="1" name="bidAmount" placeholder={"Bid more than " + currentBid} required/>
+      
+                    <br /><br />
+                    <button type="submit" disabled={disableBidBtn}>Place Bid</button>
+                    <button onClick={(e) => navigate("/daoStuff")}>Go Back</button>
+
+                    <br/>
+                    <button type="submit" onClick={clearLocalStorage}>Reset Page</button>
+                </form>
+            </div>
           </div>
         );
 }

@@ -64,9 +64,7 @@ function ConfirmUserInput({ buttonText, message }) {
     
     return (
     <div>
-        
         <form onSubmit={handleSubmit}>
-            
             <div className="button-container">
                 <div className="inputSeed">
                     <input name="one" type="text" placeholder="Enter 1st seed value…" required/>  

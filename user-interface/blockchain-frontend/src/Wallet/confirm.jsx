@@ -15,6 +15,7 @@ function ConfirmPhrase() {
 
             <div className="button-container">
                 <button onClick={(e) => navigate("/words")}>Go Back to Step 4</button>
+                <button onClick={(e) => navigate("/wallet")}>Go Back to Wallet Setup (Very Start)</button> 
             </div>
         </div>
     )
