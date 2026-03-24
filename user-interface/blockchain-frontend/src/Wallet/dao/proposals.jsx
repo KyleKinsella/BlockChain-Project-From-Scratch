@@ -14,7 +14,7 @@ function Proposals() {
                 </p>
                 
                 <button onClick={(e) => navigate("/ProvideProposalInfo")}>Submit a Proposal</button>
-                <button onClick={(e) => navigate("/")}>Return Home</button>
+                <button onClick={(e) => navigate("/daoStuff")}>Return Home</button>
             </div>
         </div>
     ) 

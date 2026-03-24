@@ -78,7 +78,7 @@ function DAO() {
     const noDups = [...new Set(bidHistory)];
     const [disableNWallets, setDisableNWallets] = useState(false);
     const [loading, setLoading] = useState(false);
-
+    
     const [bids, setBids] = useState(() => {
         const storedBids = localStorage.getItem("bids");
         return storedBids ? JSON.parse(storedBids) : [];
@@ -101,7 +101,9 @@ function DAO() {
         const bds = localStorage.getItem("bids");
         const updatedWall = localStorage.getItem("updatedBalance");
         const bh = localStorage.getItem("bidHistory");
-                
+        
+        const N = localStorage.getItem("N");
+        
         if(walletData) { 
             try {
                 const data = JSON.parse(walletData);
@@ -173,6 +175,16 @@ function DAO() {
             try {
                 const data7 = JSON.parse(bh);
                 setBidHistory(data7);
+            } catch (err) {
+                console.error("Invalid bidHistory in storage");
+                localStorage.removeItem("bidHistory");
+            }
+        }
+        
+        if(N) {
+            try {
+                const data8 = JSON.parse(N);
+                setMultipleWallets(data8);
             } catch (err) {
                 console.error("Invalid bidHistory in storage");
                 localStorage.removeItem("bidHistory");
@@ -420,7 +432,7 @@ function DAO() {
         e.preventDefault(); 
         const walletsToMake = Number(e.target.nWallets.value);
 
-        if (walletsToMake > 100) {
+        if (walletsToMake >= 100) {
             alert("You're about to create '" + walletsToMake + "' wallets. This may take a while...");
         }
 
@@ -447,8 +459,9 @@ function DAO() {
         })
         .then(res => res.json())
         .then(data => {
-            setMultipleWallets(data)
+            setMultipleWallets(data);
             setLoading(false);
+            localStorage.setItem("N", JSON.stringify(data)); 
 
             // clear the input box once the wallets have been shown on the frontend //
             e.target.nWallets.value = "";
@@ -467,7 +480,7 @@ function DAO() {
                 Welcome to my DAO! Connect your wallet, check today’s reward and place bids for a chance to win exclusive achievement cards!
             </p>
 
-               <div className="button-container">
+            <div className="button-container">
                 <hr/>
                 <Treasury name="treasury" amount={total}/>
                 <hr/>
@@ -536,24 +549,6 @@ function DAO() {
             <br/><br/>
             
             <div className="button-container">
-                {/*
-                <form onSubmit={daoReward}>
-                    <button type="submit" disabled={btn}>Reveal Today’s Reward</button>
-                </form>
-                */}
-
-                {/*
-                <br />
-                
-                {dao && (
-                    <div className="achievementCard">
-                        <pre><strong>Achievement Card: </strong>{dao}</pre>
-                </div>
-                )}
-                */}
-            </div>
-
-            <div className="button-container">
                 <div className="importantInfo">
                      <form onSubmit={daoReward}>
                         <button type="submit" disabled={btn}>Reveal Today’s Reward</button>
@@ -561,15 +556,15 @@ function DAO() {
 
                     {dao && (
                         <div className="achievementCard">
-                            <pre><strong>Achievement Card: </strong><i>{dao}</i></pre>
+                            <pre><strong>Achievement Card: <br/> </strong><i>{dao}</i></pre>
                         </div>
                     )}
 
                     <hr id="sep"/>
                     
-                    <p id="today">Today's Date: <strong>{formtatDate}.</strong></p>
-                    <p id="currentBid">Current Bid is: <strong>{currentBid}.</strong></p>
-                    <p id="timeLeft">Time left to bid: <strong>{biddingIsOver} hrs (GMT)</strong></p>
+                    <p id="today">Today's Date: <strong>{formtatDate}</strong>.</p>
+                    <p id="currentBid">Current Bid is: <strong>{currentBid}</strong>.</p>
+                    <p id="timeLeft">Time left to bid: <strong>{biddingIsOver} hrs (GMT)</strong>.</p>
                 </div>
             </div>
 
