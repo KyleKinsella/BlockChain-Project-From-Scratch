@@ -5,8 +5,8 @@ import "../main.css";
 
 function Block() {
   const [blocks, setBlocks] = useState([]);
-  const [showData, setShowData] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [showBlockData, setShowBlockData] = useState(false);
+  const [loadingBlocks, setLoadingBlocks] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,7 +35,7 @@ function Block() {
             return;
         }
 
-        setLoading(true);
+        setLoadingBlocks(true);
 
         fetch("http://192.168.200.89:8080/mine", {
             method: "POST",
@@ -45,13 +45,13 @@ function Block() {
             body: JSON.stringify(blocksToMake)
         })
         .then(res => res.json())
-        .then(data => {
-            setBlocks(data)
-            setLoading(false);
+        .then(blocks => {
+            setBlocks(blocks)
+            setLoadingBlocks(false);
             e.target.nBlocks.value = "";
         })
           .catch(err => {
-            setLoading(false);
+            setLoadingBlocks(false);
           });
     };
 
@@ -63,8 +63,8 @@ function Block() {
             </p>
 
             <div className="button-container">
-                <button className="toggle-btn" onClick={() => setShowData(prev => !prev)}>
-                    {showData ? "Hide Block Data" : "Show Block Data"}
+                <button className="toggle-btn" onClick={() => setShowBlockData(prev => !prev)}>
+                    {showBlockData ? "Hide Block Data" : "Show Block Data"}
                 </button>
             </div>
 
@@ -73,7 +73,7 @@ function Block() {
                   <h4>Block {i+1} | Block Reward: {block.BlockReward?.BlockRewardTotal}</h4>
                   <hr id="line"/>
                     {/* Only visible when button clicked */}
-                    {showData && (
+                    {showBlockData && (
                         <>
                         <div className="blockData">
                             <p>Block Index: {block.Index}</p>
@@ -104,15 +104,15 @@ function Block() {
 
                   <br/><br/>
 
-                  <button type="submit" disabled={loading}>
-                    {loading ? "Mining Blocks..." : "Mine Blocks"}
+                  <button type="submit" disabled={loadingBlocks}>
+                    {loadingBlocks ? "Mining Blocks..." : "Mine Blocks"}
                   </button>
 
                   <button onClick={(e) => navigate("/")}>Return Home</button>
               </form>
             </div>
 
-          {loading && <p id="msg">Mining blocks... please wait</p>}   
+          {loadingBlocks && <p id="msg">Mining blocks... please wait</p>}   
         </div>
     );
 }
