@@ -2,6 +2,15 @@ import { useEffect, useState } from "react";
 import Treasury from './treasury.jsx';
 import { useNavigate } from "react-router-dom";
 
+const date = new Date();    
+const formtatDate = date.toLocaleDateString("en-US", {      
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+});
+
+const hourIs = date.getHours(); 
+
 function sumValuesForTreasury(values) {
     if (values === null) {
         return;
@@ -15,23 +24,12 @@ function sumValuesForTreasury(values) {
 }
 
 function ProvideProposalInfo() {
-    const date = new Date();    
-    const formtatDate = date.toLocaleDateString("en-US", {      
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-    });
-
-    const hourIs = date.getHours(); 
-
     const [allProposals, setAllProposals] = useState([]);
-    const [showData, setShowData] = useState(false);
-
+    const [showProposals, setShowProposals] = useState(false);
     const [allVotes, setAllVotes] = useState([]);
-    const [showData2, setShowData2] = useState(false);
-
+    const [showVotes, setShowVotes] = useState(false);
     const [countedVotes, setCountedVotes] = useState([]);
-    const [countedVotesBtn, setCountedVotesBtn] = useState(false);
+    const [showCountedVotes, setShowCountedVotes] = useState(false);
     
     const [bids, setBids] = useState(() => {
         const storedBids = localStorage.getItem("bids");
@@ -47,36 +45,36 @@ function ProvideProposalInfo() {
     useEffect(() => {
         fetch("http://192.168.200.89:8083/getAllProposals")
           .then(res => res.json())
-          .then(data => {
+          .then(proposals => {
             // is there any proposals ? //
-            if (data === null) {
+            if (proposals === null) {
                 return;
             }
-            setAllProposals(data)
+            setAllProposals(proposals)
             });
     }, []);
     
     useEffect(() => {
         fetch("http://192.168.200.89:8083/getAllVotes")
           .then(res => res.json())
-          .then(data => {
+          .then(votes => {
             // is there any votes ? //
-            if (data === null) {
+            if (votes === null) {
                 return;
             }
-            setAllVotes(data)
+            setAllVotes(votes)
             });
     }, []);
 
     useEffect(() => {
         fetch("http://192.168.200.89:8083/counted")
           .then(res => res.json())
-          .then(data => {
+          .then(count => {
             // is there any counted votes for a proposal ? //
-            if (data === null) {
+            if (count === null) {
                 return;
             }
-            setCountedVotes(data)
+            setCountedVotes(count)
             });
     }, [countedVotes]);
 
@@ -134,8 +132,8 @@ function ProvideProposalInfo() {
                     body: JSON.stringify(info)
                 })
                 .then(res => res.json())
-                .then(data => {
-                    setAllProposals(data);
+                .then(proposals => {
+                    setAllProposals(proposals);
                     alert("Your Proposal has been created!");
 
                     e.target.aliasName.value = "";
@@ -278,8 +276,8 @@ function ProvideProposalInfo() {
                         body: JSON.stringify(voteInfo)
                     })
                     .then(res => res.json())
-                    .then(data => {
-                        setAllVotes(data);
+                    .then(vote => {
+                        setAllVotes(vote);
                         alert("Your vote has been submitted!");
 
                         e.target.proposalIndex.value = "";
@@ -409,11 +407,11 @@ function ProvideProposalInfo() {
                 <div className="viewProposals">
                     <h2>View Proposals</h2>
                     <p>Click the button below to view all proposals.</p>
-                    <button onClick={() => setShowData(prev => !prev)}>
-                      {showData ? "Hide Proposal's" : "Show Proposal's"}
+                    <button onClick={() => setShowProposals(prev => !prev)}>
+                      {showProposals ? "Hide Proposal's" : "Show Proposal's"}
                     </button>
 
-                    {showData && allProposals.map((proposal, i) => (
+                    {showProposals && allProposals.map((proposal, i) => (
                       <div key={i} className="propCard">
                         <h4>Proposal {i + 1} was proposed by: {upperCase(proposal.Alias)}.</h4>
                                                                                     
@@ -451,11 +449,11 @@ function ProvideProposalInfo() {
                 <div className="viewVotes">
                     <h2>View Votes</h2>
                     <p>Curious how the community voted? Click below to see all proposal votes!</p>
-                    <button onClick={() => setShowData2(prev => !prev)}>
-                      {showData2 ? "Hide Vote's" : "Show Vote's"}
+                    <button onClick={() => setShowVotes(prev => !prev)}>
+                      {showVotes ? "Hide Vote's" : "Show Vote's"}
                     </button>
 
-                    {showData2 && allVotes.map((vote, i) => (
+                    {showVotes && allVotes.map((vote, i) => (
                       <div key={i} className="propCard">
                         <h4>Vote: {i + 1} - {upperCase(vote.AliasName)}.</h4>
                         <p>{upperCase(vote.AliasName)} voted for proposal: {vote.Index}. They voted: {" "}
@@ -477,11 +475,11 @@ function ProvideProposalInfo() {
 
                     <br/><br/>
 
-                    <button onClick={() => setCountedVotesBtn(prev => !prev)}>
-                      {countedVotesBtn ? "Hide Vote Standings" : "View Vote Standings"}
+                    <button onClick={() => setShowCountedVotes(prev => !prev)}>
+                      {showCountedVotes ? "Hide Vote Standings" : "View Vote Standings"}
                     </button>
 
-                    {countedVotesBtn && countedVotes.map((vp, i) => (
+                    {showCountedVotes && countedVotes.map((vp, i) => (
                       <div key={i} className="propCard">
                         <p>Proposal {vp.ProposalIndex} has recieved the following votes:</p>
                         <ul>
