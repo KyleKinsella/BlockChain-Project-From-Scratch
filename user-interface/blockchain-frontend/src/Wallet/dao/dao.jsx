@@ -1,6 +1,6 @@
 {/*
     Might do in the future:
-    - persist n wallets --- going to leave!!!
+    - persist n wallets --- done!!!!
     
     Tidy up:
     - make the readme more developer / engineer like --- mostly done
@@ -52,11 +52,7 @@ function DAO() {
     const [loadData, setLoadedData] = useState(false);
     const [treasuryFunds, setTreasuryFunds] = useState(0);    
     const [bidHistory, setBidHistory] = useState([]);
-    const noDupsInBidHistory = [...new Set(bidHistory)];
     const [loadingNWallets, setLoadingNWallets] = useState(false);
-
-    {/* this state is for the N wallets (still having some problems with it...)*/} 
-    const [N, setN] = useState(0);
     const [nWallets, setNWallets] = useState(null);
     
     const [bids, setBids] = useState(() => {
@@ -80,9 +76,7 @@ function DAO() {
         const treasuryBids = localStorage.getItem("bids");
         const firstWalletBalanceUpdated = localStorage.getItem("firstWalletBalanceUpdated");
         const bh = localStorage.getItem("bidHistory");
-        
-        const N = localStorage.getItem("N");
-        const updatedN = localStorage.getItem("updatedN");
+        const nWallets = localStorage.getItem("nWallets");
         
         if(firstWalletData) { 
             try {
@@ -151,27 +145,10 @@ function DAO() {
             }
         }
         
-        if(N) {
-            try {
-                const foundN = JSON.parse(N);
-                
-                setMultipleWallets(foundN);
-                setN(Number(foundN.Balance));
-            } catch (err) {
-                console.error("Invalid bidHistory in storage");
-                localStorage.removeItem("bidHistory");
-            }
-        }
-
-        if(updatedN) {
-            try {
-                const foundUpdatedN = JSON.parse(updatedN);
-                setNWallets(foundUpdatedN.Balance);
-                setN(foundUpdatedN.Balance);
-            } catch (err) {
-                console.error("Invalid bidHistory in storage");
-                localStorage.removeItem("bidHistory");
-            }
+        if (nWallets) {
+            const wallet = JSON.parse(nWallets);
+            setMultipleWallets(wallet);
+            setNWallets(wallet);
         }
     }, [])
     
@@ -246,11 +223,7 @@ function DAO() {
             navigate("/done", { state: { reward: daoReward } });
         }
     }
-
-    const removeDupsInBidHistory = (noDups) => {
-        setBidHistory(noDups);
-    };
-
+    
     const processAliasesForVoting = (e) => {
         e.preventDefault();
 
@@ -365,7 +338,6 @@ function DAO() {
                         Balance: newBalance
                     };
                     
-                    removeDupsInBidHistory(noDupsInBidHistory);
                     handleBid(updatedWallet.Alias, updatedWallet.Address, bidAmount);
                     
                     setFirstWalletConnected(updatedWallet);
@@ -376,33 +348,28 @@ function DAO() {
             }
             
             // This is the state for the n other connected wallets //
-            setMultipleWallets(prevWallets =>
-              prevWallets.map(wallet => {
+            const wallets = multipleWallets.map(wallet => {
                 if (wallet.Alias === typedAlias) {
-                    const updated = {
-                        ...wallet,
-                        Balance: wallet.Balance - validBalance
-                    };
-                    
-                    removeDupsInBidHistory(noDupsInBidHistory);
                     handleBid(wallet.Alias, wallet.Address, bidAmount);
 
-                    setNWallets(updated);
-                    setN(Number(updated.Balance));
-                    localStorage.setItem("updatedN", JSON.stringify(updated));
-                    
-                    return updated;
-                }
-                                
-                e.target.aliasName.value = "";
-                return wallet;
-              })
-            );
+                    return {
+                      ...wallet,
+                      Balance: wallet.Balance - validBalance
+                    };
+                  }
+                  return wallet;
+                });
             
-            alert("Your bid has placed successfully!");
-            //processAliasesForVoting(e);
+                setMultipleWallets(wallets);
+                setNWallets(wallets);
+                
+                localStorage.setItem("nWallets", JSON.stringify(wallets));
+                                         
+                alert("Your bid has placed successfully!");
+                //processAliasesForVoting(e);
         }
 
+        e.target.aliasName.value = "";
         e.target.bidAmount.value = "";               
     };
     
@@ -420,7 +387,7 @@ function DAO() {
             return bidInfo;
         });
     }
-
+    
     const makeNWallets = (e) => {
         e.preventDefault(); 
         const walletsToMake = Number(e.target.nWallets.value);
@@ -455,9 +422,6 @@ function DAO() {
             setMultipleWallets(nWallets);
             setLoadingNWallets(false);
             
-            setNWallets(nWallets);
-            localStorage.setItem("N", JSON.stringify(nWallets)); 
-
             // clear the input box once the wallets have been shown on the frontend //
             e.target.nWallets.value = "";
         })
