@@ -40,21 +40,20 @@ function sumValuesForTreasury(values) {
 function DAO() {
     const navigate = useNavigate();
 
-    const [walletConnected, setWalletConnected] = useState(null);
-    const [dao, setDao] = useState(null);
-    const [bid, setBid] = useState(1);
-    const [buttonClicked, setButtonClicked] = useState(false);
-    const [walletBalance, setWalletBalance] = useState(0);
-    const [disableBidBtn, setDisableBidBtn] = useState(false);
-    const [btn, setBtn] = useState(false);
+    const [firstWalletConnected, setFirstWalletConnected] = useState(null);
+    const [daoReward, setDaoReward] = useState(null);
+    const [bidValue, setBidValue] = useState(1);
+    const [firstWalletClicked, setFirstWalletClicked] = useState(false);
+    const [firstWalletBalance, setFirstWalletBalance] = useState(0);
+    const [over, setOver] = useState(false);
+    const [rewardBtn, setRewardBtn] = useState(false);
     const [multipleWallets, setMultipleWallets] = useState([]);
     const [currentBid, setCurrentBid] = useState(1);
-    const [loaded, setLoaded] = useState(false);
-    const [t, setT] = useState(0);    
+    const [loadData, setLoadedData] = useState(false);
+    const [treasuryFunds, setTreasuryFunds] = useState(0);    
     const [bidHistory, setBidHistory] = useState([]);
-    const noDups = [...new Set(bidHistory)];
-    const [disableNWallets, setDisableNWallets] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const noDupsInBidHistory = [...new Set(bidHistory)];
+    const [loadingNWallets, setLoadingNWallets] = useState(false);
 
     {/* this state is for the N wallets (still having some problems with it...)*/} 
     const [N, setN] = useState(0);
@@ -70,93 +69,82 @@ function DAO() {
     }, [bids]);
 
     useEffect(() => {
-        if (!loaded) return;
+        if (!loadData) return;
         localStorage.setItem("currentBid", JSON.stringify(currentBid));
-    }, [currentBid, loaded]);
+    }, [currentBid, loadData]);
     
     useEffect(() => {
-        const walletData = localStorage.getItem("walletData");
+        const firstWalletData = localStorage.getItem("firstWalletData");
         const reward = localStorage.getItem("reward");
-        const curr = localStorage.getItem("currentBid");
-        const treasuryBids = localStorage.getItem("Treasury-Amount");
-        const bds = localStorage.getItem("bids");
-        const updatedWall = localStorage.getItem("updatedBalance");
+        const currentBid = localStorage.getItem("currentBid");
+        const treasuryBids = localStorage.getItem("bids");
+        const firstWalletBalanceUpdated = localStorage.getItem("firstWalletBalanceUpdated");
         const bh = localStorage.getItem("bidHistory");
         
         const N = localStorage.getItem("N");
         const updatedN = localStorage.getItem("updatedN");
         
-        if(walletData) { 
+        if(firstWalletData) { 
             try {
-                const data = JSON.parse(walletData);
+                const foundFirstWalletData = JSON.parse(firstWalletData);
                 
-                setWalletConnected(data);
-                setWalletBalance(Number(data.Balance)); 
-                setButtonClicked(true);
+                setFirstWalletConnected(foundFirstWalletData);
+                setFirstWalletBalance(Number(foundFirstWalletData.Balance)); 
+                setFirstWalletClicked(true);
             } catch (err) {
-                console.error("Invalid wallet in storage");
-                localStorage.removeItem("walletData");
+                console.error("Invalid firstWalletData in storage");
+                localStorage.removeItem("firstWalletData");
             }
         }
 
         if(reward) { 
             try {
-                const data2 = JSON.parse(reward);
+                const foundReward = JSON.parse(reward);
 
-                setDao(data2);
-                setBtn(true);
+                setDaoReward(foundReward);
+                setRewardBtn(true);
             } catch (err) {
                 console.error("Invalid reward in storage");
                 localStorage.removeItem("reward");
             }
         }
 
-        if(curr) { 
+        if(currentBid) { 
             try {
-                const data3 = JSON.parse(curr);
-                setCurrentBid(data3);
+                const foundCurrentBid = JSON.parse(currentBid);
+                setCurrentBid(foundCurrentBid);
             } catch (err) {
                 console.error("Invalid currentBid in storage");
                 localStorage.removeItem("currentBid");
             }
         }
 
-        setLoaded(true);
-
-        if(treasuryBids) {
+        setLoadedData(true);
+        
+        if(treasuryBids) { 
             try {
-                const data4 = JSON.parse(treasuryBids);
-                setT(data4);
-            } catch (err) {
-                console.error("Invalid currentBid in storage");
-                localStorage.removeItem("currentBid");
-            }
-        }
-
-       if(bds) { 
-            try {
-                const data5 = JSON.parse(bds);       
-                setBids(data5);
+                const foundTreasuryBids = JSON.parse(treasuryBids);       
+                setBids(foundTreasuryBids);
             } catch (err) {
                 console.error("Invalid bids in storage");
                 localStorage.removeItem("bids");
             }
         }
 
-        if(updatedWall) { 
+        if(firstWalletBalanceUpdated) { 
             try {
-                const data6 = JSON.parse(updatedWall);
-                setWalletBalance(data6.Balance);
+                const foundFirstWalletBalanceUpdated = JSON.parse(firstWalletBalanceUpdated);
+                setFirstWalletBalance(foundFirstWalletBalanceUpdated.Balance);
             } catch (err) {
-                console.error("Invalid currentBid in storage");
-                localStorage.removeItem("currentBid");
+                console.error("Invalid firstWalletBalanceUpdated in storage");
+                localStorage.removeItem("firstWalletBalanceUpdated");
             }
         }
 
         if(bh) {
             try {
-                const data7 = JSON.parse(bh);
-                setBidHistory(data7);
+                const foundBh = JSON.parse(bh);
+                setBidHistory(foundBh);
             } catch (err) {
                 console.error("Invalid bidHistory in storage");
                 localStorage.removeItem("bidHistory");
@@ -165,21 +153,21 @@ function DAO() {
         
         if(N) {
             try {
-                const data8 = JSON.parse(N);
+                const foundN = JSON.parse(N);
                 
-                setMultipleWallets(data8);
-                setN(Number(data8.Balance));
+                setMultipleWallets(foundN);
+                setN(Number(foundN.Balance));
             } catch (err) {
                 console.error("Invalid bidHistory in storage");
                 localStorage.removeItem("bidHistory");
             }
         }
 
-         if(updatedN) {
+        if(updatedN) {
             try {
-                const data9 = JSON.parse(updatedN);
-                setNWallets(data9.Balance);
-                setN(data9.Balance);
+                const foundUpdatedN = JSON.parse(updatedN);
+                setNWallets(foundUpdatedN.Balance);
+                setN(foundUpdatedN.Balance);
             } catch (err) {
                 console.error("Invalid bidHistory in storage");
                 localStorage.removeItem("bidHistory");
@@ -218,27 +206,27 @@ function DAO() {
     
         fetch("http://192.168.200.89:8082/initWallet")
             .then(res => res.json())
-            .then(data => {
-                setWalletConnected(data); 
+            .then(firstWallet => {
+                setFirstWalletConnected(firstWallet); 
                 alert("Wallet Connected Successfully!");
-                setWalletBalance(Number(data.Balance));
-                setButtonClicked(true);
+                setFirstWalletBalance(Number(firstWallet.Balance));
+                setFirstWalletClicked(true);
                 
-                localStorage.setItem("walletData", JSON.stringify(data));
+                localStorage.setItem("firstWalletData", JSON.stringify(firstWallet));
             })
             .catch(err => console.error(err));
     };
     
-    const daoReward = (e) => {
+    const winThis = (e) => {
         e.preventDefault(); 
         
         fetch("http://192.168.200.89:8083/dao")
             .then(res => res.json())
-            .then(data2 => {
-                setDao(data2);
-                setBtn(true);
+            .then(reward => {
+                setDaoReward(reward);
+                setRewardBtn(true);
 
-                localStorage.setItem("reward", JSON.stringify(data2));
+                localStorage.setItem("reward", JSON.stringify(reward));
             });
     };  
     
@@ -251,11 +239,11 @@ function DAO() {
         }
         
         if (hour === timesUp) {
-            alert("Congratulations 🎉\n\nThe winner of the reward: '" + dao + "' is: " + winningAddress + " with the following Alias '" + alias + "'." + "\n\nThe winning bid was: " + winningBid + "\n\nTransaction confirmed. Your Achievement Card has been minted. Redirecting to your wallet...");
+            alert("Congratulations 🎉\n\nThe winner of the reward: '" + daoReward + "' is: " + winningAddress + " with the following Alias '" + alias + "'." + "\n\nThe winning bid was: " + winningBid + "\n\nTransaction confirmed. Your Achievement Card has been minted. Redirecting to your wallet...");
             
-            setDisableBidBtn(true);
+            setOver(true);
             
-            navigate("/done", { state: { reward: dao } });
+            navigate("/done", { state: { reward: daoReward } });
         }
     }
 
@@ -268,7 +256,7 @@ function DAO() {
 
         const connectedAliasNames = [];
         
-        connectedAliasNames.push(walletConnected.Alias);
+        connectedAliasNames.push(firstWalletConnected.Alias);
             
         for(var i = 0; i < multipleWallets.length; i++) {
             connectedAliasNames.push("\n" + multipleWallets[i].Alias);
@@ -290,7 +278,7 @@ function DAO() {
         var bidAmount = e.target.bidAmount.value;
         var typedAlias = e.target.aliasName.value;
 
-        if (typedAlias === walletConnected.Alias) {
+        if (typedAlias === firstWalletConnected.Alias) {
             typedAlias = typedAlias.trim();
         } else {
             typedAlias = typedAlias.trim().toLowerCase();
@@ -324,8 +312,8 @@ function DAO() {
         }
         
         {/* this is required so when "I-WAS-HERE-FIRST" balance is zero the other n wallets can bid */}
-        if (typedAlias === walletConnected.Alias) {
-            if (bidAmount > walletBalance) {
+        if (typedAlias === firstWalletConnected.Alias) {
+            if (bidAmount > firstWalletBalance) {
                 alert("Oops! You don’t have enough funds to place that bid. Try a smaller amount.");
                 e.target.bidAmount.value = "";
                 return;
@@ -349,9 +337,9 @@ function DAO() {
             // valid alias name ? //
             var found = false;                               
             for(var i = 0; i < multipleWallets.length; i++) {
-                if(typedAlias === multipleWallets[i].Alias.trim().toLowerCase() || typedAlias === walletConnected.Alias.trim()) {
+                if(typedAlias === multipleWallets[i].Alias.trim().toLowerCase() || typedAlias === firstWalletConnected.Alias.trim()) {
 
-                    setBid(prevBid => prevBid + validBalance);
+                    setBidValue(prevBid => prevBid + validBalance);
                     setBids(prevBids => [...prevBids, validBalance]);
 
                     found = true;
@@ -367,21 +355,21 @@ function DAO() {
             }
                      
             // This is the state for the first wallet // 
-            if (typedAlias === walletConnected.Alias) {
-                setWalletBalance(prev => {
+            if (typedAlias === firstWalletConnected.Alias) {
+                setFirstWalletBalance(prev => {
                     const newBalance = prev - validBalance;
 
                     const updatedWallet = {
-                        Alias: walletConnected.Alias,
-                        Address: walletConnected.Address,
+                        Alias: firstWalletConnected.Alias,
+                        Address: firstWalletConnected.Address,
                         Balance: newBalance
                     };
                     
-                    removeDupsInBidHistory(noDups);
+                    removeDupsInBidHistory(noDupsInBidHistory);
                     handleBid(updatedWallet.Alias, updatedWallet.Address, bidAmount);
                     
-                    setWalletConnected(updatedWallet);
-                    localStorage.setItem("updatedBalance", JSON.stringify(updatedWallet));
+                    setFirstWalletConnected(updatedWallet);
+                    localStorage.setItem("firstWalletBalanceUpdated", JSON.stringify(updatedWallet));
 
                     return newBalance;
                 })
@@ -396,7 +384,7 @@ function DAO() {
                         Balance: wallet.Balance - validBalance
                     };
                     
-                    removeDupsInBidHistory(noDups);
+                    removeDupsInBidHistory(noDupsInBidHistory);
                     handleBid(wallet.Alias, wallet.Address, bidAmount);
 
                     setNWallets(updated);
@@ -453,7 +441,7 @@ function DAO() {
             return;
         }
 
-        setLoading(true);
+        setLoadingNWallets(true);
 
         fetch("http://192.168.200.89:8082/nwallets", {
             method: "POST",
@@ -463,18 +451,18 @@ function DAO() {
             body: JSON.stringify(walletsToMake)
         })
         .then(res => res.json())
-        .then(data => {
-            setMultipleWallets(data);
-            setLoading(false);
+        .then(nWallets => {
+            setMultipleWallets(nWallets);
+            setLoadingNWallets(false);
             
-            setNWallets(data);
-            localStorage.setItem("N", JSON.stringify(data)); 
+            setNWallets(nWallets);
+            localStorage.setItem("N", JSON.stringify(nWallets)); 
 
             // clear the input box once the wallets have been shown on the frontend //
             e.target.nWallets.value = "";
         })
           .catch(err => {
-            setLoading(false);
+            setLoadingNWallets(false);
           });
     };
     
@@ -493,8 +481,8 @@ function DAO() {
                 <hr/>
 
                 <form onSubmit={createWallet}>
-                  <button type="submit" disabled={buttonClicked}>
-                    {buttonClicked ? "Wallet Connected" : "Connect Wallet"}
+                  <button type="submit" disabled={firstWalletClicked}>
+                    {firstWalletClicked ? "Wallet Connected" : "Connect Wallet"}
                   </button>
                 </form>
 
@@ -505,12 +493,12 @@ function DAO() {
                       <br/><br/>
                       <input type="number" name="nWallets" placeholder="Wallets to Make" required/>
                       <br/><br/>
-                      <button type="submit" disabled={loading}>
-                        {loading ? "Creating Wallets..." : "Create Wallets"}
+                      <button type="submit" disabled={loadingNWallets}>
+                        {loadingNWallets ? "Creating Wallets..." : "Create Wallets"}
                       </button>
                 </form>
 
-                {loading && <p>Creating Wallets... please wait</p>}
+                {loadingNWallets && <p>Creating Wallets... please wait</p>}
             </div>
 
             <br/><br/>
@@ -524,11 +512,11 @@ function DAO() {
                     </tr>
                 </thead>
                 <tbody>
-                    {walletConnected && (
+                    {firstWalletConnected && (
                       <tr>
                         <td>1</td>
-                        <td>{walletConnected.Alias}</td>
-                        <td>{walletBalance}</td>
+                        <td>{firstWalletConnected.Alias}</td>
+                        <td>{firstWalletBalance}</td>
                       </tr>
                     )}
 
@@ -557,13 +545,13 @@ function DAO() {
             
             <div className="button-container">
                 <div className="importantInfo">
-                     <form onSubmit={daoReward}>
-                        <button type="submit" disabled={btn}>Reveal Today’s Reward</button>
+                     <form onSubmit={winThis}>
+                        <button type="submit" disabled={rewardBtn}>Reveal Today’s Reward</button>
                     </form>
 
-                    {dao && (
+                    {daoReward && (
                         <div className="achievementCard">
-                            <pre><strong>Achievement Card: <br/> </strong><i>{dao}</i></pre>
+                            <pre><strong>Achievement Card: <br/> </strong><i>{daoReward}</i></pre>
                         </div>
                     )}
 
@@ -584,7 +572,7 @@ function DAO() {
                     <input type="number" step="1" name="bidAmount" placeholder={"Bid more than " + currentBid} required/>
       
                     <br /><br />
-                    <button type="submit" disabled={disableBidBtn}>Place Bid</button>
+                    <button type="submit" disabled={over}>Place Bid</button>
                     <button onClick={(e) => navigate("/daoStuff")}>Go Back</button>
 
                     <br/>

@@ -19,7 +19,7 @@ function Block() {
         e.preventDefault(); 
         const blocksToMake = Number(e.target.nBlocks.value);
 
-        if (blocksToMake > 100) {
+        if (blocksToMake >= 100) {
             alert("You're about to mine '" + blocksToMake + "' blocks. This may take a while...");
         }
 
