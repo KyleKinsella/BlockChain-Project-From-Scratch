@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function printWrongAnswers(wrongAnswers) {
-    alert("You entered the following seed values incorrectly, try again:" +  "\n\n" + wrongAnswers + ".");
+    alert("You entered the following seed values incorrectly:\n\n" + wrongAnswers.join(", ") + ".\n\nPlease try again.");
 }
 
 function ConfirmUserInput({ buttonText, message }) {

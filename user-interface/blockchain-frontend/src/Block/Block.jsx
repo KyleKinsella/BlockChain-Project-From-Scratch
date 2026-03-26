@@ -24,13 +24,13 @@ function Block() {
         }
 
         if (blocksToMake === 0) {
-            alert("Please enter an value greater than zero.");
+            alert("Oops! You can't create zero blocks. Try again with a positive number.");
             e.target.nBlocks.value = "";
             return;
         }
 
         if (blocksToMake < 0) {
-            alert("Please enter a positive number. Negative values are not allowed.");
+            alert("Oops! You can't create negative blocks. Try a positive number instead.");
             e.target.nBlocks.value = "";
             return;
         }

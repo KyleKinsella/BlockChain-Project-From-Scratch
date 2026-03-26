@@ -37,29 +37,6 @@ function sumValuesForTreasury(values) {
     return sum;
 }
 
-function checkWalletForValidBalance(amount, bidAmount) {    
-    let numAmount = parseInt(amount);
-    
-    if (numAmount === 0 || numAmount <= 0) {
-        alert("Oops! You don’t have enough funds in your wallet to place a bid.");
-        return;
-    }
-    
-    if (isNaN(numAmount) || numAmount <= 0) {
-        alert(`Oops! ${amount} isn’t a valid bid. Please enter a number greater than 0.`);
-        return;
-    }
-    
-    //if (numAmount <= LOWEST) {
-        //alert("Invalid bid: " + numAmount + ".\n\nPlease enter a bid greater than " + LOWEST + ".");
-        //return;
-    //}
-    
-    numAmount = parseInt(numAmount);
-    
-    return numAmount;
-}
-
 function DAO() {
     const navigate = useNavigate();
 
@@ -78,6 +55,10 @@ function DAO() {
     const noDups = [...new Set(bidHistory)];
     const [disableNWallets, setDisableNWallets] = useState(false);
     const [loading, setLoading] = useState(false);
+
+    {/* this state is for the N wallets (still having some problems with it...)*/} 
+    const [N, setN] = useState(0);
+    const [nWallets, setNWallets] = useState(null);
     
     const [bids, setBids] = useState(() => {
         const storedBids = localStorage.getItem("bids");
@@ -103,6 +84,7 @@ function DAO() {
         const bh = localStorage.getItem("bidHistory");
         
         const N = localStorage.getItem("N");
+        const updatedN = localStorage.getItem("updatedN");
         
         if(walletData) { 
             try {
@@ -184,7 +166,20 @@ function DAO() {
         if(N) {
             try {
                 const data8 = JSON.parse(N);
+                
                 setMultipleWallets(data8);
+                setN(Number(data8.Balance));
+            } catch (err) {
+                console.error("Invalid bidHistory in storage");
+                localStorage.removeItem("bidHistory");
+            }
+        }
+
+         if(updatedN) {
+            try {
+                const data9 = JSON.parse(updatedN);
+                setNWallets(data9.Balance);
+                setN(data9.Balance);
             } catch (err) {
                 console.error("Invalid bidHistory in storage");
                 localStorage.removeItem("bidHistory");
@@ -301,8 +296,14 @@ function DAO() {
             typedAlias = typedAlias.trim().toLowerCase();
         }
         
-        if (bidAmount === 0 || bidAmount < 0) {
-            alert("Please enter a bid greater than zero. Negative values are not allowed.");
+        if (bidAmount === 0) {
+            alert("That bid isn't valid. Please enter a value greater than 0.");
+            e.target.bidAmount.value = "";
+            return;
+        }
+
+        if (bidAmount < 0) {
+            alert("Negative values are not allowed. Enter a positive number to continue.");
             e.target.bidAmount.value = "";
             return;
         }
@@ -331,7 +332,7 @@ function DAO() {
             }
         }
         
-        var validBalance = checkWalletForValidBalance(bidAmount, walletConnected.Balance);
+        var validBalance = parseInt(bidAmount);
 
         {/* this was a new edge case! what happens if the bid history contains two wallet addresses that bid the same amount? Who wins? */}
         {/* the fix was this - just check the bid amount to the current bid, if its more update state otherwise stop */}
@@ -397,6 +398,10 @@ function DAO() {
                     
                     removeDupsInBidHistory(noDups);
                     handleBid(wallet.Alias, wallet.Address, bidAmount);
+
+                    setNWallets(updated);
+                    setN(Number(updated.Balance));
+                    localStorage.setItem("updatedN", JSON.stringify(updated));
                     
                     return updated;
                 }
@@ -437,7 +442,7 @@ function DAO() {
         }
 
         if (walletsToMake === 0) {
-            alert("Please enter an value greater than zero.");
+            alert("Invalid input. Please enter a value greater than zero.");
             e.target.nWallets.value = "";
             return;
         }
@@ -461,6 +466,8 @@ function DAO() {
         .then(data => {
             setMultipleWallets(data);
             setLoading(false);
+            
+            setNWallets(data);
             localStorage.setItem("N", JSON.stringify(data)); 
 
             // clear the input box once the wallets have been shown on the frontend //

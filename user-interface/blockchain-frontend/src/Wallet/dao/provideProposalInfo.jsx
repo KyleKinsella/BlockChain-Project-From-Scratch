@@ -188,7 +188,7 @@ function ProvideProposalInfo() {
         }
                 
         if (!voting.includes(voteValue)) {
-            alert("Sorry, you cannot vote '" + voteValue + "'. It must be one of these values: \n\n" + voting + ".");        
+            alert("Sorry, you cannot vote '" + voteValue + "'. It must be one of these values: \n\n" + voting.join(", ") + ".\n\nPlease try again.");        
             e.target.voteValue.value = "";
             return;
         }
@@ -196,7 +196,7 @@ function ProvideProposalInfo() {
         {/* edge case: trying to vote for something that does not exist ! */}
         const proposalLen = allProposals.length;
         if (proposalIndex > proposalLen) {
-            alert("Sorry, you cannot vote for a proposal that currently does not exist");
+            alert("Sorry, you cannot vote for a proposal that currently does not exist.");
             
             e.target.proposalIndex.value = "";
             e.target.aliasName.value = "";
@@ -210,7 +210,7 @@ function ProvideProposalInfo() {
             var aliasVoted = allProposals[i].Alias.trim();
 
             if (aliasName === aliasVoted) {
-                alert("Sorry, '" + aliasName + "', you have created this proposal, therefore you cannot vote for your own proposal! Nice try!");
+                alert("Sorry, '" + aliasName + "', you created this proposal, so you cannot vote for your own proposal. Nice try!");
                 
                 e.target.proposalIndex.value = "";
                 e.target.aliasName.value = "";
@@ -230,7 +230,7 @@ function ProvideProposalInfo() {
                 continue;
             } else {
                 if (aliasName === votedAliases) {
-                    alert("Sorry, '" + aliasName + "' you have already voted, you cannot vote again. Nice try!");
+                    alert("You have already voted '" + aliasName + "'. Please wait until the next proposal to cast another vote.");
 
                     e.target.proposalIndex.value = "";
                     e.target.aliasName.value = "";

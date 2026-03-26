@@ -84,7 +84,10 @@ Video Five:
 [Fifth Video of my blockchain project](https://www.youtube.com/watch?v=Vn-BBurEVf4).
 
 Video Six:
-[Upcoming]("").
+[Sixth Video of my blockchain project](https://www.youtube.com/watch?v=FFcLGJkyk4k).
+
+Video Seven:
+[Most up-to-date video of my project](https://www.youtube.com/watch?v=VaO7XISoNGA).
 
 ## Roadmap
 | Feature          | Status   | Notes |
