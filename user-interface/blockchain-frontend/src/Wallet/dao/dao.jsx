@@ -23,7 +23,7 @@ const formtatDate = date.toLocaleDateString("en-US", {
 });
 
 const hourIs = date.getHours(); 
-const biddingIsOver = hourIs + 1;
+const biddingIsOver = 22;   //hourIs + 1;
 
 function sumValuesForTreasury(values) {
     if (values === null) {
@@ -391,6 +391,20 @@ function DAO() {
     const makeNWallets = (e) => {
         e.preventDefault(); 
         const walletsToMake = Number(e.target.nWallets.value);
+
+        //for (var i = 0; i < multipleWallets.length; i++) {
+            //if (multipleWallets.length === 0) return;
+            
+            //if (multipleWallets[i].Balance < 100 || multipleWallets[i].Balance === 100) {
+                //var q = prompt("Are you sure you want to make '" + walletsToMake + "' wallets ? This will mean that any of the current wallets cannot win!");
+
+                //if (q === "yes") {
+                    //break;
+                //} else {
+                    //return;
+                //}
+            //}
+        //}
 
         if (walletsToMake >= 100) {
             alert("You're about to create '" + walletsToMake + "' wallets. This may take a while...");
