@@ -20,6 +20,8 @@ import ProvideProposalInfo from "./Wallet/dao/provideProposalInfo.jsx";
 
 import DaoStuff from "./Wallet/dao/DaoStuff.jsx";
 
+import EVM from "./my_interpreter_frontend/EVM.jsx";
+
 function App() {
   return (
     <>
@@ -47,6 +49,8 @@ function App() {
           {/*<Route path="/projectMotivation" element={<ProjectMotivation />} /> */}
 
           <Route path="/daoStuff" element={<DaoStuff />} />
+
+          <Route path="/evm" element={<EVM />} />
         </Routes>
     </Router>
     </>
