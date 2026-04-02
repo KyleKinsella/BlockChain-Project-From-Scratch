@@ -6,7 +6,7 @@ function Navigate() {
             <Link to="/block">Blocks</Link>
             <Link to="/wallet">Wallet</Link>
             <Link to="/daoStuff">Governance (DAO Hub)</Link>
-            <Link to="/evm">EVM</Link>
+            {/* <Link to="/evm">EVM</Link> */}
         </nav>
     );
 }

@@ -13,7 +13,7 @@ function Block() {
     fetch("http://192.168.200.89:8080/genesis")
       .then(res => res.json())
       .then(data => setBlocks(data));
-  }, []);
+  }, [blocks]);
   
     const makeNBlocks = (e) => {
         e.preventDefault(); 

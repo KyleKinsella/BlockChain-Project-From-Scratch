@@ -50,7 +50,7 @@ function App() {
 
           <Route path="/daoStuff" element={<DaoStuff />} />
 
-          <Route path="/evm" element={<EVM />} />
+          {/* <Route path="/evm" element={<EVM />} /> */}
         </Routes>
     </Router>
     </>

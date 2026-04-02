@@ -25,11 +25,8 @@ function sumValuesForTreasury(values) {
 
 function ProvideProposalInfo() {
     const [allProposals, setAllProposals] = useState([]);
-    const [showProposals, setShowProposals] = useState(false);
     const [allVotes, setAllVotes] = useState([]);
-    const [showVotes, setShowVotes] = useState(false);
     const [countedVotes, setCountedVotes] = useState([]);
-    const [showCountedVotes, setShowCountedVotes] = useState(false);
     
     const [bids, setBids] = useState(() => {
         const storedBids = localStorage.getItem("bids");
@@ -379,11 +376,10 @@ function ProvideProposalInfo() {
                 </div>
 
                 <br/>
-            
                 <div className="createAProposal">
-                    <h3 id="title">Bring your proposal to life. Fill in the form below!</h3>
-
                     <form onSubmit={getDAOWinnerAliasName}> 
+                        <h3 id="title">Bring your proposal to life. Fill in the form below!</h3>
+
                         <label>Alias Name:</label> <br/><br/>
                         <input type="text" name="aliasName" placeholder="e.g., CryptoNinja" required></input> <br/><br/>  <br/><br/>
                                     
@@ -401,40 +397,41 @@ function ProvideProposalInfo() {
                         <button type="submit">Submit Proposal</button>
                     </form>
                 </div>
-
-                <br/><br/><br/><br/>
+                    
+                <br/><br/>
                 
-                <div className="viewProposals">
-                    <h2>View Proposals</h2>
-                    <p>Click the button below to view all proposals.</p>
-                    <button onClick={() => setShowProposals(prev => !prev)}>
-                      {showProposals ? "Hide Proposal's" : "Show Proposal's"}
-                    </button>
-
-                    {showProposals && allProposals.map((proposal, i) => (
-                      <div key={i} className="propCard">
-                        <h4>Proposal {i + 1} was proposed by: {upperCase(proposal.Alias)}.</h4>
-                                                                                    
-                        <p>Name: {proposal.Name}</p>
-                        <p>Description: {proposal.Description}</p>
-                        <p>Requested Funds: {proposal.FundsToUseOutOfTreasury}</p>
-
-                        <br/>
-                      </div>
-                    ))}
-                </div>
+                <h3>Current Proposals</h3>
+                <table className="dao-table">
+                    <tr>
+                        <th>#</th>
+                        <th>Alias</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Requested Funds</th>
+                    </tr>
+                    <tbody>
+                        {allProposals.map((proposal, i) => (
+                          <tr>
+                            <th>{proposal.Index}</th>
+                            <th>{proposal.Alias}</th>
+                            <th>{proposal.Name}</th>
+                            <th>{proposal.Description}</th>
+                            <th>{proposal.FundsToUseOutOfTreasury}</th>
+                          </tr>
+                        ))}
+                    </tbody>
+                </table>
                 
-                <br/><br/><br/><br/>
-
-                <div className="castYourVote">
-                    <h2>Cast your vote</h2>
+                <br/><br/>
+                
+                <div className="castYourVote">   
                     <form onSubmit={processVoteInfo}>
+                        <h2>Cast your vote</h2>
                         <label>Which proposal would you like to vote on?</label> <br/><br/>
-
-                        <input type="number" name="proposalIndex" placeholder="Enter proposal number" required></input> 
+                        <input type="number" name="proposalIndex" placeholder="Proposal Number" required></input> 
                         <br/><br/> 
 
-                        <input type="text" name="aliasName" placeholder="Alias name" required></input> 
+                        <input type="text" name="aliasName" placeholder="Alias Name" required></input> 
 
                         <br/><br/> 
 
@@ -444,44 +441,29 @@ function ProvideProposalInfo() {
                     </form>
                 </div>
                                 
-                <br/><br/><br/><br/>
+                <br/><br/>
                 
-                <div className="viewVotes">
-                    <h2>View Votes</h2>
-                    <p>Curious how the community voted? Click below to see all proposal votes!</p>
-                    <button onClick={() => setShowVotes(prev => !prev)}>
-                      {showVotes ? "Hide Vote's" : "Show Vote's"}
-                    </button>
-
-                    {showVotes && allVotes.map((vote, i) => (
-                      <div key={i} className="propCard">
-                        <h4>Vote: {i + 1} - {upperCase(vote.AliasName)}.</h4>
-                        <p>{upperCase(vote.AliasName)} voted for proposal: {vote.Index}. They voted: {" "}
-
-                        <strong className={vote.VoteValue.trim().toLowerCase()}>{vote.VoteValue}</strong>.</p>
-                        
+                <h3>Current Votes</h3> 
+                <table className="vote-table">
+                    <br/>
+                    <tbody>
+                        {allVotes.map((vote, i) => (
+                          <tr>
+                            <p>{upperCase(vote.AliasName)} voted for proposal <strong>{vote.Index}</strong>. They voted: {" "}
+                            <strong className={vote.VoteValue.trim().toLowerCase()}>{vote.VoteValue}</strong>.</p>
+                          </tr>
+                        ))}
                         <br/>
-                      </div>
-                    ))}
-                </div>
-
-                <br/><br/><br/><br/>
-
+                    </tbody>
+                </table>
+                            
+                <br/><br/>
+                
                 <div className="votesForEachProposal">
                     <h2>Votes for each Proposal</h2>
-                    <p>
-                        Below, you can see the votes for every proposal. Each proposal tracks three types of votes: For, Against and Abstain. When someone votes, the corresponding count is increased by one.
-                    </p>
-
-                    <br/><br/>
-
-                    <button onClick={() => setShowCountedVotes(prev => !prev)}>
-                      {showCountedVotes ? "Hide Vote Standings" : "View Vote Standings"}
-                    </button>
-
-                    {showCountedVotes && countedVotes.map((vp, i) => (
+                    {countedVotes.map((vp, i) => (
                       <div key={i} className="propCard">
-                        <p>Proposal {vp.ProposalIndex} has recieved the following votes:</p>
+                        <p>Proposal <strong>{vp.ProposalIndex}</strong> has recieved the following votes:</p>
                         <ul>
                             <li id="for"><strong>For: </strong>{vp.For}</li>
                             <li id="against"><strong>Against: </strong>{vp.Against}</li>
@@ -490,7 +472,7 @@ function ProvideProposalInfo() {
                       </div>
                     ))}
                 </div>
-        
+                
                 <br/><br/>
                 <button onClick={(e) => navigate("/proposals")}>Go Back</button>
             </div>
