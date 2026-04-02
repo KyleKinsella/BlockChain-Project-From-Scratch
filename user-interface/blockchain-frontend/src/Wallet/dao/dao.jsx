@@ -1,10 +1,7 @@
 {/*
-    Might do in the future:
-    - persist n wallets --- done!!!!
-    
     Tidy up:
     - make the readme more developer / engineer like --- mostly done
-    - polishing up everthing --- mostly done
+    - polishing up everything --- mostly done
     - styling --- not a big issue, will do last --- in the works...
 */}
 
@@ -294,23 +291,24 @@ function DAO() {
         }
         
         var validBalance = parseInt(bidAmount);
-
-        {/* this was a new edge case! what happens if the bid history contains two wallet addresses that bid the same amount? Who wins? */}
-        {/* the fix was this - just check the bid amount to the current bid, if its more update state otherwise stop */}
-        if (bidAmount > currentBid) { 
-            setCurrentBid(prev => prev + validBalance); 
-        } else {
-            alert("Try increasing your bid of '" + bidAmount + "' it needs to be higher than '" + currentBid + "'.");
-            e.target.bidAmount.value = "";
-            return;
-        }
         
         if (cb === LOWEST || validBalance > LOWEST) {
 
             // valid alias name ? //
             var found = false;                               
             for(var i = 0; i < multipleWallets.length; i++) {
+                //alert(typedAlias + ", " + multipleWallets[i].Alias.trim().toLowerCase())
                 if(typedAlias === multipleWallets[i].Alias.trim().toLowerCase() || typedAlias === firstWalletConnected.Alias.trim()) {
+
+                    {/* this was a new edge case! what happens if the bid history contains two wallet addresses that bid the same amount? Who wins? */}
+                    {/* the fix was this - just check the bid amount to the current bid, if its more update state otherwise stop */}
+                    if (bidAmount > currentBid) { 
+                        setCurrentBid(prev => prev + validBalance);
+                    } else {
+                        alert("Try increasing your bid of '" + bidAmount + "' it needs to be higher than '" + currentBid + "'.");
+                        e.target.bidAmount.value = "";
+                        return;
+                    }
 
                     setBidValue(prevBid => prevBid + validBalance);
                     setBids(prevBids => [...prevBids, validBalance]);
@@ -391,21 +389,7 @@ function DAO() {
     const makeNWallets = (e) => {
         e.preventDefault(); 
         const walletsToMake = Number(e.target.nWallets.value);
-
-        //for (var i = 0; i < multipleWallets.length; i++) {
-            //if (multipleWallets.length === 0) return;
-            
-            //if (multipleWallets[i].Balance < 100 || multipleWallets[i].Balance === 100) {
-                //var q = prompt("Are you sure you want to make '" + walletsToMake + "' wallets ? This will mean that any of the current wallets cannot win!");
-
-                //if (q === "yes") {
-                    //break;
-                //} else {
-                    //return;
-                //}
-            //}
-        //}
-
+        
         if (walletsToMake >= 100) {
             alert("You're about to create '" + walletsToMake + "' wallets. This may take a while...");
         }

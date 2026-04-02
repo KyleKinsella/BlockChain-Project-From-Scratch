@@ -460,7 +460,7 @@ function ProvideProposalInfo() {
                 <br/><br/>
                 
                 <div className="votesForEachProposal">
-                    <h2>Votes for each Proposal</h2>
+                    <h3>Votes for each Proposal</h3>
                     {countedVotes.map((vp, i) => (
                       <div key={i} className="propCard">
                         <p>Proposal <strong>{vp.ProposalIndex}</strong> has recieved the following votes:</p>
