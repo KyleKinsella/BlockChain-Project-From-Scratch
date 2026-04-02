@@ -426,8 +426,8 @@ function ProvideProposalInfo() {
                 
                 <div className="castYourVote">   
                     <form onSubmit={processVoteInfo}>
-                        <h2>Cast your vote</h2>
-                        <label>Which proposal would you like to vote on?</label> <br/><br/>
+                        <h2>Cast your Vote</h2>
+                        <label>Which proposal would you like to vote for?</label> <br/><br/>
                         <input type="number" name="proposalIndex" placeholder="Proposal Number" required></input> 
                         <br/><br/> 
 

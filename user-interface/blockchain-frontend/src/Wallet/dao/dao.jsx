@@ -297,7 +297,6 @@ function DAO() {
             // valid alias name ? //
             var found = false;                               
             for(var i = 0; i < multipleWallets.length; i++) {
-                //alert(typedAlias + ", " + multipleWallets[i].Alias.trim().toLowerCase())
                 if(typedAlias === multipleWallets[i].Alias.trim().toLowerCase() || typedAlias === firstWalletConnected.Alias.trim()) {
 
                     {/* this was a new edge case! what happens if the bid history contains two wallet addresses that bid the same amount? Who wins? */}

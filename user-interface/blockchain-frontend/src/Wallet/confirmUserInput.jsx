@@ -68,29 +68,17 @@ function ConfirmUserInput({ buttonText, message }) {
             <div className="button-container">
                 <div className="inputSeed">
                     <input name="one" type="text" placeholder="Enter 1st seed value…" required/>  
-                    <br /><br />       
                     <input name="two" type="text" placeholder="Enter 2nd seed value…" required/>
-                    <br /><br />
                     <input name="three" type="text" placeholder="Enter 3rd seed value…" required/>
-                    <br /><br />
                     <input name="four" type="text" placeholder="Enter 4th seed value…" required/>
-                    <br /><br />
-                    <input name= "five" type="text" placeholder="Enter 5th seed value…" required/>
-                    <br /><br />
+                    <input name="five" type="text" placeholder="Enter 5th seed value…" required/>
                     <input name="six" type="text" placeholder="Enter 6th seed value…" required/>
-                    <br /><br />
                     <input name="seven" type="text" placeholder="Enter 7th seed value…" required/>
-                    <br /><br />
                     <input name="eight" type="text" placeholder="Enter 8th seed value…" required/>
-                    <br /><br />
                     <input name="nine" type="text" placeholder="Enter 9th seed value…" required/>
-                    <br /><br />
                     <input name="ten" type="text" placeholder="Enter 10th seed value…" required/>
-                    <br /><br />
                     <input name="eleven" type="text" placeholder="Enter 11th seed value…" required/>
-                    <br /><br />                                                     
                     <input name="twelve" type="text" placeholder="Enter 12th seed value…" required/>
-                    <br /><br />
 
                     <button type="submit">{buttonText}</button>
                 </div>
