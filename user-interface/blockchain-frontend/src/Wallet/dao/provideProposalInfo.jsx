@@ -380,17 +380,13 @@ function ProvideProposalInfo() {
                     <form onSubmit={getDAOWinnerAliasName}> 
                         <h3 id="title">Bring your proposal to life. Fill in the form below!</h3>
 
-                        <label>Alias Name:</label> <br/><br/>
-                        <input type="text" name="aliasName" placeholder="e.g., CryptoNinja" required></input> <br/><br/>  <br/><br/>
+                        <input type="text" name="aliasName" placeholder="Alias Name" required></input> <br/><br/> 
                                     
-                        <label>Proposal Name:</label> <br/><br/>
-                        <input type="text" name="proposalName" placeholder="e.g., Lower Gas Fee's" required></input> <br/><br/>
+                        <input type="text" name="proposalName" placeholder="Proposal Name" required></input> <br/><br/>
 
-                        <label>Proposal Description:</label> <br/><br/>
-                        <input type="text" name="descriptionDetails" placeholder="Describe your proposal..." required></input>     <br/><br/>
+                        <input type="text" name="descriptionDetails" placeholder="Proposal Description" required></input>     <br/><br/>
 
-                        <label>Requested Funds:</label> <br/><br/>
-                        <input type="number" name="requestedFunds" placeholder="e.g., 120" required></input>
+                        <input type="number" name="requestedFunds" placeholder="Requested Funds" required></input>
 
                         <br/><br/>
 
@@ -401,26 +397,28 @@ function ProvideProposalInfo() {
                 <br/><br/>
                 
                 <h3>Current Proposals</h3>
-                <table className="dao-table">
-                    <tr>
-                        <th>#</th>
-                        <th>Alias</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Requested Funds</th>
-                    </tr>
-                    <tbody>
-                        {allProposals.map((proposal, i) => (
-                          <tr>
-                            <th>{proposal.Index}</th>
-                            <th>{proposal.Alias}</th>
-                            <th>{proposal.Name}</th>
-                            <th>{proposal.Description}</th>
-                            <th>{proposal.FundsToUseOutOfTreasury}</th>
-                          </tr>
-                        ))}
-                    </tbody>
-                </table>
+                {!allProposals.length ? "No Proposals Created, Just Yet." :
+                        <table className="dao-table">
+                            <tr>
+                                <th>#</th>
+                                <th>Alias</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Requested Funds</th>
+                            </tr>
+                            <tbody>
+                                {allProposals.map((proposal, i) => (
+                                  <tr>
+                                    <th>{proposal.Index}</th>
+                                    <th>{proposal.Alias}</th>
+                                    <th>{proposal.Name}</th>
+                                    <th>{proposal.Description}</th>
+                                    <th>{proposal.FundsToUseOutOfTreasury}</th>
+                                  </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                }
                 
                 <br/><br/>
                 
@@ -442,36 +440,40 @@ function ProvideProposalInfo() {
                 </div>
                                 
                 <br/><br/>
-                
-                <h3>Current Votes</h3> 
-                <table className="vote-table">
-                    <br/>
-                    <tbody>
-                        {allVotes.map((vote, i) => (
-                          <tr>
-                            <p>{upperCase(vote.AliasName)} voted for proposal <strong>{vote.Index}</strong>. They voted: {" "}
-                            <strong className={vote.VoteValue.trim().toLowerCase()}>{vote.VoteValue}</strong>.</p>
-                          </tr>
-                        ))}
+
+                <h3>Current Votes</h3>
+                {!allVotes.length ? "Nobody has Voted Yet." : 
+                    <table className="vote-table">
                         <br/>
-                    </tbody>
-                </table>
+                        <tbody>
+                            {allVotes.map((vote, i) => (
+                              <tr>
+                                <p>{upperCase(vote.AliasName)} voted for proposal <strong>{vote.Index}</strong>. They voted: {" "}
+                                <strong className={vote.VoteValue.trim().toLowerCase()}>{vote.VoteValue}</strong>.</p>
+                              </tr>
+                            ))}
+                            <br/>
+                        </tbody>
+                    </table>
+                }
                             
                 <br/><br/>
-                
-                <div className="votesForEachProposal">
-                    <h3>Votes for each Proposal</h3>
-                    {countedVotes.map((vp, i) => (
-                      <div key={i} className="propCard">
-                        <p>Proposal <strong>{vp.ProposalIndex}</strong> has recieved the following votes:</p>
-                        <ul>
-                            <li id="for"><strong>For: </strong>{vp.For}</li>
-                            <li id="against"><strong>Against: </strong>{vp.Against}</li>
-                            <li id="abstain"><strong>Abstain: </strong>{vp.Abstain}</li>
-                        </ul>
-                      </div>
-                    ))}
-                </div>
+
+                <h3>Votes for each Proposal</h3>
+                {!countedVotes.length ? "No accumulated Votes found for a Proposal, Just Yet." : 
+                    <div className="votesForEachProposal">
+                        {countedVotes.map((vp, i) => (
+                          <div key={i} className="propCard">
+                            <p>Proposal <strong>{vp.ProposalIndex}</strong> has recieved the following votes:</p>
+                            <ul>
+                                <li id="for"><strong>For: </strong>{vp.For}</li>
+                                <li id="against"><strong>Against: </strong>{vp.Against}</li>
+                                <li id="abstain"><strong>Abstain: </strong>{vp.Abstain}</li>
+                            </ul>
+                          </div>
+                        ))}
+                    </div>
+                }
                 
                 <br/><br/>
                 <button onClick={(e) => navigate("/proposals")}>Go Back</button>

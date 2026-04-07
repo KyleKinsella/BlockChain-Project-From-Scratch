@@ -4,16 +4,16 @@ import { useNavigate } from "react-router-dom";
 import "../main.css";
 
 function Block() {
-  const [blocks, setBlocks] = useState([]);
-  const [showBlockData, setShowBlockData] = useState(false);
-  const [loadingBlocks, setLoadingBlocks] = useState(false);
-  const navigate = useNavigate();
+    const [blocks, setBlocks] = useState([]);
+    const [showBlockData, setShowBlockData] = useState(false);
+    const [loadingBlocks, setLoadingBlocks] = useState(false);
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch("http://192.168.200.89:8080/genesis")
-      .then(res => res.json())
-      .then(data => setBlocks(data));
-  }, [blocks]);
+    useEffect(() => {
+        fetch("http://192.168.200.89:8080/genesis")
+            .then(res => res.json())
+            .then(data => setBlocks(data));
+    }, [blocks]);
   
     const makeNBlocks = (e) => {
         e.preventDefault(); 
@@ -107,9 +107,8 @@ function Block() {
                   <button type="submit" disabled={loadingBlocks}>
                     {loadingBlocks ? "Mining Blocks..." : "Mine Blocks"}
                   </button>
-
-                  <button onClick={(e) => navigate("/")}>Return Home</button>
               </form>
+                  <button onClick={(e) => navigate("/")}>Return Home</button>
             </div>
 
           {loadingBlocks && <p id="msg">Mining blocks... please wait</p>}   

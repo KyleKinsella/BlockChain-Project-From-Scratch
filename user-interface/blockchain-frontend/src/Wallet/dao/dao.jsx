@@ -217,7 +217,7 @@ function DAO() {
             
             setOver(true);
             
-            navigate("/done", { state: { reward: daoReward } });
+            //navigate("/done", { state: { reward: daoReward } });
         }
     }
     
@@ -464,42 +464,46 @@ function DAO() {
 
             <br/><br/>
 
-            <table className="dao-table">
-                <thead>
-                    <tr>
-                      <th><strong>#</strong></th>
-                      <th><strong>Alias</strong></th>
-                      <th><strong>Balance</strong></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {firstWalletConnected && (
-                      <tr>
-                        <td>1</td>
-                        <td>{firstWalletConnected.Alias}</td>
-                        <td>{firstWalletBalance}</td>
-                      </tr>
-                    )}
+            {!firstWalletConnected ? "Error: No wallets have been connected to the DAO - Connect your Wallet to use the DAO." :
+                <table className="dao-table">
+                    <thead>
+                        <tr>
+                          <th><strong>#</strong></th>
+                          <th><strong>Alias</strong></th>
+                          <th><strong>Balance</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {firstWalletConnected && (
+                          <tr>
+                            <td>1</td>
+                            <td>{firstWalletConnected.Alias}</td>
+                            <td>{firstWalletBalance}</td>
+                          </tr>
+                        )}
 
-                    {multipleWallets.map((multipleWallets, i) => (
-                      <tr>
-                        <td>{multipleWallets.Index+1}</td>
-                        <td>{multipleWallets.Alias}</td>
-                        <td>{multipleWallets.Balance}</td>
-                      </tr>
-                    ))}
-                </tbody>
-            </table>
+                        {multipleWallets.map((multipleWallets, i) => (
+                          <tr>
+                            <td>{multipleWallets.Index+1}</td>
+                            <td>{multipleWallets.Alias}</td>
+                            <td>{multipleWallets.Balance}</td>
+                          </tr>
+                        ))}
+                    </tbody>
+                </table>
+            }
             
-            <br/>
+            <br/><br/>
 
             <div className="button-container">
                 <h3 id="bh">Bid History</h3>
-                <ul>
-                    {bidHistory.map((bid) => (
-                        <li id="bidHistory">{bid.Address} bidded: {bid.Amount}</li>
-                    ))}
-                </ul>
+                {!bidHistory.length ? "No bids have been submitted just yet." : 
+                    <ul>
+                        {bidHistory.map((bid) => (
+                            <li id="bidHistory">{bid.Address} bidded: {bid.Amount}</li>
+                        ))}
+                    </ul>
+                }
             </div>
             
             <br/><br/>
