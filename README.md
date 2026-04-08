@@ -65,29 +65,7 @@ Potential enhancements include:
 I have created an array of YouTube videos while I've been iteratively developing my project.
 
 Watch any of the demos of the Blockchain From Scratch project in action:
-
-Video One:
-[First Video of my blockchain project](https://www.youtube.com/watch?v=jVPlQYKiZJE).
-
-Video Two:
-[Second Video of my blockchain project](https://www.youtube.com/watch?v=18l1rLu0-WU).
-
-Note: there are two vidoes here because in the third video I had a technical issue so the forth video is a continuation of the third video.
-
-Video Three:
-[Third Video of my blockchain project](https://www.youtube.com/watch?v=fUaya-eBS1A).
-
-Video Four:
-[Fourth Video of my blockchain project](https://www.youtube.com/watch?v=8HPL91NaN_o).
-
-Video Five:
-[Fifth Video of my blockchain project](https://www.youtube.com/watch?v=Vn-BBurEVf4).
-
-Video Six:
-[Sixth Video of my blockchain project](https://www.youtube.com/watch?v=FFcLGJkyk4k).
-
-Video Seven:
-[Most up-to-date video of my project](https://www.youtube.com/watch?v=VaO7XISoNGA).
+[All of my Project Videos](https://www.youtube.com/watch?v=jVPlQYKiZJE&list=PL82FQWeDS43BBdAlQB1J00baP2iOqVzYz).
 
 ## Roadmap
 | Feature          | Status   | Notes |

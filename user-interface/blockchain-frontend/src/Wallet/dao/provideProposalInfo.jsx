@@ -448,7 +448,7 @@ function ProvideProposalInfo() {
                         <tbody>
                             {allVotes.map((vote, i) => (
                               <tr>
-                                <p>{upperCase(vote.AliasName)} voted for proposal <strong>{vote.Index}</strong>. They voted: {" "}
+                                <p>#{i + 1} - {upperCase(vote.AliasName)} voted for proposal <strong>{vote.Index}</strong>. They voted: {" "}
                                 <strong className={vote.VoteValue.trim().toLowerCase()}>{vote.VoteValue}</strong>.</p>
                               </tr>
                             ))}
