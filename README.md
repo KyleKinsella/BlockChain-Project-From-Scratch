@@ -26,6 +26,19 @@ The project explores core blockchain concepts, such as: Block Creation (Proof of
 
 This project showcases problem-solving, iterative development and practical implementation of blockchain principles.
 
+## 🎥 Demo
+
+See the system working end-to-end:
+- ⛏ Mining blocks with Proof of Work
+- 👛 Creating and connecting wallets
+- 🏛 Participating in DAO bidding & governance
+
+👉 [Watch the full demo](https://www.youtube.com/watch?v=jVPlQYKiZJE)
+
+## 🎥 Demo
+Watch the blockchain in action — mining, wallets & DAO governance:
+[![Watch the demo](https://img.youtube.com/vi/jVPlQYKiZJE/0.jpg)](https://www.youtube.com/watch?v=jVPlQYKiZJE)
+
 ## Technology Stack
 This project includes frontend, backend and (eventually) deployment components. The frontend is built with: HTML, CSS, JavaScript and React. The backend is currently written completely in Go with a small portion implemented in Python. I am using Git to keep track of my project and if I need to revert back I can do so. The project is getting closer than ever to the Deployment stage, once I get to this point in the project I plan to use Docker and Kubernetes to get my project to real users.
 
