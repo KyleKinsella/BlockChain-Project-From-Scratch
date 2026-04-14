@@ -30,6 +30,7 @@ This project showcases problem-solving, iterative development and practical impl
 
 ## Demonstration
 Watch the Blockchain in action - Block Mining, Wallet Creation & DAO Governance:
+
 [![Watch the video](https://img.youtube.com/vi/bordvkNf-Wk/0.jpg)](https://www.youtube.com/watch?v=bordvkNf-Wk)
 
 ## Technology Stack
