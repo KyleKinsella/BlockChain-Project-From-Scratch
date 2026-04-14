@@ -30,7 +30,7 @@ This project showcases problem-solving, iterative development and practical impl
 
 ## Demonstration
 Watch the Blockchain in action - Block Mining, Wallet Creation & DAO Governance:
-[Most up-to-date Video](https://www.youtube.com/watch?v=bordvkNf-Wk&list=PL82FQWeDS43BBdAlQB1J00baP2iOqVzYz&index=8).
+[![Watch the video](https://img.youtube.com/vi/bordvkNf-Wk/0.jpg)](https://www.youtube.com/watch?v=bordvkNf-Wk)
 
 ## Technology Stack
 This project includes frontend, backend and (eventually) deployment components. The frontend is built with: HTML, CSS, JavaScript and React. The backend is currently written completely in Go with a small portion implemented in Python. I am using Git to keep track of my project and if I need to revert back I can do so. The project is getting closer than ever to the Deployment stage, once I get to this point in the project I plan to use Docker and Kubernetes to get my project to real users.
