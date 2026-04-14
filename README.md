@@ -16,6 +16,7 @@
 - [Current Features](#Current-Features)
 - [In Development](#In-Development)
 - [Potential Features](#Potential-Features)
+- [Tidy Up](#Tidy-Up)
 - [Project Videos](#Project-Videos)
 - [Roadmap](#Roadmap)
 - [Contact](#Contact)
@@ -29,7 +30,7 @@ This project showcases problem-solving, iterative development and practical impl
 
 ## Demonstration
 Watch the Blockchain in action - Block Mining, Wallet Creation & DAO Governance:
-TODO
+[Most up-to-date Video](https://www.youtube.com/watch?v=bordvkNf-Wk&list=PL82FQWeDS43BBdAlQB1J00baP2iOqVzYz&index=8).
 
 ## Technology Stack
 This project includes frontend, backend and (eventually) deployment components. The frontend is built with: HTML, CSS, JavaScript and React. The backend is currently written completely in Go with a small portion implemented in Python. I am using Git to keep track of my project and if I need to revert back I can do so. The project is getting closer than ever to the Deployment stage, once I get to this point in the project I plan to use Docker and Kubernetes to get my project to real users.
@@ -42,7 +43,7 @@ Current functionality includes:
 - Fluctuating Transaction fees - depending on the state of the blockchain the transaction fees might be low or high.
 - Wallet Creation.
 - Decentralized Autonomous Organization (DAO):
-    - Place bids to possibly win reward.
+    - Place bids to possibly win a reward.
     - Bid history log.
     - Bid before the time is up - highest bid amount wins.
     - Connecting your wallet and multiple other wallets.
@@ -55,8 +56,7 @@ Current functionality includes:
     - The total votes for each proposal are visible to all. For example, Proposal 1 might have 5 votes For, 1 Against and 2 Abstain. This information is available for every proposal. 
 
 ## In Development 
-The below feature is in the works:
-- Improve Styling – making the project look cleaner, more polished and visually appealing!
+I am not currently working on anything at the moment... I am doing some research on Peer-to-Peer (P2P) Networks, but this might be added or it might not be...   
     
 ## Potential Features
 Potential enhancements include:
@@ -65,6 +65,9 @@ Potential enhancements include:
 - Block height limits and data management (like Bitcoin).
 - Dashboard for analytics.
 - Mini EVM Support – a compiler or interpreter for a small subset of Solidity (.sol), enabling basic smart contract functionality within the project.
+
+## Tidy Up
+- Improve Styling – making the project look cleaner, more polished and visually appealing! (This is mostly done, but might come back to later on).
 
 ## Project Videos
 I have created an array of YouTube videos while I've been iteratively developing my project.
